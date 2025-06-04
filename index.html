@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EducAR - Plataforma Educativa Digital</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <header class="bg-primary text-white py-3 shadow-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="images/logo.png" alt="EducAR Logo" class="me-2 rounded-circle" style="height: 45px; width: 45px; object-fit: cover;">
+                <span class="fw-bold fs-4 text-uppercase">EducAR</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#que-ofrecemos">Características</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#modulos">Módulos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#para-quienes">Audiencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Contacto</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <button class="btn btn-warning rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="bi bi-box-arrow-in-right me-1"></i> Ingresar
+                        </button>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <button class="btn btn-light rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#registerModal">
+                            <i class="bi bi-person-plus-fill me-1"></i> Registrarse
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero-section text-center text-white d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-duration="1500">
+            <div class="container">
+                <h1 class="display-3 fw-bold mb-4" data-aos="zoom-in" data-aos-delay="500">¡Bienvenido a <span class="text-warning">EducAR</span>!</h1>
+                <p class="lead mb-5" data-aos="fade-up" data-aos-delay="800">
+                    La plataforma educativa digital segura y divertida para los niños de primaria.
+                </p>
+                <a href="#que-ofrecemos" class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg" data-aos="fade-up" data-aos-delay="1000">
+                    <i class="bi bi-book me-2"></i> Explora Nuestros Contenidos
+                </a>
+            </div>
+        </section>
+
+        <section id="que-ofrecemos" class="py-5 bg-light-gradient">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Nuestras <span class="text-secondary">Características</span> Principales</h2>
+                <div class="row g-4">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
+                            <div class="icon-circle bg-secondary text-white mx-auto mb-3">
+                                <i class="bi bi-controller fs-2"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Juegos y Actividades Divertidas</h5>
+                                <p class="card-text">Aprende jugando con nuestras actividades interactivas y dinámicas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
+                            <div class="icon-circle bg-success text-white mx-auto mb-3">
+                                <i class="bi bi-shield-lock-fill fs-2"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Contenido 100% Seguro y Validado</h5>
+                                <p class="card-text">Material educativo revisado por docentes, ¡confiable para los más pequeños!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
+                            <div class="icon-circle bg-info text-white mx-auto mb-3">
+                                <i class="bi bi-graph-up-arrow fs-2"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Seguimiento de Progreso Detallado</h5>
+                                <p class="card-text">Docentes y familias monitorean el avance de los niños de forma clara y sencilla.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="modulos" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Nuestros <span class="text-secondary">Módulos</span> Educativos</h2>
+                <div class="accordion" id="modulesAccordion" data-aos="fade-up">
+                    <div class="accordion-item shadow-sm mb-3 rounded-3">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button bg-primary text-white fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="bi bi-book-half me-2"></i> Lengua y Comunicación
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#modulesAccordion">
+                            <div class="accordion-body bg-light">
+                                <p>Explora cuentos interactivos, ejercicios de lectura, escritura y vocabulario. ¡Mejora tus habilidades comunicativas divirtiéndote!</p>
+                                <button class="btn btn-outline-primary btn-sm mt-2">Ver Actividades</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item shadow-sm mb-3 rounded-3">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed bg-primary text-white fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <i class="bi bi-calculator-fill me-2"></i> Matemática y Lógica
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#modulesAccordion">
+                            <div class="accordion-body bg-light">
+                                <p>Desarrolla el pensamiento lógico con juegos de números, operaciones básicas y resolución de problemas. ¡Los números nunca fueron tan divertidos!</p>
+                                <button class="btn btn-outline-primary btn-sm mt-2">Ver Actividades</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item shadow-sm rounded-3">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed bg-primary text-white fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <i class="bi bi-lightbulb-fill me-2"></i> Ciencias Naturales y Sociales
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#modulesAccordion">
+                            <div class="accordion-body bg-light">
+                                <p>Descubre el mundo que te rodea con experimentos sencillos, información sobre animales, plantas y la sociedad. ¡La ciencia es asombrosa!</p>
+                                <button class="btn btn-outline-primary btn-sm mt-2">Ver Actividades</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="para-quienes" class="py-5 bg-light-gradient">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">EducAR es para <span class="text-secondary">Todos</span></h2>
+                <div class="row text-center g-4">
+                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="card h-100 shadow-sm border-0 p-4 profile-card">
+                            <img src="images/profile-children.png" class="card-img-top mx-auto mb-3 rounded-circle border border-5 border-secondary" alt="Niños" style="height: 120px; width: 120px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Niños y Niñas</h5>
+                                <p class="card-text">Aprende de forma divertida y segura con juegos y actividades adaptadas a tu edad.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="card h-100 shadow-sm border-0 p-4 profile-card">
+                            <img src="images/profile-teacher.png" class="card-img-top mx-auto mb-3 rounded-circle border border-5 border-success" alt="Docentes" style="height: 120px; width: 120px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Docentes</h5>
+                                <p class="card-text">Complementa tus clases con recursos validados y monitorea el avance de tus alumnos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="500">
+                        <div class="card h-100 shadow-sm border-0 p-4 profile-card">
+                            <img src="images/profile-parents.png" class="card-img-top mx-auto mb-3 rounded-circle border border-5 border-info" alt="Padres" style="height: 120px; width: 120px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Familias</h5>
+                                <p class="card-text">Ten la tranquilidad de que tus hijos acceden a contenido seguro y educativo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section bg-secondary text-white py-5 text-center" data-aos="fade-up">
+            <div class="container">
+                <h2 class="display-5 fw-bold mb-4 text-dark">¡Únete a la experiencia <span class="text-primary">EducAR</span>!</h2>
+                <p class="lead mb-5 text-dark">Empieza hoy a explorar un mundo de conocimiento seguro y divertido.</p>
+                <button class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg cta-button" data-bs-toggle="modal" data-bs-target="#registerModal">
+                    <i class="bi bi-arrow-right-circle-fill me-2"></i> ¡Regístrate Ahora!
+                </button>
+            </div>
+        </section>
+
+        <section id="contacto" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Contáctanos</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-8" data-aos="fade-up">
+                        <form id="contactForm" class="p-4 border rounded shadow-sm bg-white">
+                            <div class="mb-3">
+                                <label for="name" class="form-label"><i class="bi bi-person-fill me-2"></i>Nombre Completo</label>
+                                <input type="text" class="form-control" id="name" required placeholder="Tu nombre">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label"><i class="bi bi-envelope-fill me-2"></i>Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" required placeholder="tu.correo@ejemplo.com">
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label"><i class="bi bi-chat-left-text-fill me-2"></i>Asunto</label>
+                                <input type="text" class="form-control" id="subject" required placeholder="Motivo de tu consulta">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label"><i class="bi bi-chat-dots-fill me-2"></i>Tu Mensaje</label>
+                                <textarea class="form-control" id="message" rows="5" required placeholder="Escribe tu mensaje aquí..."></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg rounded-pill"><i class="bi bi-send-fill me-2"></i> Enviar Mensaje</button>
+                            </div>
+                            <div id="contactFormMessage" class="mt-3 text-center"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 EducAR. Todos los derechos reservados. | 
+                <a href="#" class="text-warning text-decoration-none">Política de Privacidad</a> | 
+                <a href="#" class="text-warning text-decoration-none">Términos de Servicio</a>
+            </p>
+            <div class="mt-2">
+                <a href="#" class="text-white mx-2"><i class="bi bi-facebook fs-4"></i></a>
+                <a href="#" class="text-white mx-2"><i class="bi bi-twitter fs-4"></i></a>
+                <a href="#" class="text-white mx-2"><i class="bi bi-instagram fs-4"></i></a>
+                <a href="#" class="text-white mx-2"><i class="bi bi-linkedin fs-4"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="loginModalLabel"><i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión en EducAR</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="loginEmail" required placeholder="tu.correo@ejemplo.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="loginPassword" required placeholder="Tu contraseña">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary rounded-pill"><i class="bi bi-box-arrow-in-right me-2"></i> Ingresar</button>
+                        </div>
+                        <div id="loginFormMessage" class="mt-3 text-center"></div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <p class="mb-0">¿No tienes cuenta? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal" class="text-primary fw-bold">Regístrate aquí</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="registerModalLabel"><i class="bi bi-person-plus-fill me-2"></i>Regístrate en EducAR</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm">
+                        <div class="mb-3">
+                            <label for="registerName" class="form-label">Nombre Completo</label>
+                            <input type="text" class="form-control" id="registerName" required placeholder="Tu nombre y apellido">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="registerEmail" required placeholder="tu.correo@ejemplo.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="registerPassword" required placeholder="Mínimo 6 caracteres">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerRole" class="form-label">Soy:</label>
+                            <select class="form-select" id="registerRole" required>
+                                <option value="">Selecciona tu rol</option>
+                                <option value="estudiante">Estudiante</option>
+                                <option value="docente">Docente</option>
+                                <option value="padre">Padre/Madre/Tutor</option>
+                                <option value="institucion">Institución</option>
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success rounded-pill"><i class="bi bi-check-circle-fill me-2"></i> Crear Cuenta</button>
+                        </div>
+                        <div id="registerFormMessage" class="mt-3 text-center"></div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <p class="mb-0">¿Ya tienes cuenta? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal" class="text-primary fw-bold">Inicia sesión</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/script.js"></script>
+</body>
+</html>
