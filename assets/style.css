@@ -197,3 +197,10 @@ footer a:hover {
 .modal-header .btn-close {
     filter: invert(1); /* Hace que la X del botón de cerrar sea blanca sobre fondo oscuro */
 }
+
+#inicio {
+    background-image: url(../assets/images/bg_estudio.jpg);
+    background-repeat: repeat;         /* Se repite en ambas direcciones */
+    background-size: auto;             /* Mantiene su tamaño original */
+    background-position: top left; 
+}
