@@ -1,0 +1,206 @@
+/* Custom CSS for EducAR */
+
+/* Variables CSS para colores */
+:root {
+    --primary-color: #6A1B9A; /* Un morado vibrante para lo principal */
+    --secondary-color: #FFC107; /* Amarillo brillante para acentos */
+    --accent-color: #28A745; /* Verde para éxito/importante */
+    --info-color: #17A2B8; /* Azul claro para información */
+    --text-dark: #343A40;
+    --text-light: #F8F9FA;
+    --bg-light: #F8F9FA;
+    --bg-dark: #212529;
+}
+
+body {
+    font-family: 'Lato', sans-serif; /* Fuente principal */
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden; /* Evita scroll horizontal por animaciones */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', sans-serif; /* Fuente más moderna para títulos */
+    color: var(--primary-color);
+}
+
+/* Personalización de colores de Bootstrap */
+.bg-primary { background-color: var(--primary-color) !important; }
+.text-primary { color: var(--primary-color) !important; }
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+.btn-primary:hover {
+    background-color: #8E24AA; /* Tono más oscuro de primary */
+    border-color: #8E24AA;
+    transform: translateY(-2px) scale(1.02); /* Efecto hover sutil */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bg-secondary { background-color: var(--secondary-color) !important; }
+.text-secondary { color: var(--secondary-color) !important; }
+.btn-warning {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--primary-color); /* Texto en morado para contraste */
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.btn-warning:hover {
+    background-color: #FFD700; /* Tono más brillante de warning */
+    border-color: #FFD700;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Nuevos colores para las tarjetas de features */
+.bg-success { background-color: var(--accent-color) !important; }
+.bg-info { background-color: var(--info-color) !important; }
+
+/* Degradados de fondo para secciones */
+.bg-light-gradient {
+    background: linear-gradient(to bottom, #f0f8ff, #ffffff); /* Degradado suave de azul claro a blanco */
+}
+
+/* Header */
+header .navbar-brand span {
+    font-family: 'Oswald', sans-serif; /* Título en el header con Oswald */
+    letter-spacing: 1px;
+}
+
+/* Hero Section con imagen de fondo y efecto parallax (CSS-only) */
+.hero-section {
+    background: url('../images/hero-bg.jpg') no-repeat center center/cover; /* Reemplaza con tu imagen de fondo */
+    background-attachment: fixed; /* Esto crea el efecto parallax */
+    height: 60vh; /* Altura de la sección */
+    min-height: 450px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Capa oscura para mejor contraste del texto */
+    z-index: -1;
+}
+
+.hero-section h1 {
+    font-size: 3.8rem;
+    color: var(--text-light) !important; /* Título en blanco para el hero */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para el texto */
+}
+
+.hero-section p.lead {
+    font-size: 1.6rem;
+    color: var(--text-light) !important;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Cards de características y perfiles */
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px); /* Efecto hover más pronunciado */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* Sombra más grande */
+}
+
+/* Estilo para los iconos en círculo */
+.icon-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.icon-circle i {
+    font-size: 3.5rem; /* Tamaño de los iconos en los círculos */
+}
+
+/* Estilo para imágenes de perfil en tarjetas */
+.profile-card img {
+    object-fit: cover;
+    border: 5px solid; /* Borde que usará el color definido en HTML */
+}
+
+/* Sección de Módulos (Accordion) */
+.accordion-button {
+    border-radius: 10px !important;
+    padding: 1rem 1.5rem;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(106, 27, 154, 0.25); /* Sombra de foco más suave */
+}
+
+.accordion-item {
+    border: none; /* Quitamos los bordes por defecto del accordion */
+}
+
+.accordion-body {
+    padding: 1.5rem;
+    border-radius: 0 0 10px 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05); /* Separador suave */
+}
+
+
+/* Formulario de Contacto */
+#contactForm {
+    border-radius: 15px !important;
+    background-color: white;
+    padding: 30px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+#contactForm .form-label {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(106, 27, 154, 0.25);
+}
+
+/* Footer */
+footer a {
+    transition: color 0.3s ease;
+}
+footer a:hover {
+    color: #FFEA00 !important; /* Tono más vibrante al hover */
+}
+
+/* Ajustes para modales */
+.modal-header .btn-close {
+    filter: invert(1); /* Hace que la X del botón de cerrar sea blanca sobre fondo oscuro */
+}
+
+#inicio {
+    background-image: url(../images/bg_estudio.jpg);
+    background-repeat: repeat;         /* Se repite en ambas direcciones */
+    background-size: auto;             /* Mantiene su tamaño original */
+    background-position: top left; 
+}
