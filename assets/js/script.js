@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializar AOS (Animate On Scroll Library)
     AOS.init({
-        duration: 1000, // Duración de la animación en ms
+        duration: 950, // Duración de la animación en ms
         once: true,     // Si las animaciones deben ocurrir solo una vez al hacer scroll hacia abajo
         mirror: false,  // Si los elementos deben animarse al hacer scroll hacia arriba
     });
@@ -137,76 +137,83 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     // 6. Animación del monstruo en el login
-const monster = document.getElementById('monster');
-const inputUsuario = document.getElementById('input-usuario');
-const inputClave = document.getElementById('input-clave');
-const body = document.querySelector('body');
-
-if (monster && inputUsuario && inputClave) {
+    const monster = document.getElementById('monster');
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
+    const body = document.querySelector('body');
     const anchoMitad = window.innerWidth / 2;
     const altoMitad = window.innerHeight / 2;
     let seguirPunteroMouse = true;
 
-    body.addEventListener('mousemove', (m) => {
-        if (seguirPunteroMouse) {
-            if (m.clientX < anchoMitad && m.clientY < altoMitad) {
-                monster.src = "../assets/images/monstruo_animation/idle/2.png";//img/idle/2.png
-            } else if (m.clientX < anchoMitad && m.clientY > altoMitad) {
-                monster.src = "../assets/images/monstruo_animation/idle/3";//img/idle/3.png
-            } else if (m.clientX > anchoMitad && m.clientY < altoMitad) {
-                monster.src = "../assets/images/monstruo_animation/idle/5.png";//img/idle/5.png
-            } else {
-                monster.src = "../assets/images/monstruo_animation/idle/4.png";//img/idle/4.png
+    document.body.addEventListener('mousemove',(m)=>{
+        // mira para la izquierda arriba
+        if (seguirPunteroMouse){
+            if ((m.clientX<anchoMitad)&&(m.clientY < altoMitad)) {
+                monster.src = 'assets/images/monstruo_animation/idle/2.png';
+            }
+            // mira para la derecha arriba
+            if ((m.clientX>anchoMitad)&&(m.clientY<altoMitad)) {
+                monster.src = 'assets/images/monstruo_animation/idle/5.png';
+            }
+            //mira para la izquierda abajo
+            if ((m.clientX<anchoMitad)&&(m.clientY>altoMitad)) {
+                monster.src = 'assets/images/monstruo_animation/idle/3.png';
+            }
+            //mira para la derecha abajo 
+            if ((m.clientX>anchoMitad)&&(m.clientY>altoMitad)) {
+                monster.src = 'assets/images/monstruo_animation/idle/4.png';
             }
         }
-    });
+    })
+    //seguimineto de escritura en el loginEmail
+    loginEmail.addEventListener('focus',()=>{
+        seguirPunteroMouse=false;
+    })
 
-    inputUsuario.addEventListener('focus', () => {
-        seguirPunteroMouse = false;
-    });
-
-    inputUsuario.addEventListener('blur', () => {
-        seguirPunteroMouse = true;
-    });
-
-    inputUsuario.addEventListener('keyup', () => {
-        let usuario = inputUsuario.value.length;
-        if (usuario >= 0 && usuario <= 5) {
-            monster.src = '../assets/images/monstruo_animation/read/1.png';//img/read/1.png
-        } else if (usuario >= 6 && usuario <= 14) {
-            monster.src = '../assets/images/monstruo_animation/read/2.png';
-        } else if (usuario >= 15 && usuario <= 20) {
-            monster.src = '../assets/images/monstruo_animation/read/3.png';
+    loginEmail.addEventListener('blur',()=>{
+        seguirPunteroMouse=true;
+    })
+    //seguimiento de escritura en el login
+    loginEmail.addEventListener('keyup',()=>{
+        let usuarioCaracteresLogin = loginEmail.value.length;
+        if ((usuarioCaracteresLogin >=0)&&(usuarioCaracteresLogin<=5)){
+            monster.src = 'assets/images/monstruo_animation/read/1.png'
+        } else if ((usuarioCaracteresLogin >=6)&&(usuarioCaracteresLogin<=14)){
+            monster.src = 'assets/images/monstruo_animation/read/2.png'
+        } else if ((usuarioCaracteresLogin >=15)&&(usuarioCaracteresLogin<=20)){
+            monster.src = 'assets/images/monstruo_animation/read/3.png'
         } else {
-            monster.src = '../assets/images/monstruo_animation/read/3.png';
+            monster.src = 'assets/images/monstruo_animation/read/4.png'
         }
-    });
+        
+    })
 
-    inputClave.addEventListener('focus', () => {
-        seguirPunteroMouse = false;
-        let cont = 1;
-        const cubrirOjo = setInterval(() => {
-            monster.src = '../monstruo_animation/cover/' + cont + '.png';
-            if (cont < 8) {
+    //seguimineto de escritura en el loginPassword
+    loginPassword.addEventListener('focus',()=>{
+        seguirPunteroMouse=false;
+        let cont=1
+        const cubrirOjo = setInterval(()=>{
+            monster.src = 'assets/images/monstruo_animation/cover/'+cont+'.png';
+            if (cont<8) {
                 cont++;
             } else {
                 clearInterval(cubrirOjo);
             }
-        }, 60);
-    });
+        },40);
+    })
 
-    inputClave.addEventListener('blur', () => {
-        seguirPunteroMouse = true;
-        let cont = 7;
-        const descubrirOjo = setInterval(() => {
-            monster.src = '../monstruo_animation/cover/' + cont + '.png';
-            if (cont > 1) {
+    loginPassword.addEventListener('blur',()=>{
+        seguirPunteroMouse=true;
+        let cont=7
+        const descubrirOjo = setInterval(()=>{
+            monster.src = 'assets/images/monstruo_animation/cover/'+cont+'.png';
+            if (cont>1) {
                 cont--;
             } else {
                 clearInterval(descubrirOjo);
             }
-        }, 60);
-    });
-}
+        },40);
+    })
 
 });
+
