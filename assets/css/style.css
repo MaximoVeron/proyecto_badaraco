@@ -212,15 +212,21 @@ footer a:hover {
 
 .nav-link {
     font-size: 1.2rem;
-    color: var(--text-light); /* o el color que uses por defecto */
     transition: color 0.3s ease;
     position: relative;
 }
 
-.nav-link:hover {
-    color: var(--secondary-color); /* Ejemplo: amarillo vibrante al pasar el mouse */
+/* Color gris por defecto para todos menos "Inicio" */
+.nav-link:not(.no-hover) {
+    color: #cccccc;
 }
 
+/* Color amarillo al hacer hover (excepto en Inicio) */
+.nav-link:not(.no-hover):hover {
+    color: var(--secondary-color);
+}
+
+/* Línea animada debajo solo en los que no son "Inicio" */
 .nav-link:not(.no-hover)::after {
     content: '';
     position: absolute;
@@ -232,10 +238,12 @@ footer a:hover {
     transition: width 0.3s ease;
 }
 
-.nav-link:hover::after {
+.nav-link:not(.no-hover):hover::after {
     width: 100%;
 }
 
+/* El link de "Inicio" no cambia al hacer hover */
 .navbar-nav .nav-link.no-hover:hover {
     color: inherit;
 }
+
