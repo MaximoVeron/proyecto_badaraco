@@ -22,6 +22,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Oswald', sans-serif; /* Fuente más moderna para títulos */
     color: var(--primary-color);
+
 }
 
 /* Personalización de colores de Bootstrap */
@@ -203,4 +204,8 @@ footer a:hover {
     background-repeat: repeat;         /* Se repite en ambas direcciones */
     background-size: auto;             /* Mantiene su tamaño original */
     background-position: top left; 
+}
+
+.bg-violet-light {
+    background-color: #6935c9; /* violeta claro */
 }

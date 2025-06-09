@@ -176,11 +176,11 @@ document.addEventListener('DOMContentLoaded', () => {
     //seguimiento de escritura en el login
     loginEmail.addEventListener('keyup',()=>{
         let usuarioCaracteresLogin = loginEmail.value.length;
-        if ((usuarioCaracteresLogin >=0)&&(usuarioCaracteresLogin<=5)){
+        if ((usuarioCaracteresLogin >=0)&&(usuarioCaracteresLogin<=10)){
             monster.src = 'assets/images/monstruo_animation/read/1.png'
-        } else if ((usuarioCaracteresLogin >=6)&&(usuarioCaracteresLogin<=14)){
+        } else if ((usuarioCaracteresLogin >=11)&&(usuarioCaracteresLogin<=32)){
             monster.src = 'assets/images/monstruo_animation/read/2.png'
-        } else if ((usuarioCaracteresLogin >=15)&&(usuarioCaracteresLogin<=20)){
+        } else if ((usuarioCaracteresLogin >=33)&&(usuarioCaracteresLogin<=52)){
             monster.src = 'assets/images/monstruo_animation/read/3.png'
         } else {
             monster.src = 'assets/images/monstruo_animation/read/4.png'
