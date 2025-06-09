@@ -209,3 +209,33 @@ footer a:hover {
 .bg-violet-light {
     background-color: #6935c9; /* violeta claro */
 }
+
+.nav-link {
+    font-size: 1.2rem;
+    color: var(--text-light); /* o el color que uses por defecto */
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--secondary-color); /* Ejemplo: amarillo vibrante al pasar el mouse */
+}
+
+.nav-link:not(.no-hover)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.navbar-nav .nav-link.no-hover:hover {
+    color: inherit;
+}
