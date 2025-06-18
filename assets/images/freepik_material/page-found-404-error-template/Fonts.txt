@@ -1,0 +1,3 @@
+Fonts used:
+- Barrio, by Omnibus Type (http://www.fontsquirrel.com/fonts/barrio)
+- Antonio, by Vernon Adams (http://www.fontsquirrel.com/fonts/antonio)
