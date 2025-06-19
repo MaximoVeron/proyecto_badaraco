@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EducAR - Mi Aprendizaje</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/css/style.css"> 
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <header class="bg-primary text-white py-3 shadow-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+            <a class="navbar-brand d-flex align-items-center" href="home_ninos.html"> <img src="assets/images/logo_titulo.png" loading="lazy" alt="EducAR Logo" class="me-2 rounded-circle" style="height: 45px; width: 45px; object-fit: cover;">
+                <span class="fw-bold fs-4 text-uppercase">EducAR</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li>
+                        <a class="nav-link active no-hover" href="#">Inicio Niños</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#modulos">Mis Módulos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#progreso">Mi Progreso</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#juegos">Juegos Favoritos</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <button class="btn btn-danger rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <i class="bi bi-box-arrow-right me-1"></i> Salir
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="bienvenida" class="hero-section text-center text-white d-flex align-items-center justify-content-center" style="background-image: url('assets/images/img_ninos/fondo_inicio_ninos.jpg'); background-size: cover; background-position: center;" data-aos="fade-up" data-aos-duration="1500">
+            <div class="container">
+                <!-- una vez completados los login inyectar codigo desde js con nombre del usuario -->
+                <h1 class="display-3 fw-bold mb-4" data-aos="zoom-in" data-aos-delay="500">¡Hola, [Nombre del Niño]! 👋</h1>
+                <p class="lead mb-5" data-aos="fade-up" data-aos-delay="800">
+                    ¡Es hora de seguir aprendiendo y divirtiéndote! ¿Qué quieres explorar hoy?
+                </p>
+                <a href="#modulos" class="btn btn-warning btn-lg rounded-pill px-5 py-3 shadow-lg" data-aos="fade-up" data-aos-delay="1000">
+                    <i class="bi bi-play-circle-fill me-2"></i> Empezar a Jugar
+                </a>
+            </div>
+        </section>
+
+        <section id="modulos" class="py-5 bg-light-gradient">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Mis <span class="text-secondary">Módulos</span> de Aprendizaje</h2>
+                <div class="row g-4">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
+                            <div class="icon-circle bg-secondary text-white mx-auto mb-3">
+                                <i class="bi bi-book-half fs-2"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Lengua y Comunicación</h5>
+                                <p class="card-text">¡Descubre nuevas palabras y crea historias increíbles!</p>
+                                <a href="#" class="btn btn-outline-secondary mt-3 rounded-pill">Ir a Lengua</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
+                            <div class="icon-circle bg-success text-white mx-auto mb-3">
+                                <i class="bi bi-calculator-fill fs-2"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Matemática y Lógica</h5>
+                                <p class="card-text">¡Resuelve problemas y diviértete con los números!</p>
+                                <a href="#" class="btn btn-outline-success mt-3 rounded-pill">Ir a Matemática</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
+                            <div class="icon-circle bg-info text-white mx-auto mb-3">
+                                <i class="bi bi-lightbulb-fill fs-2"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Ciencias y el Mundo</h5>
+                                <p class="card-text">¡Explora la naturaleza y aprende sobre el mundo!</p>
+                                <a href="#" class="btn btn-outline-info mt-3 rounded-pill">Ir a Ciencias</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="progreso" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Así va <span class="text-warning">Mi Progreso</span> 🎉</h2>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8" data-aos="fade-up">
+                        <div class="card shadow-lg border-0 p-4">
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold text-secondary mb-3">Progreso General</h5>
+                                <div class="progress mb-4" style="height: 30px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75% Completado</div>
+                                </div>
+                                <p class="card-text lead">¡Sigue así, estás haciendo un excelente trabajo!</p>
+                                <button class="btn btn-primary rounded-pill mt-3"><i class="bi bi-graph-up me-2"></i> Ver Detalles de Progreso</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-6" data-aos="fade-right">
+                        <div class="card h-100 shadow-sm border-0 p-4">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary"><i class="bi bi-trophy-fill me-2 text-warning"></i> Mis Logros Recientes</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item border-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Completaste "La Aventura de las Vocales"</li>
+                                    <li class="list-group-item border-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Dominaste la suma hasta el 10</li>
+                                    <li class="list-group-item border-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Descubriste los animales de la granja</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" data-aos="fade-left">
+                        <div class="card h-100 shadow-sm border-0 p-4">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary"><i class="bi bi-lightbulb-fill me-2 text-info"></i> Actividad Sugerida para Ti</h5>
+                                <p class="card-text">Basado en tu progreso, te recomendamos explorar el juego:</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/images/puzzle_game_thumbnail.png" alt="Juego Sugerido" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                                    <div>
+                                        <h6 class="mb-0 text-secondary">El Mago de las Formas Geométricas</h6>
+                                        <small>Matemática | ¡Aprende las figuras!</small>
+                                    </div>
+                                </div>
+                                <a href="#" class="btn btn-primary mt-3 rounded-pill"><i class="bi bi-play-fill me-2"></i> ¡Jugar Ahora!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="juegos" class="py-5 bg-light-gradient">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Mis <span class="text-secondary">Juegos</span> Favoritos</h2>
+                <div class="row g-4">
+                    <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="card h-100 shadow-sm border-0 game-card">
+                            <img src="assets/images/game_thumb_1.png" class="card-img-top" alt="Juego 1">
+                            <div class="card-body text-center">
+                                <h6 class="card-title fw-bold text-primary">La Carrera de Palabras</h6>
+                                <p class="card-text"><small>Lengua</small></p>
+                                <a href="#" class="btn btn-sm btn-primary rounded-pill"><i class="bi bi-controller me-1"></i> Jugar</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="card h-100 shadow-sm border-0 game-card">
+                            <img src="assets/images/game_thumb_2.png" class="card-img-top" alt="Juego 2">
+                            <div class="card-body text-center">
+                                <h6 class="card-title fw-bold text-primary">El Reino de los Números</h6>
+                                <p class="card-text"><small>Matemática</small></p>
+                                <a href="#" class="btn btn-sm btn-primary rounded-pill"><i class="bi bi-controller me-1"></i> Jugar</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="card h-100 shadow-sm border-0 game-card">
+                            <img src="assets/images/game_thumb_3.png" class="card-img-top" alt="Juego 3">
+                            <div class="card-body text-center">
+                                <h6 class="card-title fw-bold text-primary">Exploradores de la Naturaleza</h6>
+                                <p class="card-text"><small>Ciencias</small></p>
+                                <a href="#" class="btn btn-sm btn-primary rounded-pill"><i class="bi bi-controller me-1"></i> Jugar</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="card h-100 shadow-sm border-0 game-card">
+                            <img src="assets/images/game_thumb_4.png" class="card-img-top" alt="Juego 4">
+                            <div class="card-body text-center">
+                                <h6 class="card-title fw-bold text-primary">Adivina la Palabra Secreta</h6>
+                                <p class="card-text"><small>Lengua</small></p>
+                                <a href="#" class="btn btn-sm btn-primary rounded-pill"><i class="bi bi-controller me-1"></i> Jugar</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                <div class="text-center mt-5">
+                    <a href="#" class="btn btn-secondary btn-lg rounded-pill px-5 py-3 shadow-lg">
+                        <i class="bi bi-grid-fill me-2"></i> Ver Todos los Juegos
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section bg-yellow text-white py-5 text-center" data-aos="fade-up">
+            <div class="container">
+                <h2 class="display-5 fw-bold mb-4 text-dark">¡No pares de <span class="text-primary">aprender</span> y <span class="text-primary">divertirte</span>!</h2>
+                <p class="lead mb-5 text-dark">Cada día es una nueva aventura en EducAR.</p>
+                <a href="#modulos" class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg cta-button">
+                    <i class="bi bi-arrow-right-circle-fill me-2"></i> ¡Volvamos arriba!
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">
+                &copy; 2024 EducAR. Todos los derechos reservados.
+            </p>
+            <div class="mt-2">
+                <a href="#" class="text-white mx-2"><i class="bi bi-facebook fs-4"></i></a>
+                <a href="#" class="text-white mx-2"><i class="bi bi-twitter fs-4"></i></a>
+                <a href="#" class="text-white mx-2"><i class="bi bi-instagram fs-4"></i></a>
+                <a href="#" class="text-white mx-2"><i class="bi bi-linkedin fs-4"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="logoutModalLabel">Cerrar Sesión</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que quieres cerrar tu sesión?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Sí, Salir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/script.js"></script> <script>
+        // You might want specific JS for this page, e.g., fetching child's name, progress data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Placeholder for fetching child's name from session/local storage
+            const childName = "Usuario Junior"; // Replace with actual logic to get the child's name
+            document.querySelector('#bienvenida h1').innerHTML = `¡Hola, ${childName}! 👋`;
+
+            AOS.init({
+                once: true, // Only animate once
+                mirror: false // Do not repeat animation on scroll up
+            });
+        });
+    </script>
+</body>
+</html>

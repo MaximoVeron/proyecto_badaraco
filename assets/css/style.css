@@ -247,3 +247,8 @@ footer a:hover {
     color: inherit;
 }
 
+/* background amarillo para n divs */
+.bg-yellow {
+    background-color:#FFEA00 ;
+}
+

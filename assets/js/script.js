@@ -2,26 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializar AOS (Animate On Scroll Library)
     AOS.init({
-        duration: 950, // Duración de la animación en ms
+        duration: 900, // Duración de la animación en ms (se puso en 900 para que no genere trabas al cargar, en especial imagenes)
         once: true,     // Si las animaciones deben ocurrir solo una vez al hacer scroll hacia abajo
         mirror: false,  // Si los elementos deben animarse al hacer scroll hacia arriba
     });
 
-    // Desactivamos la animación de "Fade-in" manual que teníamos, ya que AOS la reemplaza.
-    // const sections = document.querySelectorAll('section');
-    // const fadeInObserver = new IntersectionObserver((entries, observer) => {
-    //     entries.forEach(entry => {
-    //         if (entry.isIntersecting) {
-    //             entry.target.classList.add('fade-in');
-    //             observer.unobserve(entry.target);
-    //         }
-    //     });
-    // }, {
-    //     threshold: 0.2
-    // });
-    // sections.forEach(section => {
-    //     fadeInObserver.observe(section);
-    // });
 
     // 1. Validación y manejo del formulario de contacto
     const contactForm = document.getElementById('contactForm');
