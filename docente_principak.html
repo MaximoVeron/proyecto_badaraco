@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EducAR - Mi Familia</title>
+    <title>EducAR - Panel Docente</title>
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
@@ -14,8 +14,8 @@
 
     <header class="bg-primary text-white py-3 shadow-lg">
         <nav class="navbar navbar-expand-lg navbar-dark container">
-            <a class="navbar-brand d-flex align-items-center" href="home_padres.html"> <img src="assets/images/logo_titulo.png" loading="lazy" alt="EducAR Logo" class="me-2 rounded-circle" style="height: 45px; width: 45px; object-fit: cover;">
-                <span class="fw-bold fs-4 text-uppercase">EducAR Familias</span>
+            <a class="navbar-brand d-flex align-items-center" href="home_docentes.html"> <img src="assets/images/logo_titulo.png" loading="lazy" alt="EducAR Logo" class="me-2 rounded-circle" style="height: 45px; width: 45px; object-fit: cover;">
+                <span class="fw-bold fs-4 text-uppercase">EducAR Docentes</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -23,16 +23,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link active no-hover" aria-current="page" href="#bienvenida">Inicio Familia</a>
+                        <a class="nav-link active" aria-current="page" href="#bienvenida">Inicio Docente</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#progreso-hijos">Progreso Hijos</a>
+                        <a class="nav-link" href="#mis-clases">Mis Clases</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#recursos-padres">Recursos</a>
+                        <a class="nav-link" href="#alumnos">Alumnos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#comunicacion">Comunicación</a>
+                        <a class="nav-link" href="#recursos">Recursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#informes">Informes</a>
                     </li>
                     <li class="nav-item ms-lg-3">
                         <button class="btn btn-danger rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#logoutModal">
@@ -45,101 +48,55 @@
     </header>
 
     <main>
-
-        <section id="bienvenida" class="hero-section text-center text-white d-flex align-items-center justify-content-center" style="background-image: url('assets/images/img_padres/fondo_inicio_padres.jpg'); background-size: cover; background-position: center;" data-aos="fade-up" data-aos-duration="1500">
+        <section id="bienvenida" class="hero-section text-center text-white d-flex align-items-center justify-content-center" style="background-image: url('assets/images/teacher_hero_bg.jpg'); background-size: cover; background-position: center;" data-aos="fade-up" data-aos-duration="1500">
             <div class="container">
-                <h1 class="display-3 fw-bold mb-4" data-aos="zoom-in" data-aos-delay="500">¡Hola, <span class="text-warning">[Nombre del Padre/Madre]</span>!</h1>
+                <h1 class="display-3 fw-bold mb-4" data-aos="zoom-in" data-aos-delay="500">¡Bienvenido, Profesor/a <span class="text-warning">[Nombre del Docente]</span>!</h1>
                 <p class="lead mb-5" data-aos="fade-up" data-aos-delay="800">
-                    Acompaña el camino educativo de tus hijos con EducAR.
+                    Tu panel de control para potenciar el aprendizaje en tus clases.
                 </p>
-                <a href="#progreso-hijos" class="btn btn-warning btn-lg rounded-pill px-5 py-3 shadow-lg" data-aos="fade-up" data-aos-delay="1000">
-                    <i class="bi bi-graph-up-arrow me-2"></i> Ver Progreso de Mi Hijo/a
+                <a href="#mis-clases" class="btn btn-warning btn-lg rounded-pill px-5 py-3 shadow-lg" data-aos="fade-up" data-aos-delay="1000">
+                    <i class="bi bi-person-video me-2"></i> Gestionar Mis Clases
                 </a>
             </div>
         </section>
 
-        <section id="progreso-hijos" class="py-5 bg-light-gradient">
+        <section id="mis-clases" class="py-5 bg-light-gradient">
             <div class="container">
-                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Progreso de <span class="text-secondary">Mis Hijos/as</span></h2>
-                <div class="row g-4 justify-content-center">
-                    <div class="col-md-6 col-lg-5" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
-                            <img src="assets/images/child_avatar_1.png" loading="lazy" class="rounded-circle mx-auto mb-3 border border-3 border-primary" alt="Avatar Hijo 1" style="height: 120px; width: 120px; object-fit: cover;">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">Sofía García (1º Grado "A")</h5>
-                                <p class="card-text">
-                                    <span class="fw-bold">Progreso General:</span> 
-                                    <div class="progress mb-2" style="height: 20px;">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
-                                    </div>
-                                    <small>Última actividad: Completó "Las Vocales Divertidas".</small>
-                                </p>
-                                <a href="#" class="btn btn-outline-primary mt-3 rounded-pill">Ver Detalle</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-5" data-aos="fade-up" data-aos-delay="300">
-                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
-                            <img src="assets/images/child_avatar_2.png" loading="lazy" class="rounded-circle mx-auto mb-3 border border-3 border-info" alt="Avatar Hijo 2" style="height: 120px; width: 120px; object-fit: cover;">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">Matías López (2º Grado "B")</h5>
-                                <p class="card-text">
-                                    <span class="fw-bold">Progreso General:</span> 
-                                    <div class="progress mb-2" style="height: 20px;">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
-                                    </div>
-                                    <small>Última actividad: Trabajó en "Problemas de Suma y Resta".</small>
-                                </p>
-                                <a href="#" class="btn btn-outline-primary mt-3 rounded-pill">Ver Detalle</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 text-center mt-4" data-aos="fade-up" data-aos-delay="500">
-                        <a href="#" class="btn btn-secondary rounded-pill px-4 py-2">
-                            <i class="bi bi-plus-circle-fill me-2"></i> Añadir otro hijo/a
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="recursos-padres" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Recursos y <span class="text-warning">Apoyo</span> para Padres</h2>
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Mis <span class="text-secondary">Clases</span> Asignadas</h2>
                 <div class="row g-4">
-                    <div class="col-md-4" data-aos="fade-right" data-aos-delay="100">
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
                         <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
                             <div class="icon-circle bg-secondary text-white mx-auto mb-3">
-                                <i class="bi bi-lightbulb-fill fs-2"></i>
+                                <i class="bi bi-person-badge fs-2"></i>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">Guías de Aprendizaje en Casa</h5>
-                                <p class="card-text">Consejos y actividades para reforzar lo aprendido en EducAR.</p>
-                                <a href="#" class="btn btn-outline-secondary mt-3 rounded-pill">Descargar Guías</a>
+                                <h5 class="card-title fw-bold text-primary">1º Grado "A"</h5>
+                                <p class="card-text">25 alumnos activos. Última actividad: Lengua.</p>
+                                <a href="#" class="btn btn-outline-secondary mt-3 rounded-pill">Ver Clase</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
                         <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
                             <div class="icon-circle bg-success text-white mx-auto mb-3">
-                                <i class="bi bi-shield-check fs-2"></i>
+                                <i class="bi bi-person-badge-fill fs-2"></i>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">Seguridad Online para Niños</h5>
-                                <p class="card-text">Información y herramientas para proteger a tus hijos en internet.</p>
-                                <a href="#" class="btn btn-outline-success mt-3 rounded-pill">Saber Más</a>
+                                <h5 class="card-title fw-bold text-primary">2º Grado "B"</h5>
+                                <p class="card-text">22 alumnos activos. Última actividad: Matemática.</p>
+                                <a href="#" class="btn btn-outline-success mt-3 rounded-pill">Ver Clase</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4" data-aos="fade-left" data-aos-delay="500">
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
                         <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
                             <div class="icon-circle bg-info text-white mx-auto mb-3">
-                                <i class="bi bi-calendar-event fs-2"></i>
+                                <i class="bi bi-plus-circle fs-2"></i>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">Eventos y Talleres</h5>
-                                <p class="card-text">Próximos eventos para padres y talleres educativos.</p>
-                                <a href="#" class="btn btn-outline-info mt-3 rounded-pill">Ver Calendario</a>
+                                <h5 class="card-title fw-bold text-primary">Crear Nueva Clase</h5>
+                                <p class="card-text">Añade un nuevo grupo de alumnos a tu cuenta.</p>
+                                <a href="#" class="btn btn-outline-primary mt-3 rounded-pill">Crear Clase</a>
                             </div>
                         </div>
                     </div>
@@ -147,35 +104,39 @@
             </div>
         </section>
 
-        <section id="comunicacion" class="py-5 bg-light-gradient">
+        <section id="alumnos" class="py-5">
             <div class="container">
-                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Centro de <span class="text-secondary">Comunicación</span></h2>
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Seguimiento de <span class="text-warning">Alumnos</span></h2>
                 <div class="row justify-content-center">
-                    <div class="col-lg-8" data-aos="fade-up">
+                    <div class="col-lg-10" data-aos="fade-up">
                         <div class="card shadow-lg border-0 p-4">
                             <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary mb-4"><i class="bi bi-chat-dots-fill me-2"></i> Mensajes Recientes</h5>
-                                <ul class="list-group list-group-flush mb-4">
-                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <h5 class="card-title fw-bold text-secondary mb-4">Actividad Reciente de Alumnos</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                         <div>
-                                            <small class="text-muted">De: Maestra Laura (1ºA)</small>
-                                            <p class="mb-1 fw-bold">Reunión de Padres - Clase 1ºA</p>
-                                            <small>¡Hola familias! Les recordamos la reunión informativa del 25/06...</small>
+                                            <i class="bi bi-mortarboard-fill me-2 text-primary"></i> <span class="fw-bold">Juan Pérez</span> (1ºA)
+                                            <br><small>Completó: "Suma de dos dígitos" y obtuvo 8/10.</small>
                                         </div>
-                                        <span class="badge bg-primary rounded-pill">Nuevo</span>
+                                        <span class="badge bg-success">Actividad Nueva</span>
                                     </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                         <div>
-                                            <small class="text-muted">De: Administración EducAR</small>
-                                            <p class="mb-1 fw-bold">Actualización de la Plataforma</p>
-                                            <small>Hemos lanzado nuevas actividades interactivas de ciencias...</small>
+                                            <i class="bi bi-mortarboard-fill me-2 text-primary"></i> <span class="fw-bold">María Gómez</span> (2ºB)
+                                            <br><small>Inició: "Los ecosistemas y sus habitantes".</small>
                                         </div>
-                                        <span class="badge bg-secondary rounded-pill">Leído</span>
+                                        <span class="badge bg-info">En Progreso</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <i class="bi bi-mortarboard-fill me-2 text-primary"></i> <span class="fw-bold">Lucas Torres</span> (1ºA)
+                                            <br><small>Revisó: "Vocabulario de animales".</small>
+                                        </div>
+                                        <span class="badge bg-secondary">Revisión</span>
                                     </li>
                                 </ul>
-                                <div class="text-center">
-                                    <a href="#" class="btn btn-primary rounded-pill me-3"><i class="bi bi-envelope-fill me-2"></i> Enviar Mensaje</a>
-                                    <a href="#" class="btn btn-outline-primary rounded-pill"><i class="bi bi-inboxes-fill me-2"></i> Ver Todos los Mensajes</a>
+                                <div class="text-center mt-4">
+                                    <a href="#" class="btn btn-outline-primary rounded-pill">Ver todos los alumnos y su progreso</a>
                                 </div>
                             </div>
                         </div>
@@ -183,17 +144,107 @@
                 </div>
             </div>
         </section>
-        <section class="cta-section bg-yellow text-white py-5 text-center" data-aos="fade-up">
 
+        <section id="recursos" class="py-5 bg-light-gradient">
             <div class="container">
-                <h2 class="display-5 fw-bold mb-4 text-dark">¿Necesitas <span class="text-primary">Apoyo</span> Adicional?</h2>
-                <p class="lead mb-5 text-dark">Estamos aquí para ayudarte a sacar el máximo provecho de EducAR.</p>
-                <a href="#comunicacion" class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg cta-button">
-                    <i class="bi bi-question-circle-fill me-2"></i> Pregúntanos
-                </a>
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Biblioteca de <span class="text-secondary">Recursos</span> Educativos</h2>
+                <div class="row g-4">
+                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="card h-100 shadow-sm border-0 p-4 profile-card">
+                            <img src="assets/images/recursos_lengua.png" loading="lazy" class="card-img-top mx-auto mb-3 rounded-circle border border-5 border-secondary" alt="Recursos Lengua" style="height: 220px; width: 220px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Lengua y Comunicación</h5>
+                                <p class="card-text">Materiales didácticos, guías de lectura y juegos de palabras.</p>
+                                <a href="#" class="btn btn-sm btn-outline-primary mt-2 rounded-pill">Explorar</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="card h-100 shadow-sm border-0 p-4 profile-card">
+                            <img src="assets/images/recursos_matematica.png" loading="lazy"
+                            class="card-img-top mx-auto mb-3 rounded-circle border border-5 border-success" 
+                            alt="Recursos Matemática" 
+                            style="width: 220px; height: 220px;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Matemática y Lógica</h5>
+                                <p class="card-text">Ejercicios interactivos, problemas resueltos y retos matemáticos.</p>
+                                <a href="#" class="btn btn-sm btn-outline-success mt-2 rounded-pill">Explorar</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="500">
+                        <div class="card h-100 shadow-sm border-0 p-4 profile-card">
+                            <img src="assets/images/recursos_ciencias.png" loading="lazy" class="card-img-top mx-auto mb-3 rounded-circle border border-5 border-info" alt="Recursos Ciencias" style="height: 220px; width: 220px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Ciencias y Sociedad</h5>
+                                <p class="card-text">Experimentos virtuales, atlas interactivos y temas de geografía e historia.</p>
+                                <a href="#" class="btn btn-sm btn-outline-info mt-2 rounded-pill">Explorar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <section id="informes" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Generación de <span class="text-warning">Informes</span></h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-8" data-aos="fade-up">
+                        <div class="card shadow-lg border-0 p-4">
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold text-secondary mb-3">Obtén Datos Clave de Progreso</h5>
+                                <p class="card-text mb-4">Genera informes detallados sobre el desempeño individual o grupal de tus alumnos.</p>
+                                <button class="btn btn-primary btn-lg rounded-pill px-4 me-3"><i class="bi bi-file-earmark-bar-graph me-2"></i> Informe por Alumno</button>
+                                <button class="btn btn-success btn-lg rounded-pill px-4"><i class="bi bi-clipboard-data me-2"></i> Informe por Clase</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section bg-secondary text-white py-5 text-center" data-aos="fade-up">
+            <div class="container">
+                <h2 class="display-5 fw-bold mb-4 text-dark">¿Necesitas <span class="text-primary">Ayuda</span> o tienes <span class="text-warning">Sugerencias</span>?</h2>
+                <p class="lead mb-5 text-dark">Estamos aquí para apoyarte en tu labor educativa.</p>
+                <a href="#contacto-docente" class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg cta-button">
+                    <i class="bi bi-chat-dots-fill me-2"></i> Contactar Soporte
+                </a>
+            </div>
+        </section>
+        
+        <section id="contacto-docente" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Contacto <span class="text-secondary">Docente</span></h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-8" data-aos="fade-up">
+                        <form id="contactDocenteForm" class="p-4 border rounded shadow-sm bg-white">
+                            <div class="mb-3">
+                                <label for="docenteName" class="form-label"><i class="bi bi-person-fill me-2"></i>Tu Nombre</label>
+                                <input type="text" class="form-control" id="docenteName" required placeholder="Tu nombre completo">
+                            </div>
+                            <div class="mb-3">
+                                <label for="docenteEmail" class="form-label"><i class="bi bi-envelope-fill me-2"></i>Correo Electrónico</label>
+                                <input type="email" class="form-control" id="docenteEmail" required placeholder="tu.correo@ejemplo.com">
+                            </div>
+                            <div class="mb-3">
+                                <label for="docenteSubject" class="form-label"><i class="bi bi-chat-left-text-fill me-2"></i>Asunto</label>
+                                <input type="text" class="form-control" id="docenteSubject" required placeholder="Motivo de tu consulta (ej. Soporte, Sugerencia)">
+                            </div>
+                            <div class="mb-3">
+                                <label for="docenteMessage" class="form-label"><i class="bi bi-chat-dots-fill me-2"></i>Tu Mensaje</label>
+                                <textarea class="form-control" id="docenteMessage" rows="5" required placeholder="Describe tu consulta o sugerencia..."></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg rounded-pill"><i class="bi bi-send-fill me-2"></i> Enviar Mensaje</button>
+                            </div>
+                            <div id="contactDocenteFormMessage" class="mt-3 text-center"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="bg-dark text-white py-4">
@@ -363,14 +414,29 @@
     <script src="assets/js/script.js"></script> <script>
         // Inicializar AOS
         document.addEventListener('DOMContentLoaded', function() {
-            // Placeholder para obtener el nombre del padre/madre (podría venir de una sesión o una API)
-            const parentName = "Familia González"; // Reemplazar con lógica real para obtener el nombre
-            document.querySelector('#bienvenida h1 .text-warning').textContent = parentName;
+            // Placeholder para obtener el nombre del docente (podría venir de una sesión o una API)
+            const teacherName = "Ana Ríos"; // Reemplazar con lógica real para obtener el nombre
+            document.querySelector('#bienvenida h1 .text-warning').textContent = teacherName;
 
             AOS.init({
                 once: true, // Animaciones se reproducen solo una vez
                 mirror: false // No repetir animaciones al hacer scroll hacia arriba
             });
+
+            // Lógica básica para el formulario de contacto del docente
+            const contactDocenteForm = document.getElementById('contactDocenteForm');
+            const contactDocenteFormMessage = document.getElementById('contactDocenteFormMessage');
+
+            if (contactDocenteForm) {
+                contactDocenteForm.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Previene el envío por defecto del formulario
+
+                    // Aquí iría la lógica para enviar el formulario (ej. Fetch API a un backend)
+                    // Por ahora, solo muestra un mensaje de éxito
+                    contactDocenteFormMessage.innerHTML = '<div class="alert alert-success" role="alert">¡Mensaje enviado con éxito! Te responderemos pronto.</div>';
+                    contactDocenteForm.reset(); // Limpia el formulario
+                });
+            }
         });
     </script>
 </body>
