@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EducAR - Mi Familia</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/css/style.css"> <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <header class="bg-primary text-white py-3 shadow-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+            <a class="navbar-brand d-flex align-items-center" href="home_padres.html"> <img src="assets/images/logo_titulo.png" loading="lazy" alt="EducAR Logo" class="me-2 rounded-circle" style="height: 45px; width: 45px; object-fit: cover;">
+                <span class="fw-bold fs-4 text-uppercase">EducAR Familias</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#bienvenida">Inicio Familia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#progreso-hijos">Progreso Hijos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#recursos-padres">Recursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#comunicacion">Comunicación</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <button class="btn btn-danger rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <i class="bi bi-box-arrow-right me-1"></i> Salir
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="bienvenida" class="hero-section text-center text-white d-flex align-items-center justify-content-center" style="background-image: url('assets/images/parent_hero_bg.jpg'); background-size: cover; background-position: center;" data-aos="fade-up" data-aos-duration="1500">
+            <div class="container">
+                <h1 class="display-3 fw-bold mb-4" data-aos="zoom-in" data-aos-delay="500">¡Hola, <span class="text-warning">[Nombre del Padre/Madre]</span>!</h1>
+                <p class="lead mb-5" data-aos="fade-up" data-aos-delay="800">
+                    Acompaña el camino educativo de tus hijos con EducAR.
+                </p>
+                <a href="#progreso-hijos" class="btn btn-warning btn-lg rounded-pill px-5 py-3 shadow-lg" data-aos="fade-up" data-aos-delay="1000">
+                    <i class="bi bi-graph-up-arrow me-2"></i> Ver Progreso de Mi Hijo/a
+                </a>
+            </div>
+        </section>
+
+        <section id="progreso-hijos" class="py-5 bg-light-gradient">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Progreso de <span class="text-secondary">Mis Hijos/as</span></h2>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-6 col-lg-5" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
+                            <img src="assets/images/child_avatar_1.png" loading="lazy" class="rounded-circle mx-auto mb-3 border border-3 border-primary" alt="Avatar Hijo 1" style="height: 120px; width: 120px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Sofía García (1º Grado "A")</h5>
+                                <p class="card-text">
+                                    <span class="fw-bold">Progreso General:</span> 
+                                    <div class="progress mb-2" style="height: 20px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+                                    </div>
+                                    <small>Última actividad: Completó "Las Vocales Divertidas".</small>
+                                </p>
+                                <a href="#" class="btn btn-outline-primary mt-3 rounded-pill">Ver Detalle</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-5" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
+                            <img src="assets/images/child_avatar_2.png" loading="lazy" class="rounded-circle mx-auto mb-3 border border-3 border-info" alt="Avatar Hijo 2" style="height: 120px; width: 120px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Matías López (2º Grado "B")</h5>
+                                <p class="card-text">
+                                    <span class="fw-bold">Progreso General:</span> 
+                                    <div class="progress mb-2" style="height: 20px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
+                                    </div>
+                                    <small>Última actividad: Trabajó en "Problemas de Suma y Resta".</small>
+                                </p>
+                                <a href="#" class="btn btn-outline-primary mt-3 rounded-pill">Ver Detalle</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center mt-4" data-aos="fade-up" data-aos-delay="500">
+                        <a href="#" class="btn btn-secondary rounded-pill px-4 py-2">
+                            <i class="bi bi-plus-circle-fill me-2"></i> Añadir otro hijo/a
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="recursos-padres" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Recursos y <span class="text-warning">Apoyo</span> para Padres</h2>
+                <div class="row g-4">
+                    <div class="col-md-4" data-aos="fade-right" data-aos-delay="100">
+                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
+                            <div class="icon-circle bg-secondary text-white mx-auto mb-3">
+                                <i class="bi bi-lightbulb-fill fs-2"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Guías de Aprendizaje en Casa</h5>
+                                <p class="card-text">Consejos y actividades para reforzar lo aprendido en EducAR.</p>
+                                <a href="#" class="btn btn-outline-secondary mt-3 rounded-pill">Descargar Guías</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
+                            <div class="icon-circle bg-success text-white mx-auto mb-3">
+                                <i class="bi bi-shield-check fs-2"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Seguridad Online para Niños</h5>
+                                <p class="card-text">Información y herramientas para proteger a tus hijos en internet.</p>
+                                <a href="#" class="btn btn-outline-success mt-3 rounded-pill">Saber Más</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-left" data-aos-delay="500">
+                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
+                            <div class="icon-circle bg-info text-white mx-auto mb-3">
+                                <i class="bi bi-calendar-event fs-2"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">Eventos y Talleres</h5>
+                                <p class="card-text">Próximos eventos para padres y talleres educativos.</p>
+                                <a href="#" class="btn btn-outline-info mt-3 rounded-pill">Ver Calendario</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comunicacion" class="py-5 bg-light-gradient">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Centro de <span class="text-secondary">Comunicación</span></h2>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8" data-aos="fade-up">
+                        <div class="card shadow-lg border-0 p-4">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary mb-4"><i class="bi bi-chat-dots-fill me-2"></i> Mensajes Recientes</h5>
+                                <ul class="list-group list-group-flush mb-4">
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <small class="text-muted">De: Maestra Laura (1ºA)</small>
+                                            <p class="mb-1 fw-bold">Reunión de Padres - Clase 1ºA</p>
+                                            <small>¡Hola familias! Les recordamos la reunión informativa del 25/06...</small>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">Nuevo</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <small class="text-muted">De: Administración EducAR</small>
+                                            <p class="mb-1 fw-bold">Actualización de la Plataforma</p>
+                                            <small>Hemos lanzado nuevas actividades interactivas de ciencias...</small>
+                                        </div>
+                                        <span class="badge bg-secondary rounded-pill">Leído</span>
+                                    </li>
+                                </ul>
+                                <div class="text-center">
+                                    <a href="#" class="btn btn-primary rounded-pill me-3"><i class="bi bi-envelope-fill me-2"></i> Enviar Mensaje</a>
+                                    <a href="#" class="btn btn-outline-primary rounded-pill"><i class="bi bi-inboxes-fill me-2"></i> Ver Todos los Mensajes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section bg-success text-white py-5 text-center" data-aos="fade-up">
+            <div class="container">
+                <h2 class="display-5 fw-bold mb-4 text-dark">¿Necesitas <span class="text-primary">Apoyo</span> Adicional?</h2>
+                <p class="lead mb-5 text-dark">Estamos aquí para ayudarte a sacar el máximo provecho de EducAR.</p>
+                <a href="#comunicacion" class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg cta-button">
+                    <i class="bi bi-question-circle-fill me-2"></i> Pregúntanos
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">
+                &copy; 2024 EducAR. Todos los derechos reservados. | 
+                <a href="#" class="text-warning text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalPrivacidad">Política de Privacidad</a> | 
+                <a href="#" class="text-warning text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalTerminos">Términos de Servicio</a>
+            </p>
+            <div class="mt-2">
+                <a href="#" class="text-white mx-2"><i class="bi bi-facebook fs-4"></i></a>
+                <a href="#" class="text-white mx-2"><i class="bi bi-twitter fs-4"></i></a>
+                <a href="#" class="text-white mx-2"><i class="bi bi-instagram fs-4"></i></a>
+                <a href="#" class="text-white mx-2"><i class="bi bi-linkedin fs-4"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="modalPrivacidad" tabindex="-1" aria-labelledby="modalPrivacidadLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPrivacidadLabel">Política de Privacidad</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>1. Compromiso con la privacidad</strong></p>
+                    <p>En EducAR, la privacidad y seguridad de nuestros usuarios es una prioridad, especialmente cuando se trata de niños de primer a tercer grado de primaria. Diseñamos esta política para explicar de forma clara y sencilla qué información recopilamos, cómo la usamos, y qué medidas tomamos para protegerla.</p>
+
+                    <p><strong>2. ¿Qué información recopilamos?</strong></p>
+                    <p>EducAR no recopila datos personales sensibles de los niños sin el consentimiento de los padres, tutores o representantes legales. La información que se puede recopilar incluye:</p>
+                    <ul>
+                        <li>Nombre y correo electrónico del docente o tutor (al crear una cuenta para uso educativo).</li>
+                        <li>Nombre del estudiante (opcional y solo si el tutor lo autoriza).</li>
+                        <li>Progreso académico, resultados de actividades y tiempo de uso (para fines pedagógicos).</li>
+                        <li>Información técnica como tipo de dispositivo, navegador y sistema operativo (para mejorar la experiencia de usuario).</li>
+                    </ul>
+
+                    <p><strong>3. Uso de la información</strong></p>
+                    <p>La información recopilada se utiliza exclusivamente para los siguientes fines:</p>
+                    <ul>
+                        <li>Personalizar la experiencia de aprendizaje según el nivel y progreso del estudiante.</li>
+                        <li>Brindar acceso a contenidos educativos validados por docentes.</li>
+                        <li>Garantizar un entorno seguro, libre de publicidad y distracciones.</li>
+                        <li>Mejorar continuamente la plataforma a través de datos de uso agregados y anónimos.</li>
+                        <li><strong>EducAR no vende, alquila ni comparte datos personales con terceros con fines comerciales.</strong></li>
+                    </ul>
+
+                    <p><strong>4. Seguridad de los datos</strong></p>
+                    <p>Implementamos medidas técnicas y organizativas apropiadas para proteger los datos:</p>
+                    <ul>
+                        <li>Cifrado de información durante la transmisión y el almacenamiento.</li>
+                        <li>Accesos restringidos únicamente a personal autorizado.</li>
+                        <li>Supervisión constante de la plataforma para prevenir accesos no autorizados o actividades maliciosas.</li>
+                    </ul>
+
+                    <p><strong>5. Participación y control de los adultos</strong></p>
+                    <p>Los padres, tutores y docentes tienen control sobre la información relacionada con los niños. Pueden:</p>
+                    <ul>
+                        <li>Solicitar la revisión o eliminación de los datos personales almacenados.</li>
+                        <li>Configurar el nivel de acceso y privacidad del estudiante.</li>
+                        <li>Comunicar cualquier preocupación de seguridad o privacidad a través de nuestros canales de contacto.</li>
+                    </ul>
+
+                    <p><strong>6. Cookies y tecnologías similares</strong></p>
+                    <p>EducAR utiliza cookies esenciales para el funcionamiento de la plataforma, como mantener la sesión iniciada o recordar preferencias. No utilizamos cookies con fines publicitarios ni de rastreo comercial.</p>
+
+                    <p><strong>7. Cambios en esta política</strong></p>
+                    <p>Podremos actualizar esta Política de Privacidad ocasionalmente para reflejar mejoras o cambios normativos. Notificaremos cualquier cambio importante a través de la plataforma o por correo electrónico a los usuarios registrados.</p>
+
+                    <p><strong>8. Contacto</strong></p>
+                    <p>Si tienes preguntas sobre esta política o deseas ejercer tus derechos de acceso, rectificación o eliminación de datos, por favor contáctanos en:</p>
+
+                    <ul>
+                        <li>📧 privacidad@educar.org</li>
+                        <li>📍 Formosa, Argentina</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalTerminos" tabindex="-1" aria-labelledby="modalTerminosLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTerminosLabel">Términos de Servicio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>1. Aceptación de los Términos</strong></p>
+                    <p>Al acceder o utilizar EducAR, usted acepta estos Términos de Servicio. Si no está de acuerdo con alguno de ellos, por favor no utilice la plataforma. El uso de EducAR implica la aceptación plena de estas condiciones.</p>
+
+                    <p><strong>2. Descripción del servicio</strong></p>
+                    <p>EducAR es una plataforma digital orientada a estudiantes de primer a tercer grado de primaria. Ofrece contenidos educativos diseñados por docentes, con enfoque en la seguridad, accesibilidad y alineación curricular. Nuestro objetivo es facilitar un aprendizaje significativo y protegido para niños y niñas en sus primeros años escolares.</p>
+
+                    <p><strong>3. Público destinatario</strong></p>
+                    <p>EducAR está destinado a:</p>
+                    <ul>
+                        <li>Niños y niñas de 6 a 9 años que cursan del 1º al 3º grado de primaria.</li>
+                        <li>Docentes del nivel primario.</li>
+                        <li>Padres, madres y tutores que acompañan el aprendizaje desde el hogar.</li>
+                    </ul>
+                    <p>Los menores deben utilizar la plataforma bajo la supervisión de un adulto responsable.</p>
+
+                    <p><strong>4. Registro de usuarios</strong></p>
+                    <p>Para utilizar ciertas funciones, es posible que se requiera la creación de una cuenta. El registro podrá incluir información básica como nombre del tutor o docente, dirección de correo electrónico y, opcionalmente, nombre del estudiante. Este registro tiene como fin organizar el uso educativo y personalizar los contenidos.</p>
+
+                    <p><strong>5. Obligaciones del usuario</strong></p>
+                    <p>Los usuarios se comprometen a:</p>
+                    <ul>
+                        <li>Utilizar la plataforma con fines exclusivamente educativos.</li>
+                        <li>Proporcionar información veraz durante el registro.</li>
+                        <li>No dañar, alterar o interferir con el funcionamiento del sistema.</li>
+                        <li>No intentar acceder sin autorización a secciones restringidas o a los datos de otros usuarios.</li>
+                    </ul>
+
+                    <p><strong>6. Contenidos y derechos de autor</strong></p>
+                    <p>Todos los contenidos ofrecidos en EducAR, incluyendo textos, gráficos, sonidos y recursos interactivos, son propiedad de la plataforma o de sus respectivos autores. Está prohibida su reproducción, distribución o modificación sin autorización previa.</p>
+
+                    <p><strong>7. Entorno seguro y libre de publicidad</strong></p>
+                    <p>EducAR no contiene anuncios publicitarios, ni enlaces a sitios externos no verificados. El diseño de la plataforma prioriza la seguridad digital de los menores y evita distracciones que puedan interferir con el aprendizaje.</p>
+
+                    <p><strong>8. Limitación de responsabilidad</strong></p>
+                    <p>EducAR no garantiza la disponibilidad ininterrumpida del servicio, pero se compromete a mantenerlo actualizado y en funcionamiento. La plataforma no reemplaza la función pedagógica del docente, sino que la complementa.</p>
+
+                    <p><strong>9. Modificaciones de los términos</strong></p>
+                    <p>Podremos actualizar estos Términos de Servicio en cualquier momento. Los cambios se notificarán a través de la plataforma o por correo electrónico. El uso continuado del servicio implica la aceptación de los términos actualizados.</p>
+
+                    <p><strong>10. Contacto</strong></p>
+                    <p>Si tienes dudas o sugerencias sobre estos Términos, puedes contactarnos en:</p>
+                    <ul>
+                        <li>📧 soporte@educar.org</li>
+                        <li>📍 Formosa, Argentina</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="logoutModalLabel">Cerrar Sesión</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que quieres cerrar tu sesión?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Sí, Salir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/script.js"></script> <script>
+        // Inicializar AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            // Placeholder para obtener el nombre del padre/madre (podría venir de una sesión o una API)
+            const parentName = "Familia González"; // Reemplazar con lógica real para obtener el nombre
+            document.querySelector('#bienvenida h1 .text-warning').textContent = parentName;
+
+            AOS.init({
+                once: true, // Animaciones se reproducen solo una vez
+                mirror: false // No repetir animaciones al hacer scroll hacia arriba
+            });
+        });
+    </script>
+</body>
+</html>
