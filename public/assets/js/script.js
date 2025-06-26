@@ -134,19 +134,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // mira para la izquierda arriba
         if (seguirPunteroMouse){
             if ((m.clientX<anchoMitad)&&(m.clientY < altoMitad)) {
-                monster.src = 'assets/images/monstruo_animation/idle/2.png';
+                monster.src = '../assets/images/monstruo_animation/idle/2.png';
             }
             // mira para la derecha arriba
             if ((m.clientX>anchoMitad)&&(m.clientY<altoMitad)) {
-                monster.src = 'assets/images/monstruo_animation/idle/5.png';
+                monster.src = '../assets/images/monstruo_animation/idle/5.png';
             }
             //mira para la izquierda abajo
             if ((m.clientX<anchoMitad)&&(m.clientY>altoMitad)) {
-                monster.src = 'assets/images/monstruo_animation/idle/3.png';
+                monster.src = '../assets/images/monstruo_animation/idle/3.png';
             }
             //mira para la derecha abajo 
             if ((m.clientX>anchoMitad)&&(m.clientY>altoMitad)) {
-                monster.src = 'assets/images/monstruo_animation/idle/4.png';
+                monster.src = '../assets/images/monstruo_animation/idle/4.png';
             }
         }
     })
@@ -162,13 +162,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loginEmail.addEventListener('keyup',()=>{
         let usuarioCaracteresLogin = loginEmail.value.length;
         if ((usuarioCaracteresLogin >=0)&&(usuarioCaracteresLogin<=10)){
-            monster.src = 'assets/images/monstruo_animation/read/1.png'
+            monster.src = '../assets/images/monstruo_animation/read/1.png'
         } else if ((usuarioCaracteresLogin >=11)&&(usuarioCaracteresLogin<=32)){
-            monster.src = 'assets/images/monstruo_animation/read/2.png'
+            monster.src = '../assets/images/monstruo_animation/read/2.png'
         } else if ((usuarioCaracteresLogin >=33)&&(usuarioCaracteresLogin<=52)){
-            monster.src = 'assets/images/monstruo_animation/read/3.png'
+            monster.src = '../assets/images/monstruo_animation/read/3.png'
         } else {
-            monster.src = 'assets/images/monstruo_animation/read/4.png'
+            monster.src = '../assets/images/monstruo_animation/read/4.png'
         }
         
     })
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         seguirPunteroMouse=false;
         let cont=1
         const cubrirOjo = setInterval(()=>{
-            monster.src = 'assets/images/monstruo_animation/cover/'+cont+'.png';
+            monster.src = '../assets/images/monstruo_animation/cover/'+cont+'.png';
             if (cont<8) {
                 cont++;
             } else {
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         seguirPunteroMouse=true;
         let cont=7
         const descubrirOjo = setInterval(()=>{
-            monster.src = 'assets/images/monstruo_animation/cover/'+cont+'.png';
+            monster.src = '../assets/images/monstruo_animation/cover/'+cont+'.png';
             if (cont>1) {
                 cont--;
             } else {
