@@ -36,31 +36,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginFormMessage = document.getElementById('loginFormMessage');
 
     if (loginForm) {
-        loginForm.addEventListener('submit', (event) => {
+        loginForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
 
-            if (validateEmail(email) && password.length >= 6) { // Validación de longitud de contraseña
-                if (email === 'docente@educar.com' && password === 'EducAR2025') { // Ejemplo para Docente
-                    loginFormMessage.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-circle-fill me-2"></i>¡Inicio de sesión exitoso! Redirigiendo a tu panel...<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-                    // En un proyecto real, redirigirías a: window.location.href = 'teacher-dashboard.html';
-                    setTimeout(() => {
-                        alert('Bienvenido/a Docente al panel (simulado)!');
-                        const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-                        if (loginModal) loginModal.hide();
-                    }, 1500);
-                } else if (email === 'alumno@educar.com' && password === 'EducAR2025') { // Ejemplo para Alumno
-                    loginFormMessage.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-circle-fill me-2"></i>¡Inicio de sesión exitoso! ¡A aprender jugando!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-                    // En un proyecto real, redirigirías a: window.location.href = 'student-dashboard.html';
-                    setTimeout(() => {
-                        alert('Bienvenido/a Estudiante al panel (simulado)!');
-                        const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-                        if (loginModal) loginModal.hide();
-                    }, 1500);
-                } else {
-                    loginFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>Correo o contraseña incorrectos.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+            if (validateEmail(email) && password.length >= 6) {
+                try {
+                    const res = await fetch('http://localhost:3001/api/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const data = await res.json();
+                    if (data.token) {
+                        localStorage.setItem('token', data.token);
+                        loginFormMessage.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-circle-fill me-2"></i>¡Inicio de sesión exitoso! Redirigiendo...<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                        setTimeout(() => {
+                            if (data.categoria === 'docente') window.location.href = '/pages/perfiles/docente_principal.html';
+                            if (data.categoria === 'nino') window.location.href = '/pages/perfiles/ninos_principal.html';
+                            if (data.categoria === 'padre') window.location.href = '/pages/perfiles/padres_principal.html';
+                        }, 1200);
+                    } else {
+                        loginFormMessage.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>${data.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+                    }
+                } catch (err) {
+                    loginFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>Error de conexión con el servidor.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                 }
             } else {
                 loginFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>Por favor, introduce un correo válido y una contraseña de al menos 6 caracteres.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
@@ -73,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const registerFormMessage = document.getElementById('registerFormMessage');
 
     if (registerForm) {
-        registerForm.addEventListener('submit', (event) => {
+        registerForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const name = document.getElementById('registerName').value.trim();
@@ -82,14 +84,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const role = document.getElementById('registerRole').value;
 
             if (name && validateEmail(email) && password.length >= 6 && role) {
-                // Simulación de envío al backend
-                registerFormMessage.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-circle-fill me-2"></i>¡Registro exitoso! ¡Bienvenido/a ${name} como ${role}!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
-                registerForm.reset();
-                setTimeout(() => {
-                    const registerModal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
-                    if (registerModal) registerModal.hide();
-                    alert('¡Gracias por registrarte en EducAR! Ahora puedes iniciar sesión.');
-                }, 2500); // Dar más tiempo para leer el mensaje
+                try {
+                    const res = await fetch('http://localhost:3001/api/auth/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ nombre: name, email, password, categoria: role })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        registerFormMessage.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-circle-fill me-2"></i>${data.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+                        registerForm.reset();
+                        setTimeout(() => {
+                            const registerModal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+                            if (registerModal) registerModal.hide();
+                            alert('¡Gracias por registrarte en EducAR! Ahora puedes iniciar sesión.');
+                        }, 2000);
+                    } else {
+                        registerFormMessage.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>${data.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+                    }
+                } catch (err) {
+                    registerFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>Error de conexión con el servidor.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                }
             } else {
                 registerFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>Por favor, completa todos los campos correctamente y una contraseña de al menos 6 caracteres.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
             }
