@@ -139,6 +139,42 @@ header .navbar-brand span {
     border: 5px solid; /* Borde que usará el color definido en HTML */
 }
 
+/* Logo principal en navbar */
+.logo-navbar {
+    height: 45px;
+    width: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Imágenes de perfiles (niños, docentes, familias) */
+.profile-img-ninos {
+    height: 220px;
+    width: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid var(--bs-secondary);
+}
+.profile-img-docentes {
+    height: 220px;
+    width: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid var(--bs-success);
+}
+.profile-img-familias {
+    height: 220px;
+    width: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid var(--bs-info);
+}
+
+/* Imagen monstruo login */
+.monstruo-login {
+    height: 250px;
+}
+
 /* Sección de Módulos (Accordion) */
 .accordion-button {
     border-radius: 10px !important;
