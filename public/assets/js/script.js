@@ -145,75 +145,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const altoMitad = window.innerHeight / 2;
     let seguirPunteroMouse = true;
 
-    document.body.addEventListener('mousemove',(m)=>{
-        // mira para la izquierda arriba
-        if (seguirPunteroMouse){
-            if ((m.clientX<anchoMitad)&&(m.clientY < altoMitad)) {
-                monster.src = '../assets/images/monstruo_animation/idle/2.png';
+    if (monster && loginEmail && loginPassword) {
+        document.body.addEventListener('mousemove',(m)=>{
+            if (seguirPunteroMouse){
+                if ((m.clientX<anchoMitad)&&(m.clientY < altoMitad)) {
+                    monster.src = '/assets/images/monstruo_animation/idle/2.png';
+                }
+                if ((m.clientX>anchoMitad)&&(m.clientY<altoMitad)) {
+                    monster.src = '/assets/images/monstruo_animation/idle/5.png';
+                }
+                if ((m.clientX<anchoMitad)&&(m.clientY>altoMitad)) {
+                    monster.src = '/assets/images/monstruo_animation/idle/3.png';
+                }
+                if ((m.clientX>anchoMitad)&&(m.clientY>altoMitad)) {
+                    monster.src = '/assets/images/monstruo_animation/idle/4.png';
+                }
             }
-            // mira para la derecha arriba
-            if ((m.clientX>anchoMitad)&&(m.clientY<altoMitad)) {
-                monster.src = '../assets/images/monstruo_animation/idle/5.png';
-            }
-            //mira para la izquierda abajo
-            if ((m.clientX<anchoMitad)&&(m.clientY>altoMitad)) {
-                monster.src = '../assets/images/monstruo_animation/idle/3.png';
-            }
-            //mira para la derecha abajo 
-            if ((m.clientX>anchoMitad)&&(m.clientY>altoMitad)) {
-                monster.src = '../assets/images/monstruo_animation/idle/4.png';
-            }
-        }
-    })
-    //seguimineto de escritura en el loginEmail
-    loginEmail.addEventListener('focus',()=>{
-        seguirPunteroMouse=false;
-    })
-
-    loginEmail.addEventListener('blur',()=>{
-        seguirPunteroMouse=true;
-    })
-    //seguimiento de escritura en el login
-    loginEmail.addEventListener('keyup',()=>{
-        let usuarioCaracteresLogin = loginEmail.value.length;
-        if ((usuarioCaracteresLogin >=0)&&(usuarioCaracteresLogin<=10)){
-            monster.src = '../assets/images/monstruo_animation/read/1.png'
-        } else if ((usuarioCaracteresLogin >=11)&&(usuarioCaracteresLogin<=32)){
-            monster.src = '../assets/images/monstruo_animation/read/2.png'
-        } else if ((usuarioCaracteresLogin >=33)&&(usuarioCaracteresLogin<=52)){
-            monster.src = '../assets/images/monstruo_animation/read/3.png'
-        } else {
-            monster.src = '../assets/images/monstruo_animation/read/4.png'
-        }
-        
-    })
-
-    //seguimineto de escritura en el loginPassword
-    loginPassword.addEventListener('focus',()=>{
-        seguirPunteroMouse=false;
-        let cont=1
-        const cubrirOjo = setInterval(()=>{
-            monster.src = '../assets/images/monstruo_animation/cover/'+cont+'.png';
-            if (cont<8) {
-                cont++;
+        });
+        loginEmail.addEventListener('focus',()=>{
+            seguirPunteroMouse=false;
+        });
+        loginEmail.addEventListener('blur',()=>{
+            seguirPunteroMouse=true;
+        });
+        loginEmail.addEventListener('keyup',()=>{
+            let usuarioCaracteresLogin = loginEmail.value.length;
+            if ((usuarioCaracteresLogin >=0)&&(usuarioCaracteresLogin<=10)){
+                monster.src = '/assets/images/monstruo_animation/read/1.png';
+            } else if ((usuarioCaracteresLogin >=11)&&(usuarioCaracteresLogin<=32)){
+                monster.src = '/assets/images/monstruo_animation/read/2.png';
+            } else if ((usuarioCaracteresLogin >=33)&&(usuarioCaracteresLogin<=52)){
+                monster.src = '/assets/images/monstruo_animation/read/3.png';
             } else {
-                clearInterval(cubrirOjo);
+                monster.src = '/assets/images/monstruo_animation/read/4.png';
             }
-        },40);
-    })
-
-    loginPassword.addEventListener('blur',()=>{
-        seguirPunteroMouse=true;
-        let cont=7
-        const descubrirOjo = setInterval(()=>{
-            monster.src = '../assets/images/monstruo_animation/cover/'+cont+'.png';
-            if (cont>1) {
-                cont--;
-            } else {
-                clearInterval(descubrirOjo);
-            }
-        },40);
-    })
+        });
+        loginPassword.addEventListener('focus',()=>{
+            seguirPunteroMouse=false;
+            let cont=1;
+            const cubrirOjo = setInterval(()=>{
+                monster.src = '/assets/images/monstruo_animation/cover/'+cont+'.png';
+                if (cont<8) {
+                    cont++;
+                } else {
+                    clearInterval(cubrirOjo);
+                }
+            },40);
+        });
+        loginPassword.addEventListener('blur',()=>{
+            seguirPunteroMouse=true;
+            let cont=7;
+            const descubrirOjo = setInterval(()=>{
+                monster.src = '/assets/images/monstruo_animation/cover/'+cont+'.png';
+                if (cont>1) {
+                    cont--;
+                } else {
+                    clearInterval(descubrirOjo);
+                }
+            },40);
+        });
+    }
 
 });
 
