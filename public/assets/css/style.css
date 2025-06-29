@@ -105,6 +105,27 @@ header .navbar-brand span {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
 }
 
+/* Hero de bienvenida para docentes */
+.hero-bienvenida-docente {
+    background-image: url('../images/img_docentes/bg_docentes_principal.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Hero de bienvenida para niños */
+.hero-bienvenida-ninos {
+    background-image: url('../../assets/images/img_ninos/fondo_inicio_ninos.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Hero de bienvenida para padres */
+.hero-bienvenida-padres {
+    background-image: url('../../assets/images/img_padres/fondo_inicio_padres.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
 /* Cards de características y perfiles */
 .card {
     border-radius: 15px;
@@ -286,5 +307,27 @@ footer a:hover {
 /* background amarillo para n divs */
 .bg-yellow {
     background-color:#FFEA00 ;
+}
+
+.progress-altura-30 {
+    height: 30px;
+}
+.progress-bar-75 {
+    width: 75%;
+}
+.progress-altura-20 {
+    height: 20px;
+}
+.progress-bar-85 {
+    width: 85%;
+}
+.progress-bar-60 {
+    width: 60%;
+}
+
+.img-sugerido-juego {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
 }
 
