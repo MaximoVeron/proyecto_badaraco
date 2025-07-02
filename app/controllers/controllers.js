@@ -249,3 +249,69 @@ export const getTeacherClasses = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener las clases.', error: err.message });
     }
 };
+
+// ... (código existente hasta el final de getTeacherClasses) ...
+
+export const getStudentsInClass = async (req, res) => {
+    const { id: id_docente, categoria } = req.user; // Docente autenticado
+    const { classId } = req.params; // ID de la clase de la URL
+
+    if (categoria !== 'docente') {
+        return res.status(403).json({ message: 'Acceso denegado. Solo los docentes pueden ver los alumnos de sus clases.' });
+    }
+
+    try {
+        // Verificar que la clase exista y pertenezca a este docente
+        const [classCheck] = await pool.query('SELECT id FROM clases WHERE id = ? AND id_docente = ?', [classId, id_docente]);
+        if (classCheck.length === 0) {
+            return res.status(404).json({ message: 'Clase no encontrada o no pertenece a este docente.' });
+        }
+
+        // Obtener los alumnos inscritos en esa clase
+        const [students] = await pool.query(
+            `SELECT u.id AS alumno_id, u.nombre, u.email
+             FROM clases_alumnos ca
+             JOIN usuarios u ON ca.id_alumno = u.id
+             WHERE ca.id_clase = ?
+             ORDER BY u.nombre`,
+            [classId]
+        );
+        res.status(200).json(students);
+    } catch (err) {
+        console.error('Error al obtener alumnos de la clase:', err);
+        res.status(500).json({ message: 'Error en el servidor al obtener alumnos.', error: err.message });
+    }
+};
+
+// ... (después de getStudentsInClass o al final de controllers.js) ...
+
+export const removeStudentFromClass = async (req, res) => {
+    const { id: id_docente, categoria } = req.user; // Docente autenticado
+    const { classId, studentId } = req.params; // ID de clase y de alumno de la URL
+
+    if (categoria !== 'docente') {
+        return res.status(403).json({ message: 'Acceso denegado. Solo los docentes pueden eliminar alumnos de sus clases.' });
+    }
+
+    try {
+        // 1. Verificar que la clase exista y pertenezca a este docente
+        const [classCheck] = await pool.query('SELECT id FROM clases WHERE id = ? AND id_docente = ?', [classId, id_docente]);
+        if (classCheck.length === 0) {
+            return res.status(404).json({ message: 'Clase no encontrada o no pertenece a este docente.' });
+        }
+
+        // 2. Verificar que el alumno esté realmente en esa clase
+        const [enrollmentCheck] = await pool.query('SELECT id FROM clases_alumnos WHERE id_clase = ? AND id_alumno = ?', [classId, studentId]);
+        if (enrollmentCheck.length === 0) {
+            return res.status(404).json({ message: 'El alumno no está inscrito en esta clase.' });
+        }
+
+        // 3. Eliminar la entrada de la tabla clases_alumnos
+        await pool.query('DELETE FROM clases_alumnos WHERE id_clase = ? AND id_alumno = ?', [classId, studentId]);
+
+        res.status(200).json({ message: 'Alumno eliminado de la clase correctamente.' });
+    } catch (err) {
+        console.error('Error al eliminar alumno de la clase:', err);
+        res.status(500).json({ message: 'Error en el servidor al eliminar alumno.', error: err.message });
+    }
+};

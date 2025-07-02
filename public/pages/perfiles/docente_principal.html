@@ -58,6 +58,10 @@
                 >Inicio Docente</a
               >
             </li>
+             <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">
+                    <i class="bi bi-person-circle me-2"></i> Perfil</a>
+              </li>
             <li class="nav-item">
               <a class="nav-link" href="#mis-clases">Mis Clases</a>
             </li>
@@ -104,9 +108,6 @@
           <div class="container-fluid py-5 text-center">
             <div class="row justify-content-center">
               <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
-                <h1 id="bienvenida">
-                  ¡Bienvenido/a, <span class="text-warning">Ana Ríos</span>! 👋
-                </h1>
                 <p class="lead mb-4">
                   Desde aquí podrás gestionar tus clases, alumnos y recursos.
                 </p>
@@ -114,16 +115,7 @@
             </div>
           </div>
           <p class="lead mb-5" data-aos="fade-up" data-aos-delay="800">
-            Tu panel de control para potenciar el aprendizaje en tus clases.
-          </p>
-          <a
-            href="#mis-clases"
-            class="btn btn-warning btn-lg rounded-pill px-5 py-3 shadow-lg"
-            data-aos="fade-up"
-            data-aos-delay="1000"
-          >
-            <i class="bi bi-person-video me-2"></i> Gestionar Mis Clases
-          </a>
+            Tu panel de control para potenciar el aprendizaje en tus clases.</p>
         </div>
       </section>
 
@@ -226,7 +218,8 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="my-classes-tab" data-bs-toggle="tab" data-bs-target="#my-classes" type="button" role="tab" aria-controls="my-classes" aria-selected="false">
                         <i class="bi bi-book-fill me-2"></i> Mis Clases Existentes
-                    </button>
+                  </button>
+                  
                 </li>
             </ul>
             <div class="tab-content" id="classTabsContent">
@@ -275,7 +268,7 @@
                 <div class="tab-pane fade" id="my-classes" role="tabpanel" aria-labelledby="my-classes-tab">
                     <div class="card shadow p-4 mb-4">
                         <h4 class="card-title mb-3 text-center">Mis Clases</h4>
-                        <p class="text-center text-muted">Cargando tus clases...</p>
+                        <p class="text-center text-muted" id="myClassesLoadingMessage">Cargando tus clases...</p>
                         <ul id="myClassesList" class="list-group">
                             </ul>
                     </div>
@@ -940,7 +933,38 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileModalLabel">Actualizar Perfil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateProfileFormDocente">
+                        <div class="mb-3">
+                            <label for="newUserNameDocente" class="form-label">Tu Nombre Actual:</label>
+                            <input type="text" class="form-control" id="currentUserNameDocente" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newUserNameDocente" class="form-label">Nuevo Nombre:</label>
+                            <input type="text" class="form-control" id="newUserNameDocente" placeholder="Introduce tu nuevo nombre" required>
+                        </div>
+                        <div id="updateProfileMessageDocente" class="mt-3 text-center"></div>
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-info rounded-pill"><i class="bi bi-person-fill me-2"></i> Actualizar Perfil</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ... tu script JS existente
+    </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -1326,6 +1350,9 @@
             }
 
             // Función para cargar y mostrar las clases en la pestaña "Mis Clases Existentes"
+           // const myClassesList = document.getElementById('myClassesList');
+            //const myClassesTabButton = document.getElementById('my-classes-tab'); // Botón de la pestaña "Mis Clases"
+            const myClassesLoadingMessage = document.getElementById('myClassesLoadingMessage'); // Nuevo para el mensaje de carga
             async function displayTeacherClasses() {
                 const token = localStorage.getItem('token');
                 if (!token) {
@@ -1454,7 +1481,96 @@
                 });
             }
 
-            // ... (resto del script existente, como contactDocenteForm y el cierre de DOMContentLoaded) ...
+            // Lógica para el formulario de Actualización de Perfil del Docente
+            const updateProfileFormDocente = document.getElementById('updateProfileFormDocente');
+            const currentUserNameDocente = document.getElementById('currentUserNameDocente'); // Nuevo campo
+            const newUserNameInputDocente = document.getElementById('newUserNameDocente');
+            const updateProfileMessageDocente = document.getElementById('updateProfileMessageDocente');
+            const welcomeDocenteNameSpan = document.querySelector('#bienvenida h1 .text-warning');
+
+            // Instancia del modal para poder cerrarlo programáticamente
+            const profileModal = new bootstrap.Modal(document.getElementById('profileModal'));
+
+            // Evento que se dispara cuando el modal de perfil se muestra
+            document.getElementById('profileModal').addEventListener('show.bs.modal', function () {
+                const userName = localStorage.getItem('userName') || "Docente";
+                if (currentUserNameDocente) {
+                    currentUserNameDocente.value = userName; // Rellena el nombre actual en el campo de solo lectura
+                }
+                newUserNameInputDocente.value = ''; // Limpia el campo de nuevo nombre al abrir el modal
+                updateProfileMessageDocente.innerHTML = ''; // Limpia mensajes anteriores
+            });
+
+            if (updateProfileFormDocente) {
+                updateProfileFormDocente.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+
+                    const newName = newUserNameInputDocente.value.trim();
+                    if (!newName) {
+                        updateProfileMessageDocente.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, introduce un nombre.</div>';
+                        return;
+                    }
+
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        updateProfileMessageDocente.innerHTML = '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch('/api/auth/profile', {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ nombre: newName })
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            updateProfileMessageDocente.innerHTML = `<div class="alert alert-success" role="alert">${data.message}</div>`;
+                            if (welcomeDocenteNameSpan) {
+                                welcomeDocenteNameSpan.textContent = newName;
+                                localStorage.setItem('userName', newName); // Actualiza el nombre en localStorage
+                            }
+                            // Cerrar el modal después de un breve retraso
+                            setTimeout(() => {
+                                profileModal.hide();
+                            }, 1500); // Cierra el modal después de 1.5 segundos
+                        } else {
+                            updateProfileMessageDocente.innerHTML = `<div class="alert alert-danger" role="alert">${data.message || 'Error al actualizar el perfil.'}</div>`;
+                        }
+                    } catch (error) {
+                        console.error('Error al enviar la solicitud de actualización de perfil:', error);
+                        updateProfileMessageDocente.innerHTML = '<div class="alert alert-danger" role="alert">Error de conexión al servidor.</div>';
+                    }
+                });
+            }
+           <div class="modal fade" id="viewStudentsModal" tabindex="-1" aria-labelledby="viewStudentsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewStudentsModalLabel">Alumnos en <span id="modalClassName"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="studentsListContainer">
+                        <p class="text-center text-muted" id="loadingStudentsMessage">Cargando alumnos...</p>
+                        <ul id="classStudentsList" class="list-group">
+                            </ul>
+                        <div id="noStudentsMessage" class="alert alert-info text-center mt-3" style="display: none;">
+                            No hay alumnos inscritos en esta clase aún.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </script>
   </body>
 </html>
