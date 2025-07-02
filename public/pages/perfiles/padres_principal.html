@@ -57,7 +57,68 @@
                 </a>
             </div>
         </section>
+        <section id="mi-perfil" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Mi <span class="text-secondary">Perfil</span></h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8" data-aos="fade-up">
+                <div class="card shadow-lg border-0 p-4 mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary mb-3"><i class="bi bi-person-circle me-2"></i> Información Personal</h5>
+                        <p class="card-text fs-5"><strong>Nombre:</strong> <span id="nombre" class="text-dark"></span></p>
+                        <p class="card-text fs-5"><strong>Email:</strong> <span id="email" class="text-dark"></span></p>
+                    </div>
+                </div>
 
+                <div class="card shadow-lg border-0 p-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary mb-3"><i class="bi bi-people-fill me-2"></i> Hijos Vinculados</h5>
+                        <ul id="lista-hijos" class="list-group list-group-flush mb-3">
+                            </ul>
+                        <p class="text-muted small">Administra los perfiles de tus hijos para seguir su progreso.</p>
+                    </div>
+                </div>
+
+                <div class="card shadow-lg border-0 p-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary mb-4"><i class="bi bi-pencil-square me-2"></i> Actualizar Perfil</h5>
+                        <form id="form-perfil">
+                            <div class="mb-3">
+                                <label for="telefono" class="form-label fw-bold">Teléfono de contacto:</label>
+                                <input type="text" id="telefono" class="form-control form-control-lg" placeholder="Ej: +54 9 11 1234 5678" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="relacion" class="form-label fw-bold">Soy:</label>
+                                <select id="relacion" class="form-select form-select-lg">
+                                    <option>Padre</option>
+                                    <option>Madre</option>
+                                    <option>Tutor</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill shadow-sm">
+                                <i class="bi bi-arrow-clockwise me-2"></i> Actualizar Perfil
+                            </button>
+                        </form>
+
+                        <hr class="my-5">
+
+                        <h5 class="card-title fw-bold text-primary mb-4"><i class="bi bi-link-45deg me-2"></i> Vincular Hijo/a</h5>
+                        <form id="form-vincular">
+                            <div class="mb-3">
+                                <label for="codigo" class="form-label fw-bold">Código del estudiante:</label>
+                                <input type="text" id="codigo" class="form-control form-control-lg" placeholder="Ingresa el código de tu hijo/a" required>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-lg w-100 rounded-pill shadow-sm">
+                                <i class="bi bi-person-plus-fill me-2"></i> Vincular
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
         <section id="progreso-hijos" class="py-5 bg-light-gradient">
             <div class="container">
                 <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Progreso de <span class="text-secondary">Mis Hijos/as</span></h2>
