@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EducAR - La Carrera de Palabras</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        /* Variables CSS para colores */
+        :root {
+            --primary-color: #6A1B9A;
+            --secondary-color: #FFC107;
+            --accent-color: #28A745;
+            --info-color: #17A2B8;
+            --text-dark: #343A40;
+            --text-light: #F8F9FA;
+            --bg-light: #F8F9FA;
+            --bg-dark: #212529;
+        }
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--primary-color);
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .game-header {
+            background: linear-gradient(45deg, var(--primary-color), #8E24AA);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .score-display {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .word-display {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            font-size: 3rem;
+            font-weight: bold;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: wordPulse 2s infinite;
+        }
+
+        @keyframes wordPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .word-input {
+            font-size: 1.5rem;
+            padding: 15px 20px;
+            border: 3px solid var(--primary-color);
+            border-radius: 50px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .word-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(40, 167, 69, 0.3);
+            transform: scale(1.02);
+        }
+
+        .correct-feedback {
+            background: var(--accent-color);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            animation: correctPulse 0.5s ease;
+        }
+
+        .wrong-feedback {
+            background: #dc3545;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .btn-game {
+            background: var(--accent-color);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .btn-game:hover {
+            background: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary-game {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .btn-secondary-game:hover {
+            background: #FFD700;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-bar-custom {
+            background: var(--accent-color);
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        .game-over-modal {
+            background: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content-custom {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .celebration-emoji {
+            font-size: 4rem;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .word-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .completed-word {
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .start-screen {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .game-rules {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .navbar-brand {
+            text-decoration: none;
+        }
+
+        .logo-navbar {
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-primary text-white py-3 shadow-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+            <a class="navbar-brand d-flex align-items-center" href="#"> 
+                <div class="logo-navbar bg-secondary d-flex align-items-center justify-content-center me-2">
+                    <i class="bi bi-book-fill fs-4"></i>
+                </div>
+                <span class="fw-bold fs-4 text-uppercase">EducAR</span>
+            </a>
+            <div class="ms-auto">
+                <button class="btn btn-danger rounded-pill px-4" onclick="goBack()">
+                    <i class="bi bi-arrow-left me-1"></i> Volver
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-4 mb-5">
+        <div class="game-container mx-auto" style="max-width: 800px;">
+            <!-- Inicio del juego -->
+            <div id="startScreen" class="start-screen">
+                <div class="game-header">
+                    <h1 class="mb-0"><i class="bi bi-trophy-fill me-2"></i>La Carrera de Palabras</h1>
+                </div>
+                <div class="p-4">
+                    <div class="celebration-emoji mb-4">🏃‍♂️💨📝</div>
+                    <h3 class="text-primary mb-4">¡Prepárate para la aventura!</h3>
+                    
+                    <div class="game-rules">
+                        <h5><i class="bi bi-info-circle-fill text-primary me-2"></i>¿Cómo jugar?</h5>
+                        <ul class="list-unstyled mt-3">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Verás una palabra en la pantalla</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Escríbela correctamente en el cuadro</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Presiona Enter o el botón para confirmar</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>¡Gana puntos por cada palabra correcta!</li>
+                            <li class="mb-2"><i class="bi bi-clock-fill text-warning me-2"></i>Tienes 1 minuto y 20 segundos</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4">
+                        <h5 class="text-info mb-3">📊 Sistema de Puntos:</h5>
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="badge bg-success fs-6 p-3">Palabra Fácil<br>+10 pts</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="badge bg-warning fs-6 p-3">Palabra Media<br>+20 pts</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="badge bg-danger fs-6 p-3">Palabra Difícil<br>+30 pts</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-game mt-4" onclick="startGame()">
+                        <i class="bi bi-play-circle-fill me-2"></i>¡Comenzar el Juego!
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pantalla del juego -->
+            <div id="gameScreen" style="display: none;">
+                <div class="game-header">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <div class="score-display">
+                                <i class="bi bi-star-fill me-2"></i>Puntos: <span id="score">0</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="timer-display">
+                                <i class="bi bi-stopwatch me-2"></i><span id="timer">1:20</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="score-display">
+                                Palabras: <span id="wordsCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4">
+                    <div class="progress mb-3" style="height: 8px;">
+                        <div class="progress-bar progress-bar-custom" id="progressBar" role="progressbar" style="width: 100%"></div>
+                    </div>
+
+                    <div class="word-display" id="currentWord">
+                        ¡Preparándose...!
+                    </div>
+
+                    <div class="input-container text-center">
+                        <input type="text" id="wordInput" class="form-control word-input" placeholder="Escribe la palabra aquí..." autocomplete="off">
+                        <button class="btn-secondary-game mt-3" onclick="checkWord()">
+                            <i class="bi bi-check-circle-fill me-2"></i>Confirmar Palabra
+                        </button>
+                    </div>
+
+                    <div id="feedback" class="mt-3 text-center" style="min-height: 50px;"></div>
+
+                    <div class="word-list" id="completedWords"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de fin de juego -->
+    <div class="game-over-modal" id="gameOverModal">
+        <div class="modal-content-custom">
+            <div class="celebration-emoji mb-3" id="finalEmoji">🎉</div>
+            <h2 class="text-primary mb-3" id="finalTitle">¡Juego Terminado!</h2>
+            <div class="mb-4">
+                <h3 class="text-warning mb-2">Tu Puntuación Final:</h3>
+                <div class="display-4 text-success fw-bold" id="finalScore">0</div>
+                <p class="mt-2">Palabras completadas: <span class="fw-bold text-info" id="finalWordsCount">0</span></p>
+            </div>
+            <div id="performanceMessage" class="mb-4 p-3 rounded"></div>
+            <div class="d-flex gap-3 justify-content-center">
+                <button class="btn-game" onclick="playAgain()">
+                    <i class="bi bi-arrow-clockwise me-2"></i>Jugar de Nuevo
+                </button>
+                <button class="btn-secondary-game" onclick="goBack()">
+                    <i class="bi bi-house-fill me-2"></i>Ir al Inicio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables del juego
+        let gameActive = false;
+        let currentWordObj = null;
+        let score = 0;
+        let wordsCompleted = 0;
+        let timeLeft = 80; // 1 minuto 20 segundos
+        let timer = null;
+        let completedWordsList = [];
+
+        // Palabras del juego organizadas por dificultad
+        const gameWords = {
+            easy: [
+                {word: "sol", points: 10},
+                {word: "mar", points: 10},
+                {word: "pan", points: 10},
+                {word: "ojo", points: 10},
+                {word: "pie", points: 10},
+                {word: "luz", points: 10},
+                {word: "paz", points: 10},
+                {word: "rey", points: 10},
+                {word: "dos", points: 10},
+                {word: "sí", points: 10}
+            ],
+            medium: [
+                {word: "casa", points: 20},
+                {word: "perro", points: 20},
+                {word: "mesa", points: 20},
+                {word: "libro", points: 20},
+                {word: "agua", points: 20},
+                {word: "niño", points: 20},
+                {word: "flor", points: 20},
+                {word: "juego", points: 20},
+                {word: "color", points: 20},
+                {word: "mundo", points: 20}
+            ],
+            hard: [
+                {word: "mariposa", points: 30},
+                {word: "aventura", points: 30},
+                {word: "escuela", points: 30},
+                {word: "familia", points: 30},
+                {word: "amistad", points: 30},
+                {word: "sonrisa", points: 30},
+                {word: "guitarra", points: 30},
+                {word: "historia", points: 30},
+                {word: "montaña", points: 30},
+                {word: "elefante", points: 30}
+            ]
+        };
+
+        // Función para obtener una palabra aleatoria
+        function getRandomWord() {
+            const difficulties = ['easy', 'medium', 'hard'];
+            const randomDifficulty = difficulties[Math.floor(Math.random() * difficulties.length)];
+            const wordsArray = gameWords[randomDifficulty];
+            return wordsArray[Math.floor(Math.random() * wordsArray.length)];
+        }
+
+        // Función para iniciar el juego
+        function startGame() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'block';
+            
+            gameActive = true;
+            score = 0;
+            wordsCompleted = 0;
+            timeLeft = 80;
+            completedWordsList = [];
+            
+            updateDisplay();
+            showNewWord();
+            startTimer();
+            
+            // Focus en el input
+            document.getElementById('wordInput').focus();
+        }
+
+        // Función para mostrar una nueva palabra
+        function showNewWord() {
+            if (!gameActive) return;
+            
+            currentWordObj = getRandomWord();
+            document.getElementById('currentWord').textContent = currentWordObj.word;
+            document.getElementById('wordInput').value = '';
+            document.getElementById('feedback').innerHTML = '';
+            
+            // Animar la palabra
+            const wordDisplay = document.getElementById('currentWord');
+            wordDisplay.style.animation = 'none';
+            setTimeout(() => {
+                wordDisplay.style.animation = 'wordPulse 2s infinite';
+            }, 10);
+        }
+
+        // Función para verificar la palabra
+        function checkWord() {
+            if (!gameActive || !currentWordObj) return;
+            
+            const userInput = document.getElementById('wordInput').value.trim().toLowerCase();
+            const correctWord = currentWordObj.word.toLowerCase();
+            const feedbackDiv = document.getElementById('feedback');
+            
+            if (userInput === correctWord) {
+                // Respuesta correcta
+                score += currentWordObj.points;
+                wordsCompleted++;
+                completedWordsList.push(currentWordObj.word);
+                
+                feedbackDiv.innerHTML = `<div class="correct-feedback"><i class="bi bi-check-circle-fill me-2"></i>¡Excelente! +${currentWordObj.points} puntos</div>`;
+                
+                // Agregar palabra a la lista de completadas
+                addCompletedWord(currentWordObj.word, currentWordObj.points);
+                
+                // Mostrar nueva palabra después de un breve delay
+                setTimeout(() => {
+                    showNewWord();
+                }, 1000);
+                
+            } else {
+                // Respuesta incorrecta
+                feedbackDiv.innerHTML = `<div class="wrong-feedback"><i class="bi bi-x-circle-fill me-2"></i>¡Intenta de nuevo! La palabra es: ${currentWordObj.word}</div>`;
+                
+                // Limpiar input pero mantener la misma palabra
+                document.getElementById('wordInput').value = '';
+            }
+            
+            updateDisplay();
+            document.getElementById('wordInput').focus();
+        }
+
+        // Función para agregar palabra completada a la lista visual
+        function addCompletedWord(word, points) {
+            const completedWordsDiv = document.getElementById('completedWords');
+            const wordElement = document.createElement('div');
+            wordElement.className = 'completed-word';
+            wordElement.innerHTML = `${word} (+${points})`;
+            completedWordsDiv.appendChild(wordElement);
+        }
+
+        // Función para iniciar el temporizador
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        // Función para actualizar la pantalla
+        function updateDisplay() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('wordsCount').textContent = wordsCompleted;
+            
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Actualizar barra de progreso
+            const progressPercent = (timeLeft / 80) * 100;
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+            
+            // Cambiar color de la barra según el tiempo restante
+            const progressBar = document.getElementById('progressBar');
+            if (timeLeft <= 20) {
+                progressBar.style.background = '#dc3545'; // Rojo
+            } else if (timeLeft <= 40) {
+                progressBar.style.background = '#ffc107'; // Amarillo
+            } else {
+                progressBar.style.background = 'var(--accent-color)'; // Verde
+            }
+        }
+
+        // Función para terminar el juego
+        function endGame() {
+            gameActive = false;
+            clearInterval(timer);
+            
+            // Mostrar modal de fin de juego
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('finalWordsCount').textContent = wordsCompleted;
+            
+            // Mensaje personalizado según el rendimiento
+            const performanceDiv = document.getElementById('performanceMessage');
+            const emoji = document.getElementById('finalEmoji');
+            
+            if (score >= 300) {
+                performanceDiv.innerHTML = '<div class="bg-success text-white p-3 rounded"><i class="bi bi-trophy-fill me-2"></i><strong>¡INCREÍBLE!</strong> Eres un verdadero campeón de las palabras.</div>';
+                emoji.textContent = '🏆';
+            } else if (score >= 200) {
+                performanceDiv.innerHTML = '<div class="bg-info text-white p-3 rounded"><i class="bi bi-star-fill me-2"></i><strong>¡Muy bien!</strong> Tienes un excelente dominio de las palabras.</div>';
+                emoji.textContent = '⭐';
+            } else if (score >= 100) {
+                performanceDiv.innerHTML = '<div class="bg-warning text-dark p-3 rounded"><i class="bi bi-hand-thumbs-up-fill me-2"></i><strong>¡Buen trabajo!</strong> Sigues mejorando cada vez más.</div>';
+                emoji.textContent = '👍';
+            } else {
+                performanceDiv.innerHTML = '<div class="bg-primary text-white p-3 rounded"><i class="bi bi-heart-fill me-2"></i><strong>¡Sigue practicando!</strong> Cada intento te hace mejor.</div>';
+                emoji.textContent = '💪';
+            }
+            
+            document.getElementById('gameOverModal').style.display = 'flex';
+        }
+
+        // Función para jugar de nuevo
+        function playAgain() {
+            document.getElementById('gameOverModal').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'block';
+            document.getElementById('completedWords').innerHTML = '';
+        }
+
+        // Función para volver al inicio
+        function goBack() {
+            // En un entorno real, esto navegaría de vuelta a la página principal
+            alert('Volviendo a la página principal...');
+            // window.location.href = 'ninos_principal.html';
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enter key para confirmar palabra
+            document.getElementById('wordInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkWord();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

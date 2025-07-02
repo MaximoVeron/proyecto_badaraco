@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Mago de las Formas Geométricas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8360c3 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            color: #ffd93d;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            max-width: 700px;
+            width: 90%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .title {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #4ecdc4, #45b7d1);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 3s ease-in-out infinite;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes rainbow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .wizard-hat {
+            font-size: 3em;
+            animation: float 3s ease-in-out infinite;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            color: #ffd93d;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 20px;
+            margin: 5px;
+            min-width: 110px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #ffd93d;
+            position: relative;
+            z-index: 1;
+        }
+
+        .shape-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magic-circle {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 3px dashed rgba(255, 217, 61, 0.5);
+            border-radius: 50%;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .shape {
+            position: relative;
+            z-index: 2;
+            animation: shapeAppear 0.8s ease-out;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes shapeAppear {
+            0% { 
+                opacity: 0; 
+                transform: scale(0) rotate(180deg); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) rotate(0deg); 
+            }
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .option-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.5s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .option-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #ffd93d;
+        }
+
+        .option-btn:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .option-btn.correct {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            animation: correct 0.6s ease;
+        }
+
+        .option-btn.incorrect {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            animation: incorrect 0.6s ease;
+        }
+
+        @keyframes correct {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes incorrect {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .btn {
+            font-size: 1.3em;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.4);
+        }
+
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(78, 205, 196, 0.6);
+        }
+
+        .feedback {
+            font-size: 1.8em;
+            margin: 20px 0;
+            font-weight: bold;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .correct-feedback {
+            color: #4ecdc4;
+            animation: bounce 0.8s ease;
+        }
+
+        .incorrect-feedback {
+            color: #ff6b6b;
+            animation: shake 0.8s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            80% { transform: translateY(-8px); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+
+        .final-score {
+            font-size: 3.5em;
+            color: #ffd93d;
+            margin: 25px 0;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .magic-wand {
+            font-size: 5em;
+            animation: wand 2s ease-in-out infinite;
+        }
+
+        @keyframes wand {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .difficulty-selector {
+            margin-bottom: 30px;
+        }
+
+        .difficulty-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 25px;
+            margin: 8px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .difficulty-btn.active {
+            background: #ffd93d;
+            color: #333;
+            border-color: #ffd93d;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 217, 61, 0.4);
+        }
+
+        .sparkle-effect {
+            position: absolute;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 2em;
+            animation: sparkleFloat 2s ease-out forwards;
+        }
+
+        @keyframes sparkleFloat {
+            0% { 
+                opacity: 1; 
+                transform: scale(0) translateY(0px); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1) translateY(-30px); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: scale(0) translateY(-60px); 
+            }
+        }
+
+        /* Formas SVG personalizadas */
+        .circle { width: 80px; height: 80px; background: #ff6b6b; border-radius: 50%; }
+        .square { width: 80px; height: 80px; background: #4ecdc4; }
+        .triangle { width: 0; height: 0; border-left: 40px solid transparent; border-right: 40px solid transparent; border-bottom: 70px solid #ffd93d; }
+        .rectangle { width: 100px; height: 60px; background: #45b7d1; }
+        .oval { width: 100px; height: 60px; background: #ff9ff3; border-radius: 50%; }
+        .diamond { width: 60px; height: 60px; background: #54a0ff; transform: rotate(45deg); }
+        .pentagon { width: 80px; height: 80px; background: #5f27cd; clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); }
+        .hexagon { width: 80px; height: 80px; background: #00d2d3; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="game-container">
+        <span class="wizard-hat">🧙‍♂️</span>
+        <h1 class="title">El Mago de las Formas Geométricas</h1>
+        <p class="subtitle">¡Descubre la magia de la geometría!</p>
+        
+        <div id="menu" class="menu">
+            <div class="difficulty-selector">
+                <h3>🎭 Elige tu nivel mágico:</h3>
+                <button class="difficulty-btn active" onclick="selectDifficulty(1)">✨ Aprendiz (Formas básicas)</button>
+                <button class="difficulty-btn" onclick="selectDifficulty(2)">🌟 Mago (Más formas)</button>
+                <button class="difficulty-btn" onclick="selectDifficulty(3)">🔮 Maestro (Todas las formas)</button>
+            </div>
+            <button class="btn btn-start" onclick="startGame()">🪄 ¡Comenzar Magia!</button>
+        </div>
+
+        <div id="game" class="hidden">
+            <div class="stats-container">
+                <div class="stat">
+                    <div class="stat-label">🎯 Nivel</div>
+                    <div class="stat-value" id="level">1</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">⭐ Correctas</div>
+                    <div class="stat-value" id="correct">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">🔥 Racha</div>
+                    <div class="stat-value" id="streak">0</div>
+                </div>
+            </div>
+
+            <div class="shape-container">
+                <div class="magic-circle"></div>
+                <div id="shapeDisplay" class="shape"></div>
+            </div>
+
+            <div class="feedback" id="feedback"></div>
+
+            <div class="options-container" id="optionsContainer">
+                <!-- Las opciones se generarán dinámicamente -->
+            </div>
+        </div>
+
+        <div id="results" class="hidden">
+            <div class="magic-wand">🪄</div>
+            <h2>¡Has completado tu entrenamiento mágico!</h2>
+            <div class="final-score" id="finalScore">0</div>
+            <p id="resultMessage">¡Excelente trabajo, joven mago!</p>
+            <button class="btn btn-start" onclick="resetGame()">🔄 Nueva Aventura</button>
+        </div>
+    </div>
+
+    <script>
+        let gameState = {
+            level: 1,
+            correctAnswers: 0,
+            currentStreak: 0,
+            maxStreak: 0,
+            difficulty: 1,
+            gameActive: false,
+            currentShape: {},
+            totalQuestions: 0
+        };
+
+        const shapes = {
+            1: [ // Nivel básico
+                { name: 'Círculo', class: 'circle', emoji: '🔴' },
+                { name: 'Cuadrado', class: 'square', emoji: '🟦' },
+                { name: 'Triángulo', class: 'triangle', emoji: '🔺' },
+                { name: 'Rectángulo', class: 'rectangle', emoji: '🟦' }
+            ],
+            2: [ // Nivel intermedio
+                { name: 'Círculo', class: 'circle', emoji: '🔴' },
+                { name: 'Cuadrado', class: 'square', emoji: '🟦' },
+                { name: 'Triángulo', class: 'triangle', emoji: '🔺' },
+                { name: 'Rectángulo', class: 'rectangle', emoji: '🟦' },
+                { name: 'Óvalo', class: 'oval', emoji: '🟣' },
+                { name: 'Rombo', class: 'diamond', emoji: '🔷' }
+            ],
+            3: [ // Nivel avanzado
+                { name: 'Círculo', class: 'circle', emoji: '🔴' },
+                { name: 'Cuadrado', class: 'square', emoji: '🟦' },
+                { name: 'Triángulo', class: 'triangle', emoji: '🔺' },
+                { name: 'Rectángulo', class: 'rectangle', emoji: '🟦' },
+                { name: 'Óvalo', class: 'oval', emoji: '🟣' },
+                { name: 'Rombo', class: 'diamond', emoji: '🔷' },
+                { name: 'Pentágono', class: 'pentagon', emoji: '⬟' },
+                { name: 'Hexágono', class: 'hexagon', emoji: '⏣' }
+            ]
+        };
+
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 20; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.innerHTML = '✨';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                star.style.fontSize = (Math.random() * 1 + 0.5) + 'em';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function selectDifficulty(level) {
+            gameState.difficulty = level;
+            document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function generateQuestion() {
+            const availableShapes = shapes[gameState.difficulty];
+            const correctShape = availableShapes[Math.floor(Math.random() * availableShapes.length)];
+            gameState.currentShape = correctShape;
+
+            // Mostrar la forma
+            const shapeDisplay = document.getElementById('shapeDisplay');
+            shapeDisplay.className = `shape ${correctShape.class}`;
+
+            // Generar opciones (respuesta correcta + 3 incorrectas)
+            const options = [correctShape];
+            const wrongOptions = availableShapes.filter(shape => shape.name !== correctShape.name);
+            
+            // Agregar 3 opciones incorrectas aleatorias
+            for (let i = 0; i < 3 && i < wrongOptions.length; i++) {
+                const randomIndex = Math.floor(Math.random() * wrongOptions.length);
+                const wrongShape = wrongOptions.splice(randomIndex, 1)[0];
+                options.push(wrongShape);
+            }
+
+            // Si no hay suficientes opciones incorrectas, rellenar con opciones aleatorias
+            while (options.length < 4) {
+                const randomShape = availableShapes[Math.floor(Math.random() * availableShapes.length)];
+                if (!options.some(opt => opt.name === randomShape.name)) {
+                    options.push(randomShape);
+                }
+            }
+
+            // Mezclar opciones
+            options.sort(() => Math.random() - 0.5);
+
+            // Mostrar opciones
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.innerHTML = `${option.emoji} ${option.name}`;
+                button.onclick = () => checkAnswer(option.name);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedAnswer) {
+            if (!gameState.gameActive) return;
+
+            const feedback = document.getElementById('feedback');
+            const buttons = document.querySelectorAll('.option-btn');
+            
+            // Deshabilitar todos los botones
+            buttons.forEach(btn => btn.style.pointerEvents = 'none');
+
+            if (selectedAnswer === gameState.currentShape.name) {
+                gameState.correctAnswers++;
+                gameState.currentStreak++;
+                gameState.maxStreak = Math.max(gameState.maxStreak, gameState.currentStreak);
+                
+                feedback.innerHTML = `¡Correcto! Es un ${gameState.currentShape.name} ✨`;
+                feedback.className = 'feedback correct-feedback';
+                
+                // Marcar respuesta correcta
+                buttons.forEach(btn => {
+                    if (btn.textContent.includes(selectedAnswer)) {
+                        btn.classList.add('correct');
+                    }
+                });
+
+                createSparkleEffect();
+                
+                setTimeout(() => {
+                    nextQuestion();
+                }, 1500);
+                
+            } else {
+                gameState.currentStreak = 0;
+                feedback.innerHTML = `❌ No, es un ${gameState.currentShape.name}`;
+                feedback.className = 'feedback incorrect-feedback';
+                
+                // Marcar respuestas
+                buttons.forEach(btn => {
+                    if (btn.textContent.includes(selectedAnswer)) {
+                        btn.classList.add('incorrect');
+                    } else if (btn.textContent.includes(gameState.currentShape.name)) {
+                        btn.classList.add('correct');
+                    }
+                });
+
+                setTimeout(() => {
+                    nextQuestion();
+                }, 2000);
+            }
+
+            gameState.totalQuestions++;
+            updateDisplay();
+        }
+
+        function nextQuestion() {
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = '';
+            feedback.className = 'feedback';
+
+            // Verificar si debe subir de nivel o terminar
+            if (gameState.totalQuestions >= 10) {
+                if (gameState.level < 3 && gameState.correctAnswers >= 7) {
+                    levelUp();
+                } else {
+                    endGame();
+                }
+            } else {
+                generateQuestion();
+            }
+        }
+
+        function levelUp() {
+            gameState.level++;
+            gameState.totalQuestions = 0;
+            gameState.correctAnswers = 0;
+            
+            const feedback = document.getElementById('feedback');
+            feedback.innerHTML = `🎉 ¡Nivel ${gameState.level}! ¡Nuevas formas mágicas!`;
+            feedback.className = 'feedback correct-feedback';
+            
+            setTimeout(() => {
+                feedback.textContent = '';
+                generateQuestion();
+            }, 2000);
+            
+            updateDisplay();
+        }
+
+        function createSparkleEffect() {
+            const container = document.querySelector('.game-container');
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.innerHTML = ['✨', '⭐', '🌟', '💫'][Math.floor(Math.random() * 4)];
+                    sparkle.style.left = (Math.random() * 80 + 10) + '%';
+                    sparkle.style.top = (Math.random() * 80 + 10) + '%';
+                    container.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 2000);
+                }, i * 100);
+            }
+        }
+
+        function startGame() {
+            gameState.level = 1;
+            gameState.correctAnswers = 0;
+            gameState.currentStreak = 0;
+            gameState.maxStreak = 0;
+            gameState.gameActive = true;
+            gameState.totalQuestions = 0;
+            
+            document.getElementById('menu').classList.add('hidden');
+            document.getElementById('game').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+            
+            generateQuestion();
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            document.getElementById('level').textContent = gameState.level;
+            document.getElementById('correct').textContent = gameState.correctAnswers;
+            document.getElementById('streak').textContent = gameState.currentStreak;
+        }
+
+        function endGame() {
+            gameState.gameActive = false;
+            
+            document.getElementById('game').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+            
+            const totalPossible = gameState.level * 10;
+            const totalCorrect = (gameState.level - 1) * 7 + gameState.correctAnswers;
+            
+            document.getElementById('finalScore').textContent = totalCorrect;
+            
+            let message = '';
+            if (gameState.level >= 3 && gameState.correctAnswers >= 7) {
+                message = '🏆 ¡MAESTRO SUPREMO! ¡Dominas todas las formas mágicas!';
+            } else if (gameState.level >= 2) {
+                message = '🌟 ¡GRAN MAGO! ¡Excelente conocimiento de formas!';
+            } else if (gameState.correctAnswers >= 7) {
+                message = '✨ ¡MAGO JUNIOR! ¡Muy buen trabajo!';
+            } else {
+                message = '🎭 ¡APRENDIZ! ¡Sigue practicando tu magia!';
+            }
+            
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function resetGame() {
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('menu').classList.remove('hidden');
+            document.getElementById('feedback').textContent = '';
+        }
+
+        // Inicializar el juego
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+        });
+    </script>
+</body>
+</html>
