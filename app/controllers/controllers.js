@@ -10,7 +10,7 @@ export const registerUser = async (req, res) => {
     try {
         const [userExists] = await pool.query('SELECT id FROM usuarios WHERE email = ?', [email]);
         if (userExists.length > 0) {
-        return res.status(409).json({ message: 'El email ya está registrado.' });
+            return res.status(409).json({ message: 'El email ya está registrado.' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         await pool.query('INSERT INTO usuarios (nombre, email, password, categoria) VALUES (?, ?, ?, ?)', [nombre, email, hashedPassword, categoria]);
@@ -28,21 +28,224 @@ export const loginUser = async (req, res) => {
     try {
         const [users] = await pool.query('SELECT * FROM usuarios WHERE email = ?', [email]);
         if (users.length === 0) {
-        return res.status(401).json({ message: 'Credenciales inválidas.' });
+            return res.status(401).json({ message: 'Credenciales inválidas.' });
         }
         const user = users[0];
         const validPass = await bcrypt.compare(password, user.password);
         if (!validPass) {
-        return res.status(401).json({ message: 'Credenciales inválidas.' });
+            return res.status(401).json({ message: 'Credenciales inválidas.' });
         }
         const token = jwt.sign({ id: user.id, categoria: user.categoria }, process.env.JWT_SECRET, { expiresIn: '1d' });
         res.json({
-        message: 'Login exitoso',
-        token,
-        categoria: user.categoria,
-        nombre: user.nombre
+            message: 'Login exitoso.',
+            token,
+            user: { id: user.id, nombre: user.nombre, email: user.email, categoria: user.categoria }
         });
     } catch (err) {
+        console.error('Error en el login:', err);
         res.status(500).json({ message: 'Error en el servidor.', error: err.message });
+    }
+};
+
+//CONTROLADORES PARA PERFIL PADRES
+export const obtenerPerfilTutor = async (req, res) => {
+  const idTutor = req.usuario.id;
+
+  try {
+    const [datosTutor] = await pool.query('SELECT nombre, email FROM usuarios WHERE id = ?', [idTutor]);
+
+    const [hijos] = await pool.query(`
+      SELECT e.nombre AS nombre_estudiante, e.grado
+      FROM tutores_estudiantes t
+      JOIN estudiantes e ON t.id_estudiante = e.id
+      WHERE t.id_tutor = ?`, [idTutor]);
+
+    res.json({
+      nombre: datosTutor[0].nombre,
+      email: datosTutor[0].email,
+      hijos
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Error al obtener el perfil', error: err.message });
+  }
+};
+
+export const actualizarPerfilTutor = async (req, res) => {
+  const { telefono, relacion } = req.body;
+  const idTutor = req.usuario.id;
+
+  try {
+    await pool.query(
+      'UPDATE tutores_estudiantes SET telefono = ?, relacion = ? WHERE id_tutor = ?',
+      [telefono, relacion, idTutor]
+    );
+    res.json({ message: 'Datos actualizados correctamente.' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error al actualizar datos.', error: err.message });
+  }
+};
+
+export const vincularEstudiante = async (req, res) => {
+  const { codigo } = req.body;
+  const idTutor = req.usuario.id;
+
+  try {
+    const [estudiantes] = await pool.query(
+      'SELECT * FROM estudiantes WHERE codigo_vinculacion = ?',
+      [codigo]
+    );
+
+    if (estudiantes.length === 0) {
+      return res.status(400).json({ message: 'El código ingresado no es válido o ya ha sido usado.' });
+    }
+
+    const estudiante = estudiantes[0];
+
+    const [yaExiste] = await pool.query(
+      'SELECT * FROM tutores_estudiantes WHERE id_tutor = ? AND id_estudiante = ?',
+      [idTutor, estudiante.id]
+    );
+
+    if (yaExiste.length > 0) {
+      return res.status(400).json({ message: 'Ya estás vinculado a este estudiante.' });
+    }
+
+    await pool.query(
+      'INSERT INTO tutores_estudiantes (id_tutor, id_estudiante, relacion, telefono) VALUES (?, ?, ?, ?)',
+      [idTutor, estudiante.id, 'Padre', '']
+    );
+
+    res.json({ message: 'Estudiante vinculado correctamente.' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error al vincular estudiante.', error: err.message });
+  }
+};
+
+
+
+export const updateProfile = async (req, res) => {
+    const { id: userId, categoria } = req.user; // ID y categoría del usuario autenticado
+    const { nombre } = req.body;
+
+    if (!nombre) {
+        return res.status(400).json({ message: 'El nuevo nombre es requerido.' });
+    }
+
+    try {
+        await pool.query('UPDATE usuarios SET nombre = ? WHERE id = ?', [nombre, userId]);
+        res.status(200).json({ message: 'Perfil actualizado correctamente.' });
+    } catch (err) {
+        console.error('Error al actualizar el perfil:', err);
+        res.status(500).json({ message: 'Error al actualizar el perfil.', error: err.message });
+    }
+};
+
+export const createClass = async (req, res) => {
+    const { id: id_docente, categoria } = req.user; // Docente autenticado
+    const { nombre, descripcion } = req.body;
+
+    if (categoria !== 'docente') {
+        return res.status(403).json({ message: 'Acceso denegado. Solo los docentes pueden crear clases.' });
+    }
+
+    if (!nombre) {
+        return res.status(400).json({ message: 'El nombre de la clase es requerido.' });
+    }
+
+    try {
+        // Opcional: Verificar si ya existe una clase con el mismo nombre para este docente
+        const [existingClass] = await pool.query('SELECT id FROM clases WHERE nombre = ? AND id_docente = ?', [nombre, id_docente]);
+        if (existingClass.length > 0) {
+            return res.status(409).json({ message: 'Ya tienes una clase con ese nombre.' });
+        }
+
+        const [result] = await pool.query('INSERT INTO clases (nombre, descripcion, id_docente) VALUES (?, ?, ?)', [nombre, descripcion || null, id_docente]);
+        res.status(201).json({ message: 'Clase creada correctamente.', classId: result.insertId });
+    } catch (err) {
+        console.error('Error al crear la clase:', err);
+        res.status(500).json({ message: 'Error al crear la clase.', error: err.message });
+    }
+};
+
+export const addStudentsToClass = async (req, res) => {
+    const { id: id_docente, categoria } = req.user; // Docente autenticado
+    const { classId } = req.params; // El ID de la clase viene de la URL
+    const { studentEmails } = req.body; // Una array de emails de alumnos
+
+    // 1. Verificar si el usuario es un docente
+    if (categoria !== 'docente') {
+        return res.status(403).json({ message: 'Acceso denegado. Solo los docentes pueden añadir alumnos a clases.' });
+    }
+
+    // 2. Validar datos de entrada
+    if (!studentEmails || !Array.isArray(studentEmails) || studentEmails.length === 0) {
+        return res.status(400).json({ message: 'Se requiere una lista de emails de alumnos.' });
+    }
+
+    try {
+        // 3. Verificar que la clase exista y pertenezca al docente
+        const [classExists] = await pool.query('SELECT id FROM clases WHERE id = ? AND id_docente = ?', [classId, id_docente]);
+        if (classExists.length === 0) {
+            return res.status(404).json({ message: 'Clase no encontrada o no pertenece a este docente.' });
+        }
+
+        const class_id = classExists[0].id;
+        const insertedStudents = [];
+        const failedStudents = [];
+
+        // 4. Procesar cada email de alumno
+        for (const email of studentEmails) {
+            // Buscar el ID del alumno por su email y verificar que sea 'nino'
+            const [studentUser] = await pool.query('SELECT id, categoria FROM usuarios WHERE email = ?', [email]);
+
+            if (studentUser.length === 0 || studentUser[0].categoria !== 'nino') {
+                failedStudents.push({ email, reason: 'No existe o no es un alumno.' });
+                continue;
+            }
+
+            const student_id = studentUser[0].id;
+
+            try {
+                // Insertar en la tabla clases_alumnos
+                await pool.query('INSERT INTO clases_alumnos (id_clase, id_alumno) VALUES (?, ?)', [class_id, student_id]);
+                insertedStudents.push({ email, id: student_id });
+            } catch (insertErr) {
+                // Capturar el error de duplicado (UNIQUE constraint)
+                if (insertErr.code === 'ER_DUP_ENTRY') {
+                    failedStudents.push({ email, reason: 'Ya está inscrito en esta clase.' });
+                } else {
+                    failedStudents.push({ email, reason: `Error al inscribir: ${insertErr.message}` });
+                }
+            }
+        }
+
+        res.status(200).json({
+            message: 'Proceso de inscripción de alumnos completado.',
+            insertedCount: insertedStudents.length,
+            failedCount: failedStudents.length,
+            insertedStudents,
+            failedStudents
+        });
+
+    } catch (err) {
+        console.error('Error al añadir alumnos a la clase:', err);
+        res.status(500).json({ message: 'Error en el servidor al añadir alumnos.', error: err.message });
+    }
+};
+
+export const getTeacherClasses = async (req, res) => {
+    const { id: id_docente, categoria } = req.user; // Docente autenticado
+
+    // Verificar si el usuario es un docente
+    if (categoria !== 'docente') {
+        return res.status(403).json({ message: 'Acceso denegado. Solo los docentes pueden ver sus clases.' });
+    }
+
+    try {
+        const [classes] = await pool.query('SELECT id, nombre, descripcion, fecha_creacion FROM clases WHERE id_docente = ? ORDER BY fecha_creacion DESC', [id_docente]);
+        res.status(200).json(classes); // Devuelve un array de objetos de clase
+    } catch (err) {
+        console.error('Error al obtener las clases del docente:', err);
+        res.status(500).json({ message: 'Error al obtener las clases.', error: err.message });
     }
 };
