@@ -352,7 +352,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger">Sí, Salir</button>
+                    <button type="button" class="btn btn-danger" id="confirmLogoutBtn">Sí, Salir</button>
                 </div>
             </div>
         </div>
@@ -371,6 +371,16 @@
                 once: true, // Animaciones se reproducen solo una vez
                 mirror: false // No repetir animaciones al hacer scroll hacia arriba
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('confirmLogoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    localStorage.removeItem('token');
+                    window.location.href = '../../pages/index.html';
+                });
+            }
         });
     </script>
 </body>

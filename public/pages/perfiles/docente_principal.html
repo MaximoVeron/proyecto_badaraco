@@ -398,7 +398,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger">Sí, Salir</button>
+                    <button type="button" class="btn btn-danger" id="confirmLogoutBtn">Sí, Salir</button>
                 </div>
             </div>
         </div>
@@ -430,6 +430,14 @@
                     // Por ahora, solo muestra un mensaje de éxito
                     contactDocenteFormMessage.innerHTML = '<div class="alert alert-success" role="alert">¡Mensaje enviado con éxito! Te responderemos pronto.</div>';
                     contactDocenteForm.reset(); // Limpia el formulario
+                });
+            }
+
+            const logoutBtn = document.getElementById('confirmLogoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    localStorage.removeItem('token');
+                    window.location.href = '../../pages/index.html';
                 });
             }
         });
