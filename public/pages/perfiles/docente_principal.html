@@ -1,438 +1,1460 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EducAR - Panel Docente</title>
-    <link rel="icon" href="images/favicon.png" type="image/png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../assets/css/style.css"> <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-</head>
-<body>
-
+    <link rel="icon" href="images/favicon.png" type="image/png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+  <body>
     <header class="bg-primary text-white py-3 shadow-lg">
-        <nav class="navbar navbar-expand-lg navbar-dark container">
-            <a class="navbar-brand d-flex align-items-center" href="home_docentes.html"> <img src="../../assets/images/logo_titulo.png" loading="lazy" alt="EducAR Logo" class="me-2 logo-navbar">
-                <span class="fw-bold fs-4 text-uppercase">EducAR Docentes</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link active no-hover" aria-current="page" href="#bienvenida">Inicio Docente</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#mis-clases">Mis Clases</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#alumnos">Alumnos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#recursos">Recursos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#informes">Informes</a>
-                    </li>
-                    <li class="nav-item ms-lg-3">
-                        <button class="btn btn-danger rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                            <i class="bi bi-box-arrow-right me-1"></i> Salir
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+      <nav class="navbar navbar-expand-lg navbar-dark container">
+        <a
+          class="navbar-brand d-flex align-items-center"
+          href="home_docentes.html"
+        >
+          <img
+            src="../../assets/images/logo_titulo.png"
+            loading="lazy"
+            alt="EducAR Logo"
+            class="me-2 logo-navbar"
+          />
+          <span class="fw-bold fs-4 text-uppercase">EducAR Docentes</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a
+                class="nav-link active no-hover"
+                aria-current="page"
+                href="#bienvenida"
+                >Inicio Docente</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#mis-clases">Mis Clases</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#alumnos">Alumnos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#recursos">Recursos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#informes">Informes</a>
+            </li>
+            <li class="nav-item ms-lg-3">
+              <button
+                class="btn btn-danger rounded-pill px-4"
+                data-bs-toggle="modal"
+                data-bs-target="#logoutModal"
+              >
+                <i class="bi bi-box-arrow-right me-1"></i> Salir
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <main>
-        <section id="bienvenida" class="hero-section hero-bienvenida-docente text-center text-white d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-duration="1500" aria-label="Bienvenida y presentación del docente">
-            <div class="container">
-                <h1 class="display-3 fw-bold mb-4" data-aos="zoom-in" data-aos-delay="500">¡Bienvenido, Profesor/a <span class="text-warning">[Nombre del Docente]</span>!</h1>
-                <p class="lead mb-5" data-aos="fade-up" data-aos-delay="800">
-                    Tu panel de control para potenciar el aprendizaje en tus clases.
+      <section
+        id="bienvenida"
+        class="hero-section hero-bienvenida-docente text-center text-white d-flex align-items-center justify-content-center"
+        data-aos="fade-up"
+        data-aos-duration="1500"
+        aria-label="Bienvenida y presentación del docente"
+      >
+        <div class="container">
+          <h1
+            class="display-3 fw-bold mb-4"
+            data-aos="zoom-in"
+            data-aos-delay="500"
+          >
+            ¡Bienvenido, Profesor/a
+            <span class="text-warning">[Nombre del Docente]</span>!
+          </h1>
+          <div class="container-fluid py-5 text-center">
+            <div class="row justify-content-center">
+              <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+                <h1 id="bienvenida">
+                  ¡Bienvenido/a, <span class="text-warning">Ana Ríos</span>! 👋
+                </h1>
+                <p class="lead mb-4">
+                  Desde aquí podrás gestionar tus clases, alumnos y recursos.
                 </p>
-                <a href="#mis-clases" class="btn btn-warning btn-lg rounded-pill px-5 py-3 shadow-lg" data-aos="fade-up" data-aos-delay="1000">
-                    <i class="bi bi-person-video me-2"></i> Gestionar Mis Clases
-                </a>
+              </div>
             </div>
-        </section>
+          </div>
+          <p class="lead mb-5" data-aos="fade-up" data-aos-delay="800">
+            Tu panel de control para potenciar el aprendizaje en tus clases.
+          </p>
+          <a
+            href="#mis-clases"
+            class="btn btn-warning btn-lg rounded-pill px-5 py-3 shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="1000"
+          >
+            <i class="bi bi-person-video me-2"></i> Gestionar Mis Clases
+          </a>
+        </div>
+      </section>
 
-        <section id="mis-clases" class="py-5 bg-light-gradient">
-            <div class="container">
-                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Mis <span class="text-secondary">Clases</span> Asignadas</h2>
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
-                            <div class="icon-circle bg-secondary text-white mx-auto mb-3">
-                                <i class="bi bi-person-badge fs-2"></i>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">1º Grado "A"</h5>
-                                <p class="card-text">25 alumnos activos. Última actividad: Lengua.</p>
-                                <a href="#" class="btn btn-outline-secondary mt-3 rounded-pill">Ver Clase</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
-                            <div class="icon-circle bg-success text-white mx-auto mb-3">
-                                <i class="bi bi-person-badge-fill fs-2"></i>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">2º Grado "B"</h5>
-                                <p class="card-text">22 alumnos activos. Última actividad: Matemática.</p>
-                                <a href="#" class="btn btn-outline-success mt-3 rounded-pill">Ver Clase</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
-                        <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
-                            <div class="icon-circle bg-info text-white mx-auto mb-3">
-                                <i class="bi bi-plus-circle fs-2"></i>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">Crear Nueva Clase</h5>
-                                <p class="card-text">Añade un nuevo grupo de alumnos a tu cuenta.</p>
-                                <a href="#" class="btn btn-outline-primary mt-3 rounded-pill">Crear Clase</a>
-                            </div>
-                        </div>
-                    </div>
+      <section id="mis-clases" class="py-5 bg-light-gradient">
+        <div class="container">
+          <h2
+            class="text-center mb-5 display-4 fw-bold text-primary"
+            data-aos="fade-down"
+          >
+            Mis <span class="text-secondary">Clases</span> Asignadas
+          </h2>
+          <div class="row g-4">
+            <div
+              class="col-md-6 col-lg-4"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div
+                class="card h-100 shadow-sm border-0 text-center p-4 feature-card"
+              >
+                <div class="icon-circle bg-secondary text-white mx-auto mb-3">
+                  <i class="bi bi-person-badge fs-2"></i>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title fw-bold text-primary">1º Grado "A"</h5>
+                  <p class="card-text">
+                    25 alumnos activos. Última actividad: Lengua.
+                  </p>
+                  <a
+                    href="#"
+                    class="btn btn-outline-secondary mt-3 rounded-pill"
+                    >Ver Clase</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="col-md-6 col-lg-4"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div
+                class="card h-100 shadow-sm border-0 text-center p-4 feature-card"
+              >
+                <div class="icon-circle bg-success text-white mx-auto mb-3">
+                  <i class="bi bi-person-badge-fill fs-2"></i>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title fw-bold text-primary">2º Grado "B"</h5>
+                  <p class="card-text">
+                    22 alumnos activos. Última actividad: Matemática.
+                  </p>
+                  <a href="#" class="btn btn-outline-success mt-3 rounded-pill"
+                    >Ver Clase</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="col-md-6 col-lg-4"
+              data-aos="fade-up"
+              data-aos-delay="500"
+            >
+              <div
+                class="card h-100 shadow-sm border-0 text-center p-4 feature-card"
+              >
+                <div class="icon-circle bg-info text-white mx-auto mb-3">
+                  <i class="bi bi-plus-circle fs-2"></i>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title fw-bold text-primary">
+                    Crear Nueva Clase
+                  </h5>
+                  <p class="card-text">
+                    Añade un nuevo grupo de alumnos a tu cuenta.
+                  </p>
+                  <a href="#" class="btn btn-outline-primary mt-3 rounded-pill"
+                    >Crear Clase</a>
+                  <section>
                 </div>
             </div>
-        </section>
+        </div>
+        <div class="row justify-content-center">             
+                  <div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10" data-aos="fade-up" data-aos-delay="200">
+            <h2 class="text-center text-primary mb-4">Gestionar Mis Clases</h2>
 
-        <section id="alumnos" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Seguimiento de <span class="text-warning">Alumnos</span></h2>
-                <div class="row justify-content-center">
-                    <div class="col-lg-10" data-aos="fade-up">
-                        <div class="card shadow-lg border-0 p-4">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold text-secondary mb-4">Actividad Reciente de Alumnos</h5>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <i class="bi bi-mortarboard-fill me-2 text-primary"></i> <span class="fw-bold">Juan Pérez</span> (1ºA)
-                                            <br><small>Completó: "Suma de dos dígitos" y obtuvo 8/10.</small>
-                                        </div>
-                                        <span class="badge bg-success">Actividad Nueva</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <i class="bi bi-mortarboard-fill me-2 text-primary"></i> <span class="fw-bold">María Gómez</span> (2ºB)
-                                            <br><small>Inició: "Los ecosistemas y sus habitantes".</small>
-                                        </div>
-                                        <span class="badge bg-info">En Progreso</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <i class="bi bi-mortarboard-fill me-2 text-primary"></i> <span class="fw-bold">Lucas Torres</span> (1ºA)
-                                            <br><small>Revisó: "Vocabulario de animales".</small>
-                                        </div>
-                                        <span class="badge bg-secondary">Revisión</span>
-                                    </li>
-                                </ul>
-                                <div class="text-center mt-4">
-                                    <a href="#" class="btn btn-outline-primary rounded-pill">Ver todos los alumnos y su progreso</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="recursos" class="py-5 bg-light-gradient">
-            <div class="container">
-                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Biblioteca de <span class="text-secondary">Recursos</span> Educativos</h2>
-                <div class="row g-4">
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="card h-100 shadow-sm border-0 p-4 profile-card">
-                            <img src="../../assets/images/img_docentes/categoria_lengua_logo.jpg" loading="lazy" class="card-img-top mx-auto mb-3 profile-img-ninos" alt="Recursos Lengua">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">Lengua y Comunicación</h5>
-                                <p class="card-text">Materiales didácticos, guías de lectura y juegos de palabras.</p>
-                                <a href="#" class="btn btn-sm btn-outline-primary mt-2 rounded-pill">Explorar</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="card h-100 shadow-sm border-0 p-4 profile-card">
-                            <img src="../../assets/images/img_docentes/categoria_matematicas_logo.jpg" loading="lazy" class="card-img-top mx-auto mb-3 profile-img-docentes" alt="Recursos Matemática">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">Matemática y Lógica</h5>
-                                <p class="card-text">Ejercicios interactivos, problemas resueltos y retos matemáticos.</p>
-                                <a href="#" class="btn btn-sm btn-outline-success mt-2 rounded-pill">Explorar</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="500">
-                        <div class="card h-100 shadow-sm border-0 p-4 profile-card">
-                            <img src="../../assets/images/img_docentes/categoria_sociales_logo.jpg" loading="lazy" class="card-img-top mx-auto mb-3 profile-img-familias" alt="Recursos Ciencias">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">Ciencias y Sociedad</h5>
-                                <p class="card-text">Experimentos virtuales, atlas interactivos y temas de geografía e historia.</p>
-                                <a href="#" class="btn btn-sm btn-outline-info mt-2 rounded-pill">Explorar</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="informes" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Generación de <span class="text-warning">Informes</span></h2>
-                <div class="row justify-content-center">
-                    <div class="col-md-8" data-aos="fade-up">
-                        <div class="card shadow-lg border-0 p-4">
-                            <div class="card-body text-center">
-                                <h5 class="card-title fw-bold text-secondary mb-3">Obtén Datos Clave de Progreso</h5>
-                                <p class="card-text mb-4">Genera informes detallados sobre el desempeño individual o grupal de tus alumnos.</p>
-                                <button class="btn btn-primary btn-lg rounded-pill px-4 me-3"><i class="bi bi-file-earmark-bar-graph me-2"></i> Informe por Alumno</button>
-                                <button class="btn btn-success btn-lg rounded-pill px-4"><i class="bi bi-clipboard-data me-2"></i> Informe por Clase</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contacto-docente" class="py-5 bg-light">
-            <div class="container">
-                <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Enviar <span class="text-secondary">Aviso</span></h2>
-                <div class="row justify-content-center">
-                    <div class="col-md-8" data-aos="fade-up">
-                        <form id="contactDocenteForm" class="p-4 border rounded shadow-sm bg-white">
+            <ul class="nav nav-tabs mb-3" id="classTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="create-class-tab" data-bs-toggle="tab" data-bs-target="#create-class" type="button" role="tab" aria-controls="create-class" aria-selected="true">
+                        <i class="bi bi-plus-circle-fill me-2"></i> Crear Nueva Clase
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="add-students-tab" data-bs-toggle="tab" data-bs-target="#add-students" type="button" role="tab" aria-controls="add-students" aria-selected="false">
+                        <i class="bi bi-person-plus-fill me-2"></i> Añadir Alumnos
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="my-classes-tab" data-bs-toggle="tab" data-bs-target="#my-classes" type="button" role="tab" aria-controls="my-classes" aria-selected="false">
+                        <i class="bi bi-book-fill me-2"></i> Mis Clases Existentes
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content" id="classTabsContent">
+                <div class="tab-pane fade show active" id="create-class" role="tabpanel" aria-labelledby="create-class-tab">
+                    <div class="card shadow p-4 mb-4">
+                        <h4 class="card-title mb-3 text-center">Crear Nueva Clase</h4>
+                        <form id="createClassForm">
                             <div class="mb-3">
-                                <!-- corrigan este label, tiene formato mail, tiene que tener una seleccion multiple para los distintos tipos(NO SE OLVIDEN) -->
-                                <label for="docenteEmail" class="form-label"><i class="bi bi-envelope-fill me-2"></i>Para:</label>
-                                <input type="email" class="form-control" id="docenteEmail" required placeholder="Clase X">
+                                <label for="className" class="form-label">Nombre de la Clase:</label>
+                                <input type="text" class="form-control" id="className" placeholder="Ej. Matemáticas Grado 5" required>
                             </div>
                             <div class="mb-3">
-                                <label for="docenteSubject" class="form-label"><i class="bi bi-chat-left-text-fill me-2"></i>Asunto</label>
-                                <input type="text" class="form-control" id="docenteSubject" required placeholder="Motivo de tu consulta (ej. Soporte, Sugerencia)">
-                            </div>
-                            <div class="mb-3">
-                                <label for="docenteMessage" class="form-label"><i class="bi bi-chat-dots-fill me-2"></i>Tu Mensaje</label>
-                                <textarea class="form-control" id="docenteMessage" rows="5" required placeholder="Describe tu consulta o sugerencia..."></textarea>
+                                <label for="classDescription" class="form-label">Descripción (opcional):</label>
+                                <textarea class="form-control" id="classDescription" rows="3" placeholder="Una breve descripción de la clase"></textarea>
                             </div>
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg rounded-pill"><i class="bi bi-send-fill me-2"></i> Enviar</button>
+                                <button type="submit" class="btn btn-success rounded-pill"><i class="bi bi-plus-circle-fill me-2"></i> Crear Clase</button>
                             </div>
-                            <div id="contactDocenteFormMessage" class="mt-3 text-center"></div>
+                            <div id="createClassMessage" class="mt-3 text-center"></div>
                         </form>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section class="cta-section bg-secondary text-white py-5 text-center" data-aos="fade-up">
-            <div class="container">
-                <h2 class="display-5 fw-bold mb-4 text-dark">¿Necesitas <span class="text-primary">Ayuda</span> o tienes <span class="text-primary">Sugerencias</span>?</h2>
-                <p class="lead mb-5 text-dark">Estamos aquí para apoyarte en tu labor educativa.</p>
-                <a href="#contacto-docente" class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg cta-button">
-                    <i class="bi bi-chat-dots-fill me-2"></i> Contactar Soporte
-                </a>
+                <div class="tab-pane fade" id="add-students" role="tabpanel" aria-labelledby="add-students-tab">
+    <div class="card shadow p-4 mb-4">
+        <h4 class="card-title mb-3 text-center">Añadir Alumnos a una Clase</h4>
+        <form id="addStudentsToClassForm">
+            <div class="mb-3">
+                <label for="selectClassToAddStudents" class="form-label">Selecciona una Clase:</label>
+                <select class="form-select" id="selectClassToAddStudents" required>
+                    <option value="">Cargando clases...</option> </select>
             </div>
-        </section>
+            <div class="mb-3">
+                <label for="studentEmails" class="form-label">Emails de los Alumnos (uno por línea):</label>
+                <textarea class="form-control" id="studentEmails" rows="5" placeholder="alumno1@example.com&#10;alumno2@example.com" required></textarea>
+                <small class="form-text text-muted">Introduce un email por línea para añadir múltiples alumnos.</small>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary rounded-pill"><i class="bi bi-person-plus-fill me-2"></i> Añadir Alumnos</button>
+            </div>
+            <div id="addStudentsMessage" class="mt-3 text-center"></div>
+        </form>
+    </div>
+</div>
+
+                <div class="tab-pane fade" id="my-classes" role="tabpanel" aria-labelledby="my-classes-tab">
+                    <div class="card shadow p-4 mb-4">
+                        <h4 class="card-title mb-3 text-center">Mis Clases</h4>
+                        <p class="text-center text-muted">Cargando tus clases...</p>
+                        <ul id="myClassesList" class="list-group">
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         
+                  </div>
+            </div>
+        </div>
+                  </section>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="alumnos" class="py-5">
+        <div class="container">
+          <h2
+            class="text-center mb-5 display-4 fw-bold text-primary"
+            data-aos="fade-down"
+          >
+            Seguimiento de <span class="text-warning">Alumnos</span>
+          </h2>
+          <div class="row justify-content-center">
+            <div class="col-lg-10" data-aos="fade-up">
+              <div class="card shadow-lg border-0 p-4">
+                <div class="card-body">
+                  <h5 class="card-title fw-bold text-secondary mb-4">
+                    Actividad Reciente de Alumnos
+                  </h5>
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <div>
+                        <i class="bi bi-mortarboard-fill me-2 text-primary"></i>
+                        <span class="fw-bold">Juan Pérez</span> (1ºA)
+                        <br /><small
+                          >Completó: "Suma de dos dígitos" y obtuvo 8/10.</small
+                        >
+                      </div>
+                      <span class="badge bg-success">Actividad Nueva</span>
+                    </li>
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <div>
+                        <i class="bi bi-mortarboard-fill me-2 text-primary"></i>
+                        <span class="fw-bold">María Gómez</span> (2ºB)
+                        <br /><small
+                          >Inició: "Los ecosistemas y sus habitantes".</small
+                        >
+                      </div>
+                      <span class="badge bg-info">En Progreso</span>
+                    </li>
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <div>
+                        <i class="bi bi-mortarboard-fill me-2 text-primary"></i>
+                        <span class="fw-bold">Lucas Torres</span> (1ºA)
+                        <br /><small>Revisó: "Vocabulario de animales".</small>
+                      </div>
+                      <span class="badge bg-secondary">Revisión</span>
+                    </li>
+                  </ul>
+                  <div class="text-center mt-4">
+                    <a href="#" class="btn btn-outline-primary rounded-pill"
+                      >Ver todos los alumnos y su progreso</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="recursos" class="py-5 bg-light-gradient">
+        <div class="container">
+          <h2
+            class="text-center mb-5 display-4 fw-bold text-primary"
+            data-aos="fade-down"
+          >
+            Biblioteca de
+            <span class="text-secondary">Recursos</span> Educativos
+          </h2>
+          <div class="row g-4">
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+              <div class="card h-100 shadow-sm border-0 p-4 profile-card">
+                <img
+                  src="../../assets/images/img_docentes/categoria_lengua_logo.jpg"
+                  loading="lazy"
+                  class="card-img-top mx-auto mb-3 profile-img-ninos"
+                  alt="Recursos Lengua"
+                />
+                <div class="card-body">
+                  <h5 class="card-title fw-bold text-primary">
+                    Lengua y Comunicación
+                  </h5>
+                  <p class="card-text">
+                    Materiales didácticos, guías de lectura y juegos de
+                    palabras.
+                  </p>
+                  <a
+                    href="#"
+                    class="btn btn-sm btn-outline-primary mt-2 rounded-pill"
+                    >Explorar</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+              <div class="card h-100 shadow-sm border-0 p-4 profile-card">
+                <img
+                  src="../../assets/images/img_docentes/categoria_matematicas_logo.jpg"
+                  loading="lazy"
+                  class="card-img-top mx-auto mb-3 profile-img-docentes"
+                  alt="Recursos Matemática"
+                />
+                <div class="card-body">
+                  <h5 class="card-title fw-bold text-primary">
+                    Matemática y Lógica
+                  </h5>
+                  <p class="card-text">
+                    Ejercicios interactivos, problemas resueltos y retos
+                    matemáticos.
+                  </p>
+                  <a
+                    href="#"
+                    class="btn btn-sm btn-outline-success mt-2 rounded-pill"
+                    >Explorar</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="500">
+              <div class="card h-100 shadow-sm border-0 p-4 profile-card">
+                <img
+                  src="../../assets/images/img_docentes/categoria_sociales_logo.jpg"
+                  loading="lazy"
+                  class="card-img-top mx-auto mb-3 profile-img-familias"
+                  alt="Recursos Ciencias"
+                />
+                <div class="card-body">
+                  <h5 class="card-title fw-bold text-primary">
+                    Ciencias y Sociedad
+                  </h5>
+                  <p class="card-text">
+                    Experimentos virtuales, atlas interactivos y temas de
+                    geografía e historia.
+                  </p>
+                  <a
+                    href="#"
+                    class="btn btn-sm btn-outline-info mt-2 rounded-pill"
+                    >Explorar</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="informes" class="py-5">
+        <div class="container">
+          <h2
+            class="text-center mb-5 display-4 fw-bold text-primary"
+            data-aos="fade-down"
+          >
+            Generación de <span class="text-warning">Informes</span>
+          </h2>
+          <div class="row justify-content-center">
+            <div class="col-md-8" data-aos="fade-up">
+              <div class="card shadow-lg border-0 p-4">
+                <div class="card-body text-center">
+                  <h5 class="card-title fw-bold text-secondary mb-3">
+                    Obtén Datos Clave de Progreso
+                  </h5>
+                  <p class="card-text mb-4">
+                    Genera informes detallados sobre el desempeño individual o
+                    grupal de tus alumnos.
+                  </p>
+                  <button class="btn btn-primary btn-lg rounded-pill px-4 me-3">
+                    <i class="bi bi-file-earmark-bar-graph me-2"></i> Informe
+                    por Alumno
+                  </button>
+                  <button class="btn btn-success btn-lg rounded-pill px-4">
+                    <i class="bi bi-clipboard-data me-2"></i> Informe por Clase
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto-docente" class="py-5 bg-light">
+        <div class="container">
+          <h2
+            class="text-center mb-5 display-4 fw-bold text-primary"
+            data-aos="fade-down"
+          >
+            Enviar <span class="text-secondary">Aviso</span>
+          </h2>
+          <div class="row justify-content-center">
+            <div class="col-md-8" data-aos="fade-up">
+              <form
+                id="contactDocenteForm"
+                class="p-4 border rounded shadow-sm bg-white"
+              >
+                <div class="mb-3">
+                  <!-- corrigan este label, tiene formato mail, tiene que tener una seleccion multiple para los distintos tipos(NO SE OLVIDEN) -->
+                  <label for="docenteEmail" class="form-label"
+                    ><i class="bi bi-envelope-fill me-2"></i>Para:</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="docenteEmail"
+                    required
+                    placeholder="Clase X"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="docenteSubject" class="form-label"
+                    ><i class="bi bi-chat-left-text-fill me-2"></i>Asunto</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="docenteSubject"
+                    required
+                    placeholder="Motivo de tu consulta (ej. Soporte, Sugerencia)"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="docenteMessage" class="form-label"
+                    ><i class="bi bi-chat-dots-fill me-2"></i>Tu Mensaje</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="docenteMessage"
+                    rows="5"
+                    required
+                    placeholder="Describe tu consulta o sugerencia..."
+                  ></textarea>
+                </div>
+                <div class="d-grid">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-lg rounded-pill"
+                  >
+                    <i class="bi bi-send-fill me-2"></i> Enviar
+                  </button>
+                </div>
+                <div
+                  id="contactDocenteFormMessage"
+                  class="mt-3 text-center"
+                ></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="cta-section bg-secondary text-white py-5 text-center"
+        data-aos="fade-up"
+      >
+        <div class="container">
+          <h2 class="display-5 fw-bold mb-4 text-dark">
+            ¿Necesitas <span class="text-primary">Ayuda</span> o tienes
+            <span class="text-primary">Sugerencias</span>?
+          </h2>
+          <p class="lead mb-5 text-dark">
+            Estamos aquí para apoyarte en tu labor educativa.
+          </p>
+          <a
+            href="#contacto-docente"
+            class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg cta-button"
+          >
+            <i class="bi bi-chat-dots-fill me-2"></i> Contactar Soporte
+          </a>
+        </div>
+      </section>
     </main>
 
     <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p class="mb-0">
-                &copy; 2024 EducAR. Todos los derechos reservados. | 
-                <a href="#" class="text-warning text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalPrivacidad">Política de Privacidad</a> | 
-                <a href="#" class="text-warning text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalTerminos">Términos de Servicio</a>
-            </p>
-            <div class="mt-2">
-                <a href="#" aria-label="Facebook" class="text-white mx-2"><i class="bi bi-facebook fs-4"></i></a>
-                <a href="#" aria-label="Twitter" class="text-white mx-2"><i class="bi bi-twitter fs-4"></i></a>
-                <a href="#" aria-label="Instagram" class="text-white mx-2"><i class="bi bi-instagram fs-4"></i></a>
-                <a href="#" aria-label="LinkedIn" class="text-white mx-2"><i class="bi bi-linkedin fs-4"></i></a>
-            </div>
+      <div class="container text-center">
+        <p class="mb-0">
+          &copy; 2024 EducAR. Todos los derechos reservados. |
+          <a
+            href="#"
+            class="text-warning text-decoration-none"
+            data-bs-toggle="modal"
+            data-bs-target="#modalPrivacidad"
+            >Política de Privacidad</a
+          >
+          |
+          <a
+            href="#"
+            class="text-warning text-decoration-none"
+            data-bs-toggle="modal"
+            data-bs-target="#modalTerminos"
+            >Términos de Servicio</a
+          >
+        </p>
+        <div class="mt-2">
+          <a href="#" aria-label="Facebook" class="text-white mx-2"
+            ><i class="bi bi-facebook fs-4"></i
+          ></a>
+          <a href="#" aria-label="Twitter" class="text-white mx-2"
+            ><i class="bi bi-twitter fs-4"></i
+          ></a>
+          <a href="#" aria-label="Instagram" class="text-white mx-2"
+            ><i class="bi bi-instagram fs-4"></i
+          ></a>
+          <a href="#" aria-label="LinkedIn" class="text-white mx-2"
+            ><i class="bi bi-linkedin fs-4"></i
+          ></a>
         </div>
+      </div>
     </footer>
 
-    <div class="modal fade" id="modalPrivacidad" tabindex="-1" aria-labelledby="modalPrivacidadLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalPrivacidadLabel">Política de Privacidad</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>1. Compromiso con la privacidad</strong></p>
-                    <p>En EducAR, la privacidad y seguridad de nuestros usuarios es una prioridad, especialmente cuando se trata de niños de primer a tercer grado de primaria. Diseñamos esta política para explicar de forma clara y sencilla qué información recopilamos, cómo la usamos, y qué medidas tomamos para protegerla.</p>
+    <div
+      class="modal fade"
+      id="modalPrivacidad"
+      tabindex="-1"
+      aria-labelledby="modalPrivacidadLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalPrivacidadLabel">
+              Política de Privacidad
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>1. Compromiso con la privacidad</strong></p>
+            <p>
+              En EducAR, la privacidad y seguridad de nuestros usuarios es una
+              prioridad, especialmente cuando se trata de niños de primer a
+              tercer grado de primaria. Diseñamos esta política para explicar de
+              forma clara y sencilla qué información recopilamos, cómo la
+              usamos, y qué medidas tomamos para protegerla.
+            </p>
 
-                    <p><strong>2. ¿Qué información recopilamos?</strong></p>
-                    <p>EducAR no recopila datos personales sensibles de los niños sin el consentimiento de los padres, tutores o representantes legales. La información que se puede recopilar incluye:</p>
-                    <ul>
-                        <li>Nombre y correo electrónico del docente o tutor (al crear una cuenta para uso educativo).</li>
-                        <li>Nombre del estudiante (opcional y solo si el tutor lo autoriza).</li>
-                        <li>Progreso académico, resultados de actividades y tiempo de uso (para fines pedagógicos).</li>
-                        <li>Información técnica como tipo de dispositivo, navegador y sistema operativo (para mejorar la experiencia de usuario).</li>
-                    </ul>
+            <p><strong>2. ¿Qué información recopilamos?</strong></p>
+            <p>
+              EducAR no recopila datos personales sensibles de los niños sin el
+              consentimiento de los padres, tutores o representantes legales. La
+              información que se puede recopilar incluye:
+            </p>
+            <ul>
+              <li>
+                Nombre y correo electrónico del docente o tutor (al crear una
+                cuenta para uso educativo).
+              </li>
+              <li>
+                Nombre del estudiante (opcional y solo si el tutor lo autoriza).
+              </li>
+              <li>
+                Progreso académico, resultados de actividades y tiempo de uso
+                (para fines pedagógicos).
+              </li>
+              <li>
+                Información técnica como tipo de dispositivo, navegador y
+                sistema operativo (para mejorar la experiencia de usuario).
+              </li>
+            </ul>
 
-                    <p><strong>3. Uso de la información</strong></p>
-                    <p>La información recopilada se utiliza exclusivamente para los siguientes fines:</p>
-                    <ul>
-                        <li>Personalizar la experiencia de aprendizaje según el nivel y progreso del estudiante.</li>
-                        <li>Brindar acceso a contenidos educativos validados por docentes.</li>
-                        <li>Garantizar un entorno seguro, libre de publicidad y distracciones.</li>
-                        <li>Mejorar continuamente la plataforma a través de datos de uso agregados y anónimos.</li>
-                        <li><strong>EducAR no vende, alquila ni comparte datos personales con terceros con fines comerciales.</strong></li>
-                    </ul>
+            <p><strong>3. Uso de la información</strong></p>
+            <p>
+              La información recopilada se utiliza exclusivamente para los
+              siguientes fines:
+            </p>
+            <ul>
+              <li>
+                Personalizar la experiencia de aprendizaje según el nivel y
+                progreso del estudiante.
+              </li>
+              <li>
+                Brindar acceso a contenidos educativos validados por docentes.
+              </li>
+              <li>
+                Garantizar un entorno seguro, libre de publicidad y
+                distracciones.
+              </li>
+              <li>
+                Mejorar continuamente la plataforma a través de datos de uso
+                agregados y anónimos.
+              </li>
+              <li>
+                <strong
+                  >EducAR no vende, alquila ni comparte datos personales con
+                  terceros con fines comerciales.</strong
+                >
+              </li>
+            </ul>
 
-                    <p><strong>4. Seguridad de los datos</strong></p>
-                    <p>Implementamos medidas técnicas y organizativas apropiadas para proteger los datos:</p>
-                    <ul>
-                        <li>Cifrado de información durante la transmisión y el almacenamiento.</li>
-                        <li>Accesos restringidos únicamente a personal autorizado.</li>
-                        <li>Supervisión constante de la plataforma para prevenir accesos no autorizados o actividades maliciosas.</li>
-                    </ul>
+            <p><strong>4. Seguridad de los datos</strong></p>
+            <p>
+              Implementamos medidas técnicas y organizativas apropiadas para
+              proteger los datos:
+            </p>
+            <ul>
+              <li>
+                Cifrado de información durante la transmisión y el
+                almacenamiento.
+              </li>
+              <li>Accesos restringidos únicamente a personal autorizado.</li>
+              <li>
+                Supervisión constante de la plataforma para prevenir accesos no
+                autorizados o actividades maliciosas.
+              </li>
+            </ul>
 
-                    <p><strong>5. Participación y control de los adultos</strong></p>
-                    <p>Los padres, tutores y docentes tienen control sobre la información relacionada con los niños. Pueden:</p>
-                    <ul>
-                        <li>Solicitar la revisión o eliminación de los datos personales almacenados.</li>
-                        <li>Configurar el nivel de acceso y privacidad del estudiante.</li>
-                        <li>Comunicar cualquier preocupación de seguridad o privacidad a través de nuestros canales de contacto.</li>
-                    </ul>
+            <p><strong>5. Participación y control de los adultos</strong></p>
+            <p>
+              Los padres, tutores y docentes tienen control sobre la información
+              relacionada con los niños. Pueden:
+            </p>
+            <ul>
+              <li>
+                Solicitar la revisión o eliminación de los datos personales
+                almacenados.
+              </li>
+              <li>
+                Configurar el nivel de acceso y privacidad del estudiante.
+              </li>
+              <li>
+                Comunicar cualquier preocupación de seguridad o privacidad a
+                través de nuestros canales de contacto.
+              </li>
+            </ul>
 
-                    <p><strong>6. Cookies y tecnologías similares</strong></p>
-                    <p>EducAR utiliza cookies esenciales para el funcionamiento de la plataforma, como mantener la sesión iniciada o recordar preferencias. No utilizamos cookies con fines publicitarios ni de rastreo comercial.</p>
+            <p><strong>6. Cookies y tecnologías similares</strong></p>
+            <p>
+              EducAR utiliza cookies esenciales para el funcionamiento de la
+              plataforma, como mantener la sesión iniciada o recordar
+              preferencias. No utilizamos cookies con fines publicitarios ni de
+              rastreo comercial.
+            </p>
 
-                    <p><strong>7. Cambios en esta política</strong></p>
-                    <p>Podremos actualizar esta Política de Privacidad ocasionalmente para reflejar mejoras o cambios normativos. Notificaremos cualquier cambio importante a través de la plataforma o por correo electrónico a los usuarios registrados.</p>
+            <p><strong>7. Cambios en esta política</strong></p>
+            <p>
+              Podremos actualizar esta Política de Privacidad ocasionalmente
+              para reflejar mejoras o cambios normativos. Notificaremos
+              cualquier cambio importante a través de la plataforma o por correo
+              electrónico a los usuarios registrados.
+            </p>
 
-                    <p><strong>8. Contacto</strong></p>
-                    <p>Si tienes preguntas sobre esta política o deseas ejercer tus derechos de acceso, rectificación o eliminación de datos, por favor contáctanos en:</p>
+            <p><strong>8. Contacto</strong></p>
+            <p>
+              Si tienes preguntas sobre esta política o deseas ejercer tus
+              derechos de acceso, rectificación o eliminación de datos, por
+              favor contáctanos en:
+            </p>
 
-                    <ul>
-                        <li>📧 privacidad@educar.org</li>
-                        <li>📍 Formosa, Argentina</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
+            <ul>
+              <li>📧 privacidad@educar.org</li>
+              <li>📍 Formosa, Argentina</li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
-    <div class="modal fade" id="modalTerminos" tabindex="-1" aria-labelledby="modalTerminosLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTerminosLabel">Términos de Servicio</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>1. Aceptación de los Términos</strong></p>
-                    <p>Al acceder o utilizar EducAR, usted acepta estos Términos de Servicio. Si no está de acuerdo con alguno de ellos, por favor no utilice la plataforma. El uso de EducAR implica la aceptación plena de estas condiciones.</p>
+    <div
+      class="modal fade"
+      id="modalTerminos"
+      tabindex="-1"
+      aria-labelledby="modalTerminosLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTerminosLabel">
+              Términos de Servicio
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>1. Aceptación de los Términos</strong></p>
+            <p>
+              Al acceder o utilizar EducAR, usted acepta estos Términos de
+              Servicio. Si no está de acuerdo con alguno de ellos, por favor no
+              utilice la plataforma. El uso de EducAR implica la aceptación
+              plena de estas condiciones.
+            </p>
 
-                    <p><strong>2. Descripción del servicio</strong></p>
-                    <p>EducAR es una plataforma digital orientada a estudiantes de primer a tercer grado de primaria. Ofrece contenidos educativos diseñados por docentes, con enfoque en la seguridad, accesibilidad y alineación curricular. Nuestro objetivo es facilitar un aprendizaje significativo y protegido para niños y niñas en sus primeros años escolares.</p>
+            <p><strong>2. Descripción del servicio</strong></p>
+            <p>
+              EducAR es una plataforma digital orientada a estudiantes de primer
+              a tercer grado de primaria. Ofrece contenidos educativos diseñados
+              por docentes, con enfoque en la seguridad, accesibilidad y
+              alineación curricular. Nuestro objetivo es facilitar un
+              aprendizaje significativo y protegido para niños y niñas en sus
+              primeros años escolares.
+            </p>
 
-                    <p><strong>3. Público destinatario</strong></p>
-                    <p>EducAR está destinado a:</p>
-                    <ul>
-                        <li>Niños y niñas de 6 a 9 años que cursan del 1º al 3º grado de primaria.</li>
-                        <li>Docentes del nivel primario.</li>
-                        <li>Padres, madres y tutores que acompañan el aprendizaje desde el hogar.</li>
-                    </ul>
-                    <p>Los menores deben utilizar la plataforma bajo la supervisión de un adulto responsable.</p>
+            <p><strong>3. Público destinatario</strong></p>
+            <p>EducAR está destinado a:</p>
+            <ul>
+              <li>
+                Niños y niñas de 6 a 9 años que cursan del 1º al 3º grado de
+                primaria.
+              </li>
+              <li>Docentes del nivel primario.</li>
+              <li>
+                Padres, madres y tutores que acompañan el aprendizaje desde el
+                hogar.
+              </li>
+            </ul>
+            <p>
+              Los menores deben utilizar la plataforma bajo la supervisión de un
+              adulto responsable.
+            </p>
 
-                    <p><strong>4. Registro de usuarios</strong></p>
-                    <p>Para utilizar ciertas funciones, es posible que se requiera la creación de una cuenta. El registro podrá incluir información básica como nombre del tutor o docente, dirección de correo electrónico y, opcionalmente, nombre del estudiante. Este registro tiene como fin organizar el uso educativo y personalizar los contenidos.</p>
+            <p><strong>4. Registro de usuarios</strong></p>
+            <p>
+              Para utilizar ciertas funciones, es posible que se requiera la
+              creación de una cuenta. El registro podrá incluir información
+              básica como nombre del tutor o docente, dirección de correo
+              electrónico y, opcionalmente, nombre del estudiante. Este registro
+              tiene como fin organizar el uso educativo y personalizar los
+              contenidos.
+            </p>
 
-                    <p><strong>5. Obligaciones del usuario</strong></p>
-                    <p>Los usuarios se comprometen a:</p>
-                    <ul>
-                        <li>Utilizar la plataforma con fines exclusivamente educativos.</li>
-                        <li>Proporcionar información veraz durante el registro.</li>
-                        <li>No dañar, alterar o interferir with el funcionamiento del sistema.</li>
-                        <li>No intentar acceder sin autorización a secciones restringidas o a los datos de otros usuarios.</li>
-                    </ul>
+            <p><strong>5. Obligaciones del usuario</strong></p>
+            <p>Los usuarios se comprometen a:</p>
+            <ul>
+              <li>
+                Utilizar la plataforma con fines exclusivamente educativos.
+              </li>
+              <li>Proporcionar información veraz durante el registro.</li>
+              <li>
+                No dañar, alterar o interferir with el funcionamiento del
+                sistema.
+              </li>
+              <li>
+                No intentar acceder sin autorización a secciones restringidas o
+                a los datos de otros usuarios.
+              </li>
+            </ul>
 
-                    <p><strong>6. Contenidos y derechos de autor</strong></p>
-                    <p>Todos los contenidos ofrecidos en EducAR, incluyendo textos, gráficos, sonidos y recursos interactivos, son propiedad de la plataforma o de sus respectivos autores. Está prohibida su reproducción, distribución o modificación sin autorización previa.</p>
+            <p><strong>6. Contenidos y derechos de autor</strong></p>
+            <p>
+              Todos los contenidos ofrecidos en EducAR, incluyendo textos,
+              gráficos, sonidos y recursos interactivos, son propiedad de la
+              plataforma o de sus respectivos autores. Está prohibida su
+              reproducción, distribución o modificación sin autorización previa.
+            </p>
 
-                    <p><strong>7. Entorno seguro y libre de publicidad</strong></p>
-                    <p>EducAR no contiene anuncios publicitarios, ni enlaces a sitios externos no verificados. El diseño de la plataforma prioriza la seguridad digital de los menores y evita distracciones que puedan interferir con el aprendizaje.</p>
+            <p><strong>7. Entorno seguro y libre de publicidad</strong></p>
+            <p>
+              EducAR no contiene anuncios publicitarios, ni enlaces a sitios
+              externos no verificados. El diseño de la plataforma prioriza la
+              seguridad digital de los menores y evita distracciones que puedan
+              interferir con el aprendizaje.
+            </p>
 
-                    <p><strong>8. Limitación de responsabilidad</strong></p>
-                    <p>EducAR no garantiza la disponibilidad ininterrumpida del servicio, pero se compromete a mantenerlo actualizado y en funcionamiento. La plataforma no reemplaza la función pedagógica del docente, sino que la complementa.</p>
+            <p><strong>8. Limitación de responsabilidad</strong></p>
+            <p>
+              EducAR no garantiza la disponibilidad ininterrumpida del servicio,
+              pero se compromete a mantenerlo actualizado y en funcionamiento.
+              La plataforma no reemplaza la función pedagógica del docente, sino
+              que la complementa.
+            </p>
 
-                    <p><strong>9. Modificaciones de los términos</strong></p>
-                    <p>Podremos actualizar estos Términos de Servicio en cualquier momento. Los cambios se notificarán a través de la plataforma o por correo electrónico. El uso continuado del servicio implica la aceptación de los términos actualizados.</p>
+            <p><strong>9. Modificaciones de los términos</strong></p>
+            <p>
+              Podremos actualizar estos Términos de Servicio en cualquier
+              momento. Los cambios se notificarán a través de la plataforma o
+              por correo electrónico. El uso continuado del servicio implica la
+              aceptación de los términos actualizados.
+            </p>
 
-                    <p><strong>10. Contacto</strong></p>
-                    <p>Si tienes dudas o sugerencias sobre estos Términos, puedes contactarnos en:</p>
-                    <ul>
-                        <li>📧 soporte@educar.org</li>
-                        <li>📍 Formosa, Argentina</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
+            <p><strong>10. Contacto</strong></p>
+            <p>
+              Si tienes dudas o sugerencias sobre estos Términos, puedes
+              contactarnos en:
+            </p>
+            <ul>
+              <li>📧 soporte@educar.org</li>
+              <li>📍 Formosa, Argentina</li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
-    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="logoutModalLabel">Cerrar Sesión</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que quieres cerrar tu sesión?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger">Sí, Salir</button>
-                </div>
-            </div>
+    <div
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      aria-labelledby="logoutModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title" id="logoutModalLabel">Cerrar Sesión</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            ¿Estás seguro de que quieres cerrar tu sesión?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger">Sí, Salir</button>
+          </div>
         </div>
+      </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="../../assets/js/script.js"></script> <script>
-        // Inicializar AOS
-        document.addEventListener('DOMContentLoaded', function() {
-            // Placeholder para obtener el nombre del docente (podría venir de una sesión o una API)
-            const teacherName = "Ana Ríos"; // Reemplazar con lógica real para obtener el nombre
-            document.querySelector('#bienvenida h1 .text-warning').textContent = teacherName;
+    <script src="../../assets/js/script.js"></script>
+    <script>
+      // Inicializar AOS
+      document.addEventListener("DOMContentLoaded", function () {
+        // Placeholder para obtener el nombre del docente (podría venir de una sesión o una API)
+        const teacherName = "Ana Ríos"; // Reemplazar con lógica real para obtener el nombre
+        document.querySelector("#bienvenida h1 .text-warning").textContent =
+          teacherName;
 
-            AOS.init({
-                once: true, // Animaciones se reproducen solo una vez
-                mirror: false // No repetir animaciones al hacer scroll hacia arriba
-            });
+        AOS.init({
+          once: true, // Animaciones se reproducen solo una vez
+          mirror: false, // No repetir animaciones al hacer scroll hacia arriba
+        });
 
-            // Lógica básica para el formulario de contacto del docente
-            const contactDocenteForm = document.getElementById('contactDocenteForm');
-            const contactDocenteFormMessage = document.getElementById('contactDocenteFormMessage');
+        // Lógica básica para el formulario de contacto del docente
+        const contactDocenteForm =
+          document.getElementById("contactDocenteForm");
+        const contactDocenteFormMessage = document.getElementById(
+          "contactDocenteFormMessage"
+        );
 
-            if (contactDocenteForm) {
-                contactDocenteForm.addEventListener('submit', function(event) {
+        if (contactDocenteForm) {
+          contactDocenteForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // Previene el envío por defecto del formulario
+
+            // Aquí iría la lógica para enviar el formulario (ej. Fetch API a un backend)
+            // Por ahora, solo muestra un mensaje de éxito
+            contactDocenteFormMessage.innerHTML =
+              '<div class="alert alert-success" role="alert">¡Mensaje enviado con éxito! Te responderemos pronto.</div>';
+            contactDocenteForm.reset(); // Limpia el formulario
+          });
+        }
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // ... (código existente para AOS y la bienvenida del docente) ...
+
+        const updateProfileForm = document.getElementById("updateProfileForm");
+        const newUserNameInput = document.getElementById("newUserName");
+        const updateProfileMessage = document.getElementById(
+          "updateProfileMessage"
+        );
+        const teacherNameSpan = document.querySelector(
+          "#bienvenida h1 .text-warning"
+        ); // Para actualizar el nombre mostrado
+
+        if (updateProfileForm) {
+          updateProfileForm.addEventListener("submit", async function (event) {
+            event.preventDefault(); // Previene el envío por defecto del formulario
+
+            const newName = newUserNameInput.value.trim();
+            if (!newName) {
+              updateProfileMessage.innerHTML =
+                '<div class="alert alert-warning" role="alert">Por favor, introduce un nombre.</div>';
+              return;
+            }
+
+            // Recuperar el token JWT (asumo que lo guardas en localStorage o sessionStorage después del login)
+            const token = localStorage.getItem("token"); // O sessionStorage.getItem('token');
+
+            if (!token) {
+              updateProfileMessage.innerHTML =
+                '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
+              return;
+            }
+
+            try {
+              const response = await fetch("/api/auth/profile", {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ nombre: newName }),
+              });
+
+              const data = await response.json();
+
+              if (response.ok) {
+                updateProfileMessage.innerHTML = `<div class="alert alert-success" role="alert">${data.message}</div>`;
+
+                if (teacherNameSpan) {
+                  teacherNameSpan.textContent = newName;
+                }
+                newUserNameInput.value = ""; // Limpiar el campo
+              } else {
+                updateProfileMessage.innerHTML = `<div class="alert alert-danger" role="alert">${
+                  data.message || "Error al actualizar el perfil."
+                }</div>`;
+              }
+            } catch (error) {
+              console.error("Error al enviar la solicitud:", error);
+              updateProfileMessage.innerHTML =
+                '<div class="alert alert-danger" role="alert">Error de conexión al servidor.</div>';
+            }
+            // Lógica para el formulario de Creación de Clases
+            const createClassForm = document.getElementById('createClassForm');
+            const classNameInput = document.getElementById('className');
+            const classDescriptionInput = document.getElementById('classDescription');
+            const createClassMessage = document.getElementById('createClassMessage');
+
+            if (createClassForm) {
+                createClassForm.addEventListener('submit', async function(event) {
                     event.preventDefault(); // Previene el envío por defecto del formulario
 
-                    // Aquí iría la lógica para enviar el formulario (ej. Fetch API a un backend)
-                    // Por ahora, solo muestra un mensaje de éxito
-                    contactDocenteFormMessage.innerHTML = '<div class="alert alert-success" role="alert">¡Mensaje enviado con éxito! Te responderemos pronto.</div>';
-                    contactDocenteForm.reset(); // Limpia el formulario
+                    const nombre = classNameInput.value.trim();
+                    const descripcion = classDescriptionInput.value.trim();
+
+                    if (!nombre) {
+                        createClassMessage.innerHTML = '<div class="alert alert-warning" role="alert">El nombre de la clase es requerido.</div>';
+                        return;
+                    }
+
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        createClassMessage.innerHTML = '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch('/api/classes/create', { // La URL de tu nueva API de clases
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ nombre, descripcion })
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            createClassMessage.innerHTML = `<div class="alert alert-success" role="alert">${data.message}</div>`;
+                            createClassForm.reset(); // Limpia el formulario
+                            // Opcional: Aquí podrías recargar la lista de clases si tuvieras una
+                        } else {
+                            createClassMessage.innerHTML = `<div class="alert alert-danger" role="alert">${data.message || 'Error al crear la clase.'}</div>`;
+                        }
+                    } catch (error) {
+                        console.error('Error al enviar la solicitud de creación de clase:', error);
+                        createClassMessage.innerHTML = '<div class="alert alert-danger" role="alert">Error de conexión al servidor al intentar crear la clase.</div>';
+                    }
+                });
+            }
+            // ... (código existente hasta el final de la lógica de createClassForm) ...
+
+            // Referencias para el formulario de Añadir Alumnos
+            const addStudentsToClassForm = document.getElementById('addStudentsToClassForm');
+            const selectClassToAddStudents = document.getElementById('selectClassToAddStudents');
+            const studentEmailsTextarea = document.getElementById('studentEmails');
+            const addStudentsMessage = document.getElementById('addStudentsMessage');
+
+            // Referencias para la pestaña "Mis Clases Existentes"
+            const myClassesList = document.getElementById('myClassesList');
+            const myClassesTabButton = document.getElementById('my-classes-tab'); // Botón de la pestaña "Mis Clases"
+
+            // Función para cargar las clases del docente y popular el selector para AÑADIR ALUMNOS
+            async function loadTeacherClassesForSelection() {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    selectClassToAddStudents.innerHTML = '<option value="">Error: No autenticado</option>';
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/classes/my-classes', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    const classes = await response.json();
+
+                    if (response.ok) {
+                        selectClassToAddStudents.innerHTML = '<option value="">Selecciona una clase...</option>'; // Opción por defecto
+                        if (classes.length > 0) {
+                            classes.forEach(clase => {
+                                const option = document.createElement('option');
+                                option.value = clase.id;
+                                option.textContent = clase.nombre;
+                                selectClassToAddStudents.appendChild(option);
+                            });
+                        } else {
+                            selectClassToAddStudents.innerHTML = '<option value="">No tienes clases creadas.</option>';
+                        }
+                    } else {
+                        selectClassToAddStudents.innerHTML = `<option value="">Error al cargar clases: ${classes.message || 'Desconocido'}</option>`;
+                        console.error('Error al cargar clases para selección:', classes);
+                    }
+                } catch (error) {
+                    console.error('Error de conexión al cargar clases para selección:', error);
+                    selectClassToAddStudents.innerHTML = '<option value="">Error de conexión.</option>';
+                }
+            }
+
+            // Función para cargar y mostrar las clases en la pestaña "Mis Clases Existentes"
+            async function displayTeacherClasses() {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    myClassesList.innerHTML = '<li class="list-group-item text-danger">Error: No autenticado.</li>';
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/classes/my-classes', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    const classes = await response.json();
+
+                    if (response.ok) {
+                        myClassesList.innerHTML = ''; // Limpiar la lista existente
+                        if (classes.length > 0) {
+                            classes.forEach(clase => {
+                                const listItem = document.createElement('li');
+                                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                                // Formatea la fecha de creación para que sea más legible
+                                const fechaCreacion = new Date(clase.fecha_creacion).toLocaleDateString('es-ES', {
+                                    year: 'numeric', month: 'long', day: 'numeric'
+                                });
+                                listItem.innerHTML = `
+                                    <div>
+                                        <h5>${clase.nombre}</h5>
+                                        <p class="mb-0 text-muted">${clase.descripcion || 'Sin descripción'}</p>
+                                        <small class="text-muted">ID de Clase: ${clase.id} | Creada: ${fechaCreacion}</small>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-info me-2" title="Ver Alumnos"><i class="bi bi-people-fill"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger" title="Eliminar Clase"><i class="bi bi-trash-fill"></i></button>
+                                    </div>
+                                `;
+                                myClassesList.appendChild(listItem);
+                            });
+                        } else {
+                            myClassesList.innerHTML = '<li class="list-group-item text-muted text-center">No tienes clases creadas aún.</li>';
+                        }
+                    } else {
+                        myClassesList.innerHTML = `<li class="list-group-item text-danger">Error al cargar clases: ${classes.message || 'Desconocido'}</li>`;
+                        console.error('Error al cargar clases para display:', classes);
+                    }
+                } catch (error) {
+                    console.error('Error de conexión al cargar clases para display:', error);
+                    myClassesList.innerHTML = '<li class="list-group-item text-danger">Error de conexión.</li>';
+                }
+            }
+
+            // Event Listener para cargar clases cuando la pestaña "Añadir Alumnos" se activa
+            const addStudentsTabButton = document.getElementById('add-students-tab');
+            if (addStudentsTabButton) {
+                addStudentsTabButton.addEventListener('shown.bs.tab', loadTeacherClassesForSelection);
+            }
+
+            // Event Listener para cargar clases cuando la pestaña "Mis Clases Existentes" se activa
+            if (myClassesTabButton) {
+                myClassesTabButton.addEventListener('shown.bs.tab', displayTeacherClasses);
+            }
+
+            // Lógica para el formulario de Añadir Alumnos a Clase
+            if (addStudentsToClassForm) {
+                addStudentsToClassForm.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+
+                    const classId = selectClassToAddStudents.value;
+                    const studentEmailsRaw = studentEmailsTextarea.value.trim();
+
+                    if (!classId) {
+                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, selecciona una clase.</div>';
+                        return;
+                    }
+                    if (!studentEmailsRaw) {
+                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, introduce al menos un email de alumno.</div>';
+                        return;
+                    }
+
+                    // Convertir la cadena de emails a un array, filtrando líneas vacías
+                    const studentEmails = studentEmailsRaw.split('\n').map(email => email.trim()).filter(email => email !== '');
+
+                    if (studentEmails.length === 0) {
+                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, introduce emails válidos.</div>';
+                        return;
+                    }
+
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        addStudentsMessage.innerHTML = '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch(`/api/classes/${classId}/students`, { // Usamos el classId en la URL
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ studentEmails })
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            let successMsg = `<div class="alert alert-success" role="alert">${data.message}</div>`;
+                            if (data.failedCount > 0) {
+                                successMsg += `<div class="alert alert-warning mt-2" role="alert">Fallaron ${data.failedCount} alumnos:<ul>`;
+                                data.failedStudents.forEach(student => {
+                                    successMsg += `<li>${student.email}: ${student.reason}</li>`;
+                                });
+                                successMsg += `</ul></div>`;
+                            }
+                            addStudentsMessage.innerHTML = successMsg;
+                            studentEmailsTextarea.value = ''; // Limpiar el campo de emails
+                            // Opcional: Recargar la lista de alumnos en la clase si tuvieras esa vista
+                        } else {
+                            addStudentsMessage.innerHTML = `<div class="alert alert-danger" role="alert">${data.message || 'Error al añadir alumnos.'}</div>`;
+                        }
+                    } catch (error) {
+                        console.error('Error al enviar la solicitud para añadir alumnos:', error);
+                        addStudentsMessage.innerHTML = '<div class="alert alert-danger" role="alert">Error de conexión al servidor al intentar añadir alumnos.</div>';
+                    }
                 });
             }
         });
+        }
+      });
+      // ... (código existente hasta el final de la lógica de createClassForm) ...
+
+            // Referencias para el formulario de Añadir Alumnos
+            const addStudentsToClassForm = document.getElementById('addStudentsToClassForm');
+            const selectClassToAddStudents = document.getElementById('selectClassToAddStudents');
+            const studentEmailsTextarea = document.getElementById('studentEmails');
+            const addStudentsMessage = document.getElementById('addStudentsMessage');
+
+            // Referencias para la pestaña "Mis Clases Existentes"
+            const myClassesList = document.getElementById('myClassesList');
+            const myClassesTabButton = document.getElementById('my-classes-tab'); // Botón de la pestaña "Mis Clases"
+
+            // Función para cargar las clases del docente y popular el selector para AÑADIR ALUMNOS
+            async function loadTeacherClassesForSelection() {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    selectClassToAddStudents.innerHTML = '<option value="">Error: No autenticado</option>';
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/classes/my-classes', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    const classes = await response.json();
+
+                    if (response.ok) {
+                        selectClassToAddStudents.innerHTML = '<option value="">Selecciona una clase...</option>'; // Opción por defecto
+                        if (classes.length > 0) {
+                            classes.forEach(clase => {
+                                const option = document.createElement('option');
+                                option.value = clase.id;
+                                option.textContent = clase.nombre;
+                                selectClassToAddStudents.appendChild(option);
+                            });
+                        } else {
+                            selectClassToAddStudents.innerHTML = '<option value="">No tienes clases creadas.</option>';
+                        }
+                    } else {
+                        selectClassToAddStudents.innerHTML = `<option value="">Error al cargar clases: ${classes.message || 'Desconocido'}</option>`;
+                        console.error('Error al cargar clases para selección:', classes);
+                    }
+                } catch (error) {
+                    console.error('Error de conexión al cargar clases para selección:', error);
+                    selectClassToAddStudents.innerHTML = '<option value="">Error de conexión.</option>';
+                }
+            }
+
+            // Función para cargar y mostrar las clases en la pestaña "Mis Clases Existentes"
+            async function displayTeacherClasses() {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    myClassesList.innerHTML = '<li class="list-group-item text-danger">Error: No autenticado.</li>';
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/classes/my-classes', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    const classes = await response.json();
+
+                    if (response.ok) {
+                        myClassesList.innerHTML = ''; // Limpiar la lista existente
+                        if (classes.length > 0) {
+                            classes.forEach(clase => {
+                                const listItem = document.createElement('li');
+                                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                                // Formatea la fecha de creación para que sea más legible
+                                const fechaCreacion = new Date(clase.fecha_creacion).toLocaleDateString('es-ES', {
+                                    year: 'numeric', month: 'long', day: 'numeric'
+                                });
+                                listItem.innerHTML = `
+                                    <div>
+                                        <h5>${clase.nombre}</h5>
+                                        <p class="mb-0 text-muted">${clase.descripcion || 'Sin descripción'}</p>
+                                        <small class="text-muted">ID de Clase: ${clase.id} | Creada: ${fechaCreacion}</small>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-info me-2" title="Ver Alumnos"><i class="bi bi-people-fill"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger" title="Eliminar Clase"><i class="bi bi-trash-fill"></i></button>
+                                    </div>
+                                `;
+                                myClassesList.appendChild(listItem);
+                            });
+                        } else {
+                            myClassesList.innerHTML = '<li class="list-group-item text-muted text-center">No tienes clases creadas aún.</li>';
+                        }
+                    } else {
+                        myClassesList.innerHTML = `<li class="list-group-item text-danger">Error al cargar clases: ${classes.message || 'Desconocido'}</li>`;
+                        console.error('Error al cargar clases para display:', classes);
+                    }
+                } catch (error) {
+                    console.error('Error de conexión al cargar clases para display:', error);
+                    myClassesList.innerHTML = '<li class="list-group-item text-danger">Error de conexión.</li>';
+                }
+            }
+
+            // Event Listener para cargar clases cuando la pestaña "Añadir Alumnos" se activa
+            const addStudentsTabButton = document.getElementById('add-students-tab');
+            if (addStudentsTabButton) {
+                addStudentsTabButton.addEventListener('shown.bs.tab', loadTeacherClassesForSelection);
+            }
+
+            // Event Listener para cargar clases cuando la pestaña "Mis Clases Existentes" se activa
+            if (myClassesTabButton) {
+                myClassesTabButton.addEventListener('shown.bs.tab', displayTeacherClasses);
+            }
+
+            // Lógica para el formulario de Añadir Alumnos a Clase
+            if (addStudentsToClassForm) {
+                addStudentsToClassForm.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+
+                    const classId = selectClassToAddStudents.value;
+                    const studentEmailsRaw = studentEmailsTextarea.value.trim();
+
+                    if (!classId) {
+                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, selecciona una clase.</div>';
+                        return;
+                    }
+                    if (!studentEmailsRaw) {
+                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, introduce al menos un email de alumno.</div>';
+                        return;
+                    }
+
+                    // Convertir la cadena de emails a un array, filtrando líneas vacías
+                    const studentEmails = studentEmailsRaw.split('\n').map(email => email.trim()).filter(email => email !== '');
+
+                    if (studentEmails.length === 0) {
+                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, introduce emails válidos.</div>';
+                        return;
+                    }
+
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        addStudentsMessage.innerHTML = '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch(`/api/classes/${classId}/students`, { // Usamos el classId en la URL
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ studentEmails })
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            let successMsg = `<div class="alert alert-success" role="alert">${data.message}</div>`;
+                            if (data.failedCount > 0) {
+                                successMsg += `<div class="alert alert-warning mt-2" role="alert">Fallaron ${data.failedCount} alumnos:<ul>`;
+                                data.failedStudents.forEach(student => {
+                                    successMsg += `<li>${student.email}: ${student.reason}</li>`;
+                                });
+                                successMsg += `</ul></div>`;
+                            }
+                            addStudentsMessage.innerHTML = successMsg;
+                            studentEmailsTextarea.value = ''; // Limpiar el campo de emails
+                            // Opcional: Recargar la lista de alumnos en la clase si tuvieras esa vista
+                        } else {
+                            addStudentsMessage.innerHTML = `<div class="alert alert-danger" role="alert">${data.message || 'Error al añadir alumnos.'}</div>`;
+                        }
+                    } catch (error) {
+                        console.error('Error al enviar la solicitud para añadir alumnos:', error);
+                        addStudentsMessage.innerHTML = '<div class="alert alert-danger" role="alert">Error de conexión al servidor al intentar añadir alumnos.</div>';
+                    }
+                });
+            }
+
+            // ... (resto del script existente, como contactDocenteForm y el cierre de DOMContentLoaded) ...
     </script>
-</body>
+  </body>
 </html>
