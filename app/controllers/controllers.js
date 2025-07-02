@@ -46,3 +46,21 @@ export const loginUser = async (req, res) => {
         res.status(500).json({ message: 'Error en el servidor.', error: err.message });
     }
 };
+
+// ... (código existente de registerUser y loginUser)
+
+export const updateProfile = async (req, res) => {
+    const { id } = req.user; // El ID del usuario se obtiene del token JWT (middleware de autenticación)
+    const { nombre } = req.body; // El nuevo nombre viene del cuerpo de la solicitud
+
+    if (!nombre) {
+        return res.status(400).json({ message: 'El nombre es requerido para la actualización.' });
+    }
+
+    try {
+        await pool.query('UPDATE usuarios SET nombre = ? WHERE id = ?', [nombre, id]);
+        res.json({ message: 'Perfil actualizado correctamente.' });
+    } catch (err) {
+        res.status(500).json({ message: 'Error al actualizar el perfil.', error: err.message });
+    }
+};
