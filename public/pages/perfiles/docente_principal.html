@@ -1271,6 +1271,14 @@
                     }
                 });
             }
+
+            const logoutBtn = document.getElementById('confirmLogoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    localStorage.removeItem('token');
+                    window.location.href = '../../pages/index.html';
+                });
+            }
         });
         }
       });

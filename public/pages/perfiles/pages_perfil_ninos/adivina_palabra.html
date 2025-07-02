@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina la Palabra Secreta</title>
+    <link rel="icon" href="../../assets/images/logo_titulo.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/style_games.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Comic Neue', cursive;
+        }
+        .game-container {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 40px auto 0 auto;
+            padding: 2.5rem 2rem 2rem 2rem;
+        }
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            color: #6A1B9A;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+        }
+        .attempts {
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 1rem;
+        }
+        .input-section {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+            justify-content: center;
+        }
+        .word-input {
+            font-size: 1.2rem;
+            padding: 0.7rem 1.2rem;
+            border: 2px solid #6A1B9A;
+            border-radius: 50px;
+            text-align: center;
+            width: 160px;
+            transition: border-color 0.3s;
+        }
+        .word-input:focus {
+            border-color: #28A745;
+            outline: none;
+        }
+        .submit-btn {
+            background: #28A745;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1.1rem;
+            font-family: 'Oswald', sans-serif;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .submit-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        .new-game-btn {
+            background: #FFC107;
+            color: #6A1B9A;
+            border: none;
+            border-radius: 50px;
+            padding: 0.6rem 1.3rem;
+            font-size: 1rem;
+            font-family: 'Oswald', sans-serif;
+            margin-top: 1.2rem;
+            margin-bottom: 1.2rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .new-game-btn:hover {
+            background: #FFD700;
+            color: #4B176A;
+            transform: translateY(-2px);
+        }
+        .legend {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 1rem 1.2rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .legend h3 {
+            font-size: 1.1rem;
+            color: #6A1B9A;
+            font-family: 'Oswald', sans-serif;
+            margin-bottom: 0.7rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 0.3rem;
+        }
+        .legend-box {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 2px solid #ddd;
+        }
+        .legend-box.green { background: #28A745; }
+        .legend-box.orange { background: #FFC107; }
+        .legend-box.gray { background: #adb5bd; }
+        .game-board {
+            margin-bottom: 1.2rem;
+        }
+        .word-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.3rem;
+            margin-bottom: 0.2rem;
+        }
+        .letter-box {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: #f1f1f1;
+            color: #333;
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #e0e0e0;
+            transition: background 0.3s, color 0.3s;
+        }
+        .letter-box.correct { background: #28A745; color: #fff; border-color: #28A745; }
+        .letter-box.present { background: #FFC107; color: #6A1B9A; border-color: #FFC107; }
+        .letter-box.absent { background: #adb5bd; color: #fff; border-color: #adb5bd; }
+        .message {
+            margin: 0.7rem 0 0.5rem 0;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .message.success { color: #28A745; }
+        .message.error { color: #dc3545; }
+        .message.info { color: #6A1B9A; }
+        .hint {
+            text-align: center;
+            color: #17A2B8;
+            font-size: 1.1rem;
+            margin-bottom: 0.7rem;
+        }
+        @media (max-width: 600px) {
+            .game-container { padding: 1.2rem 0.5rem; }
+            .letter-box { width: 30px; height: 30px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-primary text-white py-3 shadow-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+            <a class="navbar-brand d-flex align-items-center" href="../../index.html">
+                <img src="../../assets/images/logo_titulo.png" loading="lazy" alt="EducAR Logo" class="me-2 logo-navbar" style="height:40px; width:40px; border-radius:50%;">
+                <span class="fw-bold fs-4 text-uppercase">EducAR</span>
+            </a>
+        </nav>
+    </header>
+    <div class="game-container">
+        <h1>🎯 Adivina la Palabra Secreta</h1>
+        <p class="subtitle">¡Descubre la palabra de 5 letras en 5 intentos!</p>
+        <div class="attempts">Intentos restantes: <span id="attemptsLeft">5</span></div>
+        <div class="game-board" id="gameBoard"></div>
+        <div class="input-section">
+            <input type="text" id="wordInput" class="word-input" maxlength="5" placeholder="Escribe una palabra">
+            <button onclick="submitGuess()" class="submit-btn" id="submitBtn">¡Adivinar!</button>
+        </div>
+        <div id="message"></div>
+        <div class="hint" id="hint"></div>
+        <button onclick="newGame()" class="new-game-btn">🎮 Nueva Palabra</button>
+        <div class="legend">
+            <h3>🌈 ¿Qué significan los colores?</h3>
+            <div class="legend-item">
+                <div class="legend-box green"></div>
+                <span>Verde: ¡Letra correcta en el lugar correcto! 🎉</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box orange"></div>
+                <span>Naranja: La letra está en la palabra, pero en otro lugar 🤔</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box gray"></div>
+                <span>Gris: Esta letra no está en la palabra 😕</span>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Palabras apropiadas para niños de 1ro a 3er grado
+        const WORDS = [
+            'GATOS', 'PERRO', 'FLORES', 'JUGAR', 'DULCE',
+            'LIBRO', 'AGUA', 'CASA', 'AMOR', 'FELIZ',
+            'MADRE', 'PADRE', 'VERDE', 'AZUL', 'ROJO',
+            'MANOS', 'OJOS', 'NARIZ', 'BOCA', 'PELO',
+            'MESA', 'SILLA', 'PUERTA', 'CAMA', 'NUBE',
+            'SOL', 'LUNA', 'ESTRELLA', 'MUNDO', 'TIERRA',
+            'PLAYA', 'ARENA', 'MAR', 'PECES', 'AVES',
+            'BAILE', 'MÚSICA', 'CANTO', 'RISA', 'SONRISA'
+        ];
+
+        const HINTS = {
+            'GATOS': '🐱 Animales que dicen "miau"',
+            'PERRO': '🐶 El mejor amigo del hombre',
+            'FLORES': '🌸 Son bonitas y huelen bien',
+            'JUGAR': '🎮 Lo que más te gusta hacer',
+            'DULCE': '🍭 Como el azúcar y los caramelos',
+            'LIBRO': '📚 Donde encuentras historias',
+            'AGUA': '💧 La bebes cuando tienes sed',
+            'CASA': '🏠 Donde vives con tu familia',
+            'AMOR': '❤️ Lo que sientes por tu familia',
+            'FELIZ': '😊 Como te sientes cuando juegas',
+            'MADRE': '👩 Tu mamá',
+            'PADRE': '👨 Tu papá',
+            'VERDE': '🟢 Color de las plantas',
+            'AZUL': '🔵 Color del cielo',
+            'ROJO': '🔴 Color de las manzanas',
+            'MANOS': '✋ Las usas para tocar',
+            'OJOS': '👀 Con ellos puedes ver',
+            'NARIZ': '👃 Con ella puedes oler',
+            'BOCA': '👄 La usas para hablar',
+            'PELO': '💇 Lo que tienes en la cabeza',
+            'MESA': '🪑 Donde comes',
+            'SILLA': '💺 Donde te sientas',
+            'PUERTA': '🚪 Se abre y se cierra',
+            'CAMA': '🛏️ Donde duermes',
+            'NUBE': '☁️ Flotan en el cielo',
+            'SOL': '☀️ Nos da luz y calor',
+            'LUNA': '🌙 La ves de noche',
+            'ESTRELLA': '⭐ Brillan en el cielo nocturno',
+            'MUNDO': '🌍 El planeta donde vivimos',
+            'TIERRA': '🌎 Nuestro hogar planetario',
+            'PLAYA': '🏖️ Donde está la arena y el mar',
+            'ARENA': '🏖️ Es suave y está en la playa',
+            'MAR': '🌊 Mucha agua salada',
+            'PECES': '🐠 Nadan en el agua',
+            'AVES': '🐦 Pueden volar',
+            'BAILE': '💃 Mover el cuerpo con música',
+            'MÚSICA': '🎵 Sonidos bonitos',
+            'CANTO': '🎤 Hacer música con la voz',
+            'RISA': '😂 Sonido cuando algo es gracioso',
+            'SONRISA': '😊 Expresión de felicidad'
+        };
+
+        let currentWord = '';
+        let currentRow = 0;
+        let gameOver = false;
+        let attempts = 5;
+
+        function initGame() {
+            currentWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+            currentRow = 0;
+            gameOver = false;
+            attempts = 5;
+            
+            document.getElementById('attemptsLeft').textContent = attempts;
+            document.getElementById('hint').textContent = HINTS[currentWord] || '';
+            document.getElementById('message').innerHTML = '';
+            
+            createGameBoard();
+            
+            // Enfoque en el input
+            document.getElementById('wordInput').focus();
+        }
+
+        function createGameBoard() {
+            const board = document.getElementById('gameBoard');
+            board.innerHTML = '';
+            
+            for (let i = 0; i < 5; i++) {
+                const row = document.createElement('div');
+                row.className = 'word-row';
+                
+                for (let j = 0; j < 5; j++) {
+                    const box = document.createElement('div');
+                    box.className = 'letter-box';
+                    box.id = `box-${i}-${j}`;
+                    row.appendChild(box);
+                }
+                
+                board.appendChild(row);
+            }
+        }
+
+        function submitGuess() {
+            if (gameOver) return;
+            
+            const input = document.getElementById('wordInput');
+            const guess = input.value.toUpperCase().trim();
+            
+            if (guess.length !== 5) {
+                showMessage('¡Escribe una palabra de 5 letras!', 'error');
+                return;
+            }
+            
+            if (!/^[A-ZÁÉÍÓÚÑ]+$/.test(guess)) {
+                showMessage('¡Solo usa letras!', 'error');
+                return;
+            }
+            
+            processGuess(guess);
+            input.value = '';
+            input.focus();
+        }
+
+        function processGuess(guess) {
+            const currentWordArray = currentWord.split('');
+            const guessArray = guess.split('');
+            const result = new Array(5).fill('absent');
+            const wordLetterCount = {};
+            
+            // Contar letras en la palabra objetivo
+            currentWordArray.forEach(letter => {
+                wordLetterCount[letter] = (wordLetterCount[letter] || 0) + 1;
+            });
+            
+            // Primero marcar las correctas
+            for (let i = 0; i < 5; i++) {
+                if (guessArray[i] === currentWordArray[i]) {
+                    result[i] = 'correct';
+                    wordLetterCount[guessArray[i]]--;
+                }
+            }
+            
+            // Luego marcar las presentes
+            for (let i = 0; i < 5; i++) {
+                if (result[i] === 'absent' && wordLetterCount[guessArray[i]] > 0) {
+                    result[i] = 'present';
+                    wordLetterCount[guessArray[i]]--;
+                }
+            }
+            
+            // Actualizar la interfaz
+            for (let i = 0; i < 5; i++) {
+                const box = document.getElementById(`box-${currentRow}-${i}`);
+                box.textContent = guessArray[i];
+                box.className = `letter-box ${result[i]}`;
+            }
+            
+            // Verificar si ganó
+            if (guess === currentWord) {
+                gameOver = true;
+                showMessage('¡🎉 ¡Fantástico! ¡Adivinaste la palabra! 🎉', 'success');
+                document.getElementById('submitBtn').disabled = true;
+                return;
+            }
+            
+            currentRow++;
+            attempts--;
+            document.getElementById('attemptsLeft').textContent = attempts;
+            
+            // Verificar si perdió
+            if (currentRow >= 5) {
+                gameOver = true;
+                showMessage(`¡Se acabaron los intentos! 😅 La palabra era: ${currentWord}`, 'info');
+                document.getElementById('submitBtn').disabled = true;
+            }
+        }
+
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+        }
+
+        function newGame() {
+            document.getElementById('submitBtn').disabled = false;
+            initGame();
+        }
+
+        // Event listeners
+        document.getElementById('wordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                submitGuess();
+            }
+        });
+
+        document.getElementById('wordInput').addEventListener('input', function(e) {
+            e.target.value = e.target.value.toUpperCase();
+        });
+
+        // Inicializar el juego
+        initGame();
+    </script>
+</body>
+</html>
