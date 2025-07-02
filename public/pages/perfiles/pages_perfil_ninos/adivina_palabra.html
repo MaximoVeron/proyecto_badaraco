@@ -5,35 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adivina la Palabra Secreta</title>
     <link rel="icon" href="../../assets/images/logo_titulo.png" type="image/png">
+    <!-- Solo una versión de Bootstrap y fuentes -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/style_games.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            font-family: 'Comic Neue', cursive;
+            font-family: 'Comic Neue', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .game-container {
             background: #fff;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
             max-width: 500px;
+            width: 95vw;
             margin: 40px auto 0 auto;
             padding: 2.5rem 2rem 2rem 2rem;
+            text-align: center;
         }
         h1 {
             font-family: 'Oswald', sans-serif;
-            color: #6A1B9A;
+            color: #4a5568;
             font-size: 2.2rem;
             margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.07);
         }
         .subtitle {
-            color: #333;
+            color: #764ba2;
             font-size: 1.1rem;
             margin-bottom: 1.2rem;
         }
@@ -51,57 +57,65 @@
         .word-input {
             font-size: 1.2rem;
             padding: 0.7rem 1.2rem;
-            border: 2px solid #6A1B9A;
+            border: 2px solid #764ba2;
             border-radius: 50px;
             text-align: center;
             width: 160px;
             transition: border-color 0.3s;
+            font-family: inherit;
         }
         .word-input:focus {
             border-color: #28A745;
             outline: none;
         }
         .submit-btn {
-            background: #28A745;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
             border: none;
             border-radius: 50px;
             padding: 0.7rem 1.5rem;
             font-size: 1.1rem;
             font-family: 'Oswald', sans-serif;
+            font-weight: bold;
             transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 2px 8px rgba(118,75,162,0.08);
         }
         .submit-btn:hover {
-            background: #218838;
+            background: #5a3fa2;
             transform: translateY(-2px);
         }
+        .submit-btn:disabled {
+            background: #a0aec0;
+            color: #fff;
+            cursor: not-allowed;
+        }
         .new-game-btn {
-            background: #FFC107;
-            color: #6A1B9A;
+            background: #48bb78;
+            color: white;
             border: none;
-            border-radius: 50px;
-            padding: 0.6rem 1.3rem;
-            font-size: 1rem;
+            border-radius: 25px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1.1em;
             font-family: 'Oswald', sans-serif;
-            margin-top: 1.2rem;
-            margin-bottom: 1.2rem;
+            font-weight: bold;
+            margin: 10px 0 0 0;
             transition: background 0.3s, transform 0.2s;
         }
         .new-game-btn:hover {
-            background: #FFD700;
-            color: #4B176A;
-            transform: translateY(-2px);
+            background: #38a169;
+            color: #fff;
+            transform: scale(1.05);
         }
         .legend {
-            background: #f8f9fa;
+            background: #f7fafc;
             border-radius: 15px;
-            padding: 1rem 1.2rem;
+            padding: 1.2rem 1.2rem 0.7rem 1.2rem;
             margin-top: 1.5rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
         .legend h3 {
             font-size: 1.1rem;
-            color: #6A1B9A;
+            color: #764ba2;
             font-family: 'Oswald', sans-serif;
             margin-bottom: 0.7rem;
         }
@@ -164,6 +178,8 @@
         @media (max-width: 600px) {
             .game-container { padding: 1.2rem 0.5rem; }
             .letter-box { width: 30px; height: 30px; font-size: 1rem; }
+            .word-input { width: 110px; font-size: 1rem; }
+            .submit-btn, .new-game-btn { font-size: 0.95rem; padding: 0.5rem 1rem; }
         }
     </style>
 </head>
@@ -366,23 +382,7 @@
             
             currentRow++;
             attempts--;
-            document.getElementById('attemptsLeft').textContent = attempts;
-            
-            // Verificar si perdió
-            if (currentRow >= 5) {
-                gameOver = true;
-                showMessage(`¡Se acabaron los intentos! 😅 La palabra era: ${currentWord}`, 'info');
-                document.getElementById('submitBtn').disabled = true;
-            }
-        }
-
-        function showMessage(text, type) {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = text;
-            messageDiv.className = `message ${type}`;
-        }
-
-        function newGame() {
+            document.getElementById('attemptsLeft').
             document.getElementById('submitBtn').disabled = false;
             initGame();
         }

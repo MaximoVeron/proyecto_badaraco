@@ -39,6 +39,7 @@ export const loginUser = async (req, res) => {
         res.json({
             message: 'Login exitoso.',
             token,
+            categoria: user.categoria, // <-- Agregado para el frontend
             user: { id: user.id, nombre: user.nombre, email: user.email, categoria: user.categoria }
         });
     } catch (err) {

@@ -54,9 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         localStorage.setItem('token', data.token);
                         loginFormMessage.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-circle-fill me-2"></i>¡Inicio de sesión exitoso! Redirigiendo...<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                         setTimeout(() => {
-                            if (data.categoria === 'docente') window.location.href = '/public/pages/perfiles/docente_principal.html';
-                            if (data.categoria === 'nino') window.location.href = '/public/pages/perfiles/ninos_principal.html';
-                            if (data.categoria === 'padre') window.location.href = '/public/pages/perfiles/padres_principal.html';
+                            if (data.categoria === 'docente') window.location.href = '/pages/perfiles/docente_principal.html';
+                            if (data.categoria === 'nino') window.location.href = '/pages/perfiles/ninos_principal.html';
+                            if (data.categoria === 'padre') window.location.href = '/pages/perfiles/padres_principal.html';
                         }, 1200);
                     } else {
                         loginFormMessage.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>${data.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;

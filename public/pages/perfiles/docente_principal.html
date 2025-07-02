@@ -98,21 +98,9 @@
             data-aos="zoom-in"
             data-aos-delay="500"
           >
-            ¡Bienvenido, Profesor/a
-            <span class="text-warning">[Nombre del Docente]</span>!
+            ¡Bienvenido,
+            <span class="text-warning" id="nombre-docente">[Nombre del Docente]</span>!
           </h1>
-          <div class="container-fluid py-5 text-center">
-            <div class="row justify-content-center">
-              <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
-                <h1 id="bienvenida">
-                  ¡Bienvenido/a, <span class="text-warning">Ana Ríos</span>! 👋
-                </h1>
-                <p class="lead mb-4">
-                  Desde aquí podrás gestionar tus clases, alumnos y recursos.
-                </p>
-              </div>
-            </div>
-          </div>
           <p class="lead mb-5" data-aos="fade-up" data-aos-delay="800">
             Tu panel de control para potenciar el aprendizaje en tus clases.
           </p>
@@ -387,7 +375,9 @@
                     palabras.
                   </p>
                   <a
-                    href="#"
+                    href="https://buenosaires.gob.ar/educacion/material-para-estudiantes-y-docentes-nivel-primario"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="btn btn-sm btn-outline-primary mt-2 rounded-pill"
                     >Explorar</a
                   >
@@ -411,7 +401,9 @@
                     matemáticos.
                   </p>
                   <a
-                    href="#"
+                    href="https://www.educ.ar/buscador?subjects=24&modalities=9&audiences=2&tag_resources=135"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="btn btn-sm btn-outline-success mt-2 rounded-pill"
                     >Explorar</a
                   >
@@ -435,7 +427,9 @@
                     geografía e historia.
                   </p>
                   <a
-                    href="#"
+                    href="https://continuemosestudiando.abc.gob.ar/tag/materiales/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="btn btn-sm btn-outline-info mt-2 rounded-pill"
                     >Explorar</a
                   >
@@ -949,12 +943,12 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../../assets/js/script.js"></script>
     <script>
-      // Inicializar AOS
+      // Inicializar AOS y bienvenida docente
       document.addEventListener("DOMContentLoaded", function () {
-        // Placeholder para obtener el nombre del docente (podría venir de una sesión o una API)
-        const teacherName = "Ana Ríos"; // Reemplazar con lógica real para obtener el nombre
-        document.querySelector("#bienvenida h1 .text-warning").textContent =
-          teacherName;
+        // Obtener el nombre del docente (de sesión o API, aquí ejemplo local)
+        const teacherName = "Profesor/a"; // Reemplazar con lógica real para obtener el nombre
+        const nameSpan = document.getElementById("nombre-docente");
+        if (nameSpan) nameSpan.textContent = teacherName;
 
         AOS.init({
           once: true, // Animaciones se reproducen solo una vez

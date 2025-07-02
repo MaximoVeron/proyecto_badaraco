@@ -43,7 +43,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
             // Redirige según el rol/categoria
             if (res.categoria === "estudiante") {
-                window.location.href = "/public/pages/perfiles/ninos_principal.html";
+                window.location.href = "/pages/perfiles/ninos_principal.html";
             } else if (res.categoria === "docente") {
                 window.location.href = "/public/pages/perfiles/docente_principal.html";
             } else if (res.categoria === "padre") {
