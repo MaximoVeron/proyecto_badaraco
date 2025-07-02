@@ -222,12 +222,12 @@
     <!-- Modal para juegos -->
     <div class="modal fade" id="juegoModal" tabindex="-1" aria-labelledby="juegoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content" style="background: transparent; border: none; box-shadow: none;">
-                <div class="position-absolute top-0 end-0 p-3" style="z-index: 10;">
+            <div class="modal-content modal-content-transparent">
+                <div class="position-absolute top-0 end-0 p-3 modal-close-z">
                     <button type="button" class="btn-close btn-close-white bg-dark rounded-circle fs-2" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-0" style="height: 80vh;">
-                    <iframe id="iframeJuego" src="" style="width:100%;height:100%;border-radius:20px;border:none;box-shadow:0 8px 40px rgba(0,0,0,0.4);background:white;"></iframe>
+                <div class="modal-body p-0 modal-body-juego-modal">
+                    <iframe id="iframeJuego" src="" class="iframe-juego-modal"></iframe>
                 </div>
             </div>
         </div>
