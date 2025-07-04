@@ -24,26 +24,38 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
 document.getElementById("loginForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append("email", document.getElementById("loginEmail").value);
-    data.append("contraseña", document.getElementById("loginPassword").value);
+    const data = {
+        email: document.getElementById("loginEmail").value,
+        password: document.getElementById("loginPassword").value
+    };
 
-    fetch("login.php", {
+    fetch("/api/auth/login", {
         method: "POST",
-        body: data
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
     })
-    .then(res => res.text())
-    .then(rol => {
-        if (rol === "estudiante") {
-            window.location.href = "panel_estudiante.php";
-        } else if (rol === "docente") {
-            window.location.href = "panel_docente.php";
-        } else if (rol === "padre") {
-            window.location.href = "panel_padre.php";
-        } else if (rol === "institucion") {
-            window.location.href = "panel_institucion.php";
+    .then(res => res.json())
+    .then(res => {
+        if (res.token && res.categoria) {
+            // Guarda el token y el nombre en localStorage
+            localStorage.setItem("token", res.token);
+            localStorage.setItem("nombreUsuario", res.nombre);
+
+            // Redirige según el rol/categoria
+            if (res.categoria === "estudiante") {
+                window.location.href = "/pages/perfiles/ninos_principal.html";
+            } else if (res.categoria === "docente") {
+                window.location.href = "/public/pages/perfiles/docente_principal.html";
+            } else if (res.categoria === "padre") {
+                window.location.href = "/public/pages/perfiles/padres_principal.html";
+            } else {
+                window.location.href = "/";
+            }
         } else {
             document.getElementById("loginFormMessage").innerText = "Credenciales inválidas.";
         }
+    })
+    .catch(() => {
+        document.getElementById("loginFormMessage").innerText = "Error en el servidor.";
     });
 });

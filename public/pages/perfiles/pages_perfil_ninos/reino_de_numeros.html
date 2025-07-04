@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Reino de los Números</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3)); }
+            to { filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6)); }
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 5px;
+            min-width: 120px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #ffd93d;
+        }
+
+        .timer {
+            color: #ff6b6b;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .problem-container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .problem {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #ffd93d;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .answer-input {
+            font-size: 2em;
+            padding: 15px;
+            border: 3px solid #ff6b6b;
+            border-radius: 10px;
+            text-align: center;
+            width: 150px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #ffd93d;
+            box-shadow: 0 0 15px rgba(255, 217, 61, 0.5);
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-size: 1.2em;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
+        }
+
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(78, 205, 196, 0.6);
+        }
+
+        .btn-submit {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .feedback {
+            font-size: 1.5em;
+            margin: 20px 0;
+            font-weight: bold;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .correct {
+            color: #4ecdc4;
+            animation: bounce 0.6s ease;
+        }
+
+        .incorrect {
+            color: #ff6b6b;
+            animation: shake 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            80% { transform: translateY(-5px); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .final-score {
+            font-size: 3em;
+            color: #ffd93d;
+            margin: 20px 0;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .crown {
+            font-size: 4em;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .difficulty-selector {
+            margin-bottom: 30px;
+        }
+
+        .difficulty-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .difficulty-btn.active {
+            background: #ffd93d;
+            color: #333;
+            border-color: #ffd93d;
+            transform: scale(1.1);
+        }
+
+        .sparkle {
+            position: absolute;
+            color: #ffd93d;
+            font-size: 1.5em;
+            animation: sparkle 1.5s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 1; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+            100% { opacity: 0; transform: scale(0) rotate(360deg); }
+        }
+
+        /* Estilos para el header y navbar */
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-navbar {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .nav-link {
+            color: white;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #ffd93d;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="game-container">
+        <h1 class="title">👑 El Reino de los Números 👑</h1>
+        <p class="subtitle">¡Conviértete en el Rey o Reina de las Matemáticas!</p>
+        
+        <div id="menu" class="menu">
+            <div class="difficulty-selector">
+                <h3>Elige tu nivel:</h3>
+                <button class="difficulty-btn active" onclick="selectDifficulty(1)">🌟 Principiante (1-10)</button>
+                <button class="difficulty-btn" onclick="selectDifficulty(2)">⭐ Intermedio (1-20)</button>
+                <button class="difficulty-btn" onclick="selectDifficulty(3)">🏆 Avanzado (1-50)</button>
+            </div>
+            <button class="btn btn-start" onclick="startGame()">🚀 ¡Comenzar Aventura!</button>
+        </div>
+
+        <div id="game" class="hidden">
+            <div class="stats-container">
+                <div class="stat">
+                    <div class="stat-label">⏰ Tiempo</div>
+                    <div class="stat-value timer" id="timer">40</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">✅ Correctas</div>
+                    <div class="stat-value" id="correct">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">⚡ Racha</div>
+                    <div class="stat-value" id="streak">0</div>
+                </div>
+            </div>
+
+            <div class="problem-container">
+                <div class="problem" id="problem">5 + 3 = ?</div>
+                <input type="number" class="answer-input" id="answer" placeholder="?" maxlength="3">
+            </div>
+
+            <div class="feedback" id="feedback"></div>
+
+            <div class="buttons-container">
+                <button class="btn btn-submit" onclick="checkAnswer()">✨ Responder</button>
+            </div>
+        </div>
+
+        <div id="results" class="hidden">
+            <div class="crown">👑</div>
+            <h2>¡Juego Terminado!</h2>
+            <div class="final-score" id="finalScore">0</div>
+            <p id="resultMessage">¡Buen trabajo!</p>
+            <button class="btn btn-start" onclick="resetGame()">🔄 Jugar de Nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        let gameState = {
+            timeLeft: 40,
+            correctAnswers: 0,
+            currentStreak: 0,
+            maxStreak: 0,
+            currentProblem: {},
+            difficulty: 1,
+            gameActive: false,
+            timer: null
+        };
+
+        function selectDifficulty(level) {
+            gameState.difficulty = level;
+            document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function generateProblem() {
+            const operations = ['+', '-'];
+            const operation = operations[Math.floor(Math.random() * operations.length)];
+            
+            let num1, num2, answer;
+            const maxNum = gameState.difficulty === 1 ? 10 : gameState.difficulty === 2 ? 20 : 50;
+            
+            if (operation === '+') {
+                num1 = Math.floor(Math.random() * maxNum) + 1;
+                num2 = Math.floor(Math.random() * maxNum) + 1;
+                answer = num1 + num2;
+            } else {
+                // Para resta, aseguramos que el resultado sea positivo
+                num1 = Math.floor(Math.random() * maxNum) + 2;
+                num2 = Math.floor(Math.random() * (num1 - 1)) + 1;
+                answer = num1 - num2;
+            }
+            
+            // Para 3er grado, incluir multiplicación ocasionalmente
+            if (gameState.difficulty === 3 && Math.random() < 0.3) {
+                num1 = Math.floor(Math.random() * 10) + 1;
+                num2 = Math.floor(Math.random() * 10) + 1;
+                answer = num1 * num2;
+                operation = '×';
+            }
+            
+            gameState.currentProblem = {
+                question: `${num1} ${operation} ${num2} = ?`,
+                answer: answer
+            };
+            
+            document.getElementById('problem').textContent = gameState.currentProblem.question;
+            document.getElementById('answer').value = '';
+            document.getElementById('answer').focus();
+        }
+
+        function startGame() {
+            gameState.timeLeft = 40;
+            gameState.correctAnswers = 0;
+            gameState.currentStreak = 0;
+            gameState.maxStreak = 0;
+            gameState.gameActive = true;
+            
+            document.getElementById('menu').classList.add('hidden');
+            document.getElementById('game').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+            
+            generateProblem();
+            startTimer();
+            updateDisplay();
+            
+            // Permitir responder con Enter
+            document.getElementById('answer').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkAnswer();
+                }
+            });
+        }
+
+        function startTimer() {
+            gameState.timer = setInterval(() => {
+                gameState.timeLeft--;
+                updateDisplay();
+                
+                if (gameState.timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function checkAnswer() {
+            if (!gameState.gameActive) return;
+            
+            const userAnswer = parseInt(document.getElementById('answer').value);
+            const feedback = document.getElementById('feedback');
+            
+            if (userAnswer === gameState.currentProblem.answer) {
+                gameState.correctAnswers++;
+                gameState.currentStreak++;
+                gameState.maxStreak = Math.max(gameState.maxStreak, gameState.currentStreak);
+                
+                feedback.textContent = '¡Correcto! ⭐';
+                feedback.className = 'feedback correct';
+                
+                // Efecto de estrellas
+                createSparkles();
+                
+                generateProblem();
+            } else {
+                gameState.currentStreak = 0;
+                feedback.textContent = `❌ Era ${gameState.currentProblem.answer}`;
+                feedback.className = 'feedback incorrect';
+                
+                setTimeout(() => {
+                    generateProblem();
+                    feedback.textContent = '';
+                }, 1500);
+            }
+            
+            updateDisplay();
+        }
+
+        function createSparkles() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.textContent = '✨';
+                    sparkle.className = 'sparkle';
+                    sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                    sparkle.style.top = Math.random() * window.innerHeight + 'px';
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 1500);
+                }, i * 100);
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('timer').textContent = gameState.timeLeft;
+            document.getElementById('correct').textContent = gameState.correctAnswers;
+            document.getElementById('streak').textContent = gameState.currentStreak;
+        }
+
+        function endGame() {
+            gameState.gameActive = false;
+            clearInterval(gameState.timer);
+            
+            document.getElementById('game').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+            
+            document.getElementById('finalScore').textContent = gameState.correctAnswers;
+            
+            let message = '';
+            if (gameState.correctAnswers >= 30) {
+                message = '🏆 ¡INCREÍBLE! ¡Eres un genio matemático!';
+            } else if (gameState.correctAnswers >= 20) {
+                message = '🌟 ¡Excelente trabajo! ¡Sigue así!';
+            } else if (gameState.correctAnswers >= 10) {
+                message = '👍 ¡Buen trabajo! ¡Puedes mejorar aún más!';
+            } else {
+                message = '💪 ¡Sigue practicando! ¡Cada intento te hace mejor!';
+            }
+            
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function resetGame() {
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('menu').classList.remove('hidden');
+            document.getElementById('feedback').textContent = '';
+        }
+
+        // Inicializar el juego
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enfocar automáticamente el campo de respuesta cuando sea visible
+            document.getElementById('answer').addEventListener('focus', function() {
+                this.select();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploradores de la Naturaleza</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #87CEEB 0%, #98FB98 50%, #F0E68C 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            border: 5px solid #4CAF50;
+        }
+
+        .title {
+            color: #2E7D32;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .subtitle {
+            color: #1B5E20;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .score-item {
+            background: linear-gradient(45deg, #FF9800, #FFC107);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            min-width: 120px;
+        }
+
+        .game-area {
+            background: #F8F8FF;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 3px dashed #4CAF50;
+        }
+
+        .animal-emoji {
+            font-size: 8em;
+            margin: 20px 0;
+            animation: wiggle 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes wiggle {
+            0% { transform: rotate(-3deg); }
+            100% { transform: rotate(3deg); }
+        }
+
+        .clue {
+            font-size: 1.4em;
+            color: #2E7D32;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #E8F5E8, #F0FFF0);
+            border-radius: 10px;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .option-btn {
+            background: linear-gradient(45deg, #42A5F5, #64B5F6);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #1976D2, #42A5F5);
+        }
+
+        .option-btn.correct {
+            background: linear-gradient(45deg, #4CAF50, #66BB6A);
+            animation: celebration 0.6s ease-in-out;
+        }
+
+        .option-btn.incorrect {
+            background: linear-gradient(45deg, #F44336, #EF5350);
+            animation: shake 0.6s ease-in-out;
+        }
+
+        @keyframes celebration {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .message {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .message.success {
+            background: linear-gradient(45deg, #C8E6C9, #A5D6A7);
+            color: #1B5E20;
+        }
+
+        .message.error {
+            background: linear-gradient(45deg, #FFCDD2, #EF9A9A);
+            color: #B71C1C;
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .control-btn {
+            background: linear-gradient(45deg, #9C27B0, #BA68C8);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .stars {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2em;
+        }
+
+        .celebration-message {
+            font-size: 2em;
+            color: #FF6B35;
+            font-weight: bold;
+            margin: 20px 0;
+            animation: rainbow 2s linear infinite;
+        }
+
+        @keyframes rainbow {
+            0% { color: #FF6B35; }
+            16% { color: #F7931E; }
+            33% { color: #FFD700; }
+            50% { color: #4CAF50; }
+            66% { color: #2196F3; }
+            83% { color: #9C27B0; }
+            100% { color: #FF6B35; }
+        }
+
+        @media (max-width: 600px) {
+            .title { font-size: 2em; }
+            .animal-emoji { font-size: 6em; }
+            .clue { font-size: 1.2em; }
+            .options { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-primary text-white py-3 shadow-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+            <a class="navbar-brand d-flex align-items-center" href="../../index.html">
+                <img src="../../assets/images/logo_titulo.png" loading="lazy" alt="EducAR Logo" class="me-2 logo-navbar" style="height:40px; width:40px; border-radius:50%;">
+                <span class="fw-bold fs-4 text-uppercase">EducAR</span>
+            </a>
+        </nav>
+    </header>
+
+    <div class="game-container">
+        <div class="stars">⭐🌟✨</div>
+        <h1 class="title">🌿 Exploradores de la Naturaleza 🌿</h1>
+        <p class="subtitle">¡Adivina los animales con las pistas!</p>
+        
+        <div class="score-board">
+            <div class="score-item">
+                🏆 Puntos: <span id="score">0</span>
+            </div>
+            <div class="score-item">
+                🎯 Pregunta: <span id="question-number">1</span> de <span id="total-questions">10</span>
+            </div>
+            <div class="score-item">
+                ⭐ Nivel: <span id="level">Explorador</span>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="animal-emoji" id="animal-emoji">🤔</div>
+            <div class="clue" id="clue">¡Presiona "Nueva Pregunta" para comenzar tu aventura!</div>
+            
+            <div class="options" id="options-container">
+                <!-- Las opciones se generarán dinámicamente -->
+            </div>
+            
+            <div class="message" id="message-area"></div>
+        </div>
+
+        <div class="control-buttons">
+            <button class="control-btn" onclick="newQuestion()">🌟 Nueva Pregunta</button>
+            <button class="control-btn" onclick="getHint()">💡 Pista Extra</button>
+            <button class="control-btn" onclick="resetGame()">🔄 Reiniciar Juego</button>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        let score = 0;
+        let totalQuestions = 10;
+        let gameStarted = false;
+        let questionAnswered = false;
+        let hintsUsed = 0;
+
+        const animals = [
+            {
+                name: "León",
+                emoji: "🦁",
+                clue: "Soy el rey de la selva, tengo una gran melena y rujo muy fuerte. ¿Quién soy?",
+                hint: "Vivo en África y soy muy valiente",
+                options: ["León", "Tigre", "Oso", "Lobo"]
+            },
+            {
+                name: "Elefante",
+                emoji: "🐘",
+                clue: "Soy muy grande y gris, tengo una trompa larga y orejas enormes. ¿Quién soy?",
+                hint: "Nunca olvido nada y uso mi trompa para bañarme",
+                options: ["Rinoceronte", "Hipopótamo", "Elefante", "Jirafa"]
+            },
+            {
+                name: "Pingüino",
+                emoji: "🐧",
+                clue: "Visto de negro y blanco, no puedo volar pero nado muy bien en aguas frías. ¿Quién soy?",
+                hint: "Vivo en el hielo y camino como si fuera elegante",
+                options: ["Pato", "Pingüino", "Foca", "Oso Polar"]
+            },
+            {
+                name: "Abeja",
+                emoji: "🐝",
+                clue: "Soy pequeña, hago zumbidos y produzco algo muy dulce. ¿Quién soy?",
+                hint: "Vivo en colmenas y hago miel deliciosa",
+                options: ["Mariposa", "Mosca", "Abeja", "Libélula"]
+            },
+            {
+                name: "Jirafa",
+                emoji: "🦒",
+                clue: "Soy muy alta, tengo un cuello larguísimo y manchas por todo mi cuerpo. ¿Quién soy?",
+                hint: "Puedo comer las hojas más altas de los árboles",
+                options: ["Cebra", "Jirafa", "Caballo", "Venado"]
+            },
+            {
+                name: "Pez",
+                emoji: "🐠",
+                clue: "Vivo en el agua, tengo aletas y escamas brillantes de colores. ¿Quién soy?",
+                hint: "Respiro por branquias y nado todo el día",
+                options: ["Pulpo", "Pez", "Medusa", "Estrella de Mar"]
+            },
+            {
+                name: "Mariposa",
+                emoji: "🦋",
+                clue: "Tengo alas coloridas y hermosas, antes era una oruga. ¿Quién soy?",
+                hint: "Me gusta visitar las flores y beber néctar",
+                options: ["Libélula", "Abeja", "Mariposa", "Mosca"]
+            },
+            {
+                name: "Rana",
+                emoji: "🐸",
+                clue: "Soy verde, salto mucho y hago 'croac croac'. ¿Quién soy?",
+                hint: "Vivo cerca del agua y como insectos",
+                options: ["Sapo", "Lagarto", "Rana", "Serpiente"]
+            },
+            {
+                name: "Gato",
+                emoji: "🐱",
+                clue: "Soy peludo, hago 'miau' y me gusta dormir al sol. ¿Quién soy?",
+                hint: "Tengo bigotes y me gusta jugar con pelotas de lana",
+                options: ["Perro", "Conejo", "Gato", "Ratón"]
+            },
+            {
+                name: "Búho",
+                emoji: "🦉",
+                clue: "Tengo ojos muy grandes, duermo de día y vuelo de noche. ¿Quién soy?",
+                hint: "Soy muy sabio y hago 'uh uh'",
+                options: ["Águila", "Búho", "Loro", "Paloma"]
+            }
+        ];
+
+        let currentAnimal = null;
+
+        function newQuestion() {
+            if (currentQuestion >= totalQuestions) {
+                endGame();
+                return;
+            }
+
+            currentQuestion++;
+            questionAnswered = false;
+            hintsUsed = 0;
+            
+            // Seleccionar animal aleatorio
+            currentAnimal = animals[Math.floor(Math.random() * animals.length)];
+            
+            // Actualizar interfaz
+            document.getElementById('animal-emoji').textContent = currentAnimal.emoji;
+            document.getElementById('clue').textContent = currentAnimal.clue;
+            document.getElementById('question-number').textContent = currentQuestion;
+            document.getElementById('message-area').textContent = '';
+            document.getElementById('message-area').className = 'message';
+            
+            // Generar opciones
+            generateOptions();
+            gameStarted = true;
+        }
+
+        function generateOptions() {
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            
+            // Mezclar opciones
+            const shuffledOptions = [...currentAnimal.options].sort(() => Math.random() - 0.5);
+            
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => selectAnswer(option);
+                container.appendChild(button);
+            });
+        }
+
+        function selectAnswer(selectedAnswer) {
+            if (questionAnswered) return;
+            
+            questionAnswered = true;
+            const buttons = document.querySelectorAll('.option-btn');
+            const messageArea = document.getElementById('message-area');
+            
+            if (selectedAnswer === currentAnimal.name) {
+                // Respuesta correcta
+                score += (hintsUsed === 0) ? 10 : 5;
+                buttons.forEach(btn => {
+                    if (btn.textContent === selectedAnswer) {
+                        btn.className = 'option-btn correct';
+                    }
+                });
+                messageArea.textContent = '¡Excelente! 🎉 ¡Eres un gran explorador!';
+                messageArea.className = 'message success';
+                
+                // Sonido de éxito (simulado con vibración en móviles)
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+            } else {
+                // Respuesta incorrecta
+                buttons.forEach(btn => {
+                    if (btn.textContent === selectedAnswer) {
+                        btn.className = 'option-btn incorrect';
+                    } else if (btn.textContent === currentAnimal.name) {
+                        btn.className = 'option-btn correct';
+                    }
+                });
+                messageArea.textContent = `¡Ups! La respuesta correcta era: ${currentAnimal.name} 🤔`;
+                messageArea.className = 'message error';
+            }
+            
+            updateScore();
+            updateLevel();
+            
+            // Auto-avanzar después de 3 segundos
+            setTimeout(() => {
+                if (currentQuestion < totalQuestions) {
+                    newQuestion();
+                } else {
+                    endGame();
+                }
+            }, 3000);
+        }
+
+        function getHint() {
+            if (!gameStarted || questionAnswered || hintsUsed > 0) return;
+            
+            hintsUsed++;
+            const clueElement = document.getElementById('clue');
+            clueElement.innerHTML = `${currentAnimal.clue}<br><br><strong>💡 Pista extra:</strong> ${currentAnimal.hint}`;
+        }
+
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+        }
+
+        function updateLevel() {
+            const levelElement = document.getElementById('level');
+            if (score >= 80) {
+                levelElement.textContent = '🏆 Maestro Explorador';
+            } else if (score >= 60) {
+                levelElement.textContent = '🌟 Gran Explorador';
+            } else if (score >= 40) {
+                levelElement.textContent = '🎯 Explorador Experto';
+            } else if (score >= 20) {
+                levelElement.textContent = '🌱 Joven Explorador';
+            } else {
+                levelElement.textContent = '🔍 Explorador';
+            }
+        }
+
+        function endGame() {
+            const gameArea = document.querySelector('.game-area');
+            let finalMessage = '';
+            let emoji = '';
+            
+            if (score >= 80) {
+                finalMessage = '¡INCREÍBLE! Eres un Maestro Explorador de la Naturaleza';
+                emoji = '🏆🎉🌟';
+            } else if (score >= 60) {
+                finalMessage = '¡Excelente trabajo! Eres un Gran Explorador';
+                emoji = '🌟🎊🌿';
+            } else if (score >= 40) {
+                finalMessage = '¡Muy bien! Eres un Explorador Experto';
+                emoji = '🎯🌱🦋';
+            } else {
+                finalMessage = '¡Buen intento! Sigue explorando la naturaleza';
+                emoji = '🌿🐛🌸';
+            }
+            
+            gameArea.innerHTML = `
+                <div class="celebration-message">${emoji}</div>
+                <div class="celebration-message">${finalMessage}</div>
+                <div style="font-size: 1.5em; margin: 20px 0;">
+                    Tu puntuación final: <strong>${score}</strong> de 100 puntos
+                </div>
+                <div style="font-size: 1.2em; color: #2E7D32;">
+                    ¡Has aprendido sobre ${totalQuestions} animales diferentes!
+                </div>
+            `;
+        }
+
+        function resetGame() {
+            currentQuestion = 0;
+            score = 0;
+            gameStarted = false;
+            questionAnswered = false;
+            hintsUsed = 0;
+            
+            document.getElementById('score').textContent = '0';
+            document.getElementById('question-number').textContent = '1';
+            document.getElementById('level').textContent = 'Explorador';
+            document.getElementById('animal-emoji').textContent = '🤔';
+            document.getElementById('clue').textContent = '¡Presiona "Nueva Pregunta" para comenzar tu aventura!';
+            document.getElementById('options-container').innerHTML = '';
+            document.getElementById('message-area').textContent = '';
+            document.getElementById('message-area').className = 'message';
+        }
+
+        // Inicializar el juego
+        window.onload = function() {
+            updateScore();
+            updateLevel();
+        };
+    </script>
+</body>
+</html>
