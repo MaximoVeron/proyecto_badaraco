@@ -4,21 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exploradores de la Naturaleza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Oswald', Arial, sans-serif !important;
         }
 
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background: linear-gradient(135deg, #87CEEB 0%, #98FB98 50%, #F0E68C 100%);
+            font-family: 'Oswald', Arial, sans-serif !important;
+            background: #F8F9FA url('../../../assets/images/img_ninos/games_imgs/bg_juego3.jpg') no-repeat center center fixed;
+            background-size: cover;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
+        }
+
+        h1, h2, h3, h4, h5, h6, .title, .subtitle, .score-item, .clue, .option-btn, .message, .control-btn, .celebration-message, .game-container, .game-area {
+            font-family: 'Oswald', Arial, sans-serif !important;
         }
 
         .game-container {
@@ -229,18 +236,10 @@
     </style>
 </head>
 <body>
-    <header class="bg-primary text-white py-3 shadow-lg">
-        <nav class="navbar navbar-expand-lg navbar-dark container">
-            <a class="navbar-brand d-flex align-items-center" href="../../index.html">
-                <img src="../../assets/images/logo_titulo.png" loading="lazy" alt="EducAR Logo" class="me-2 logo-navbar" style="height:40px; width:40px; border-radius:50%;">
-                <span class="fw-bold fs-4 text-uppercase">EducAR</span>
-            </a>
-        </nav>
-    </header>
+
 
     <div class="game-container">
-        <div class="stars">⭐🌟✨</div>
-        <h1 class="title">🌿 Exploradores de la Naturaleza 🌿</h1>
+        <h1 class="title">🌿Exploradores de la Naturaleza🌿</h1>
         <p class="subtitle">¡Adivina los animales con las pistas!</p>
         
         <div class="score-board">

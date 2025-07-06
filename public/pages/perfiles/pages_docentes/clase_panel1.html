@@ -239,23 +239,38 @@
     // Cargar nombre de la clase y tareas (real)
     async function loadClassPanel() {
         const classId = getClassIdFromUrl();
+        const classNameEl = document.getElementById('className');
         if (!classId) {
-            document.getElementById('className').textContent = 'Clase no encontrada';
+            classNameEl.textContent = '1º Grado "A"';
             return;
         }
-        // Cargar nombre de la clase (opcional, si tienes endpoint)
-        // const token = localStorage.getItem('token');
-        // const resClase = await fetch(`/api/classes/${classId}`, { headers: { Authorization: `Bearer ${token}` } });
-        // const clase = await resClase.json();
-        // document.getElementById('className').textContent = clase.nombre;
-
-        // Cargar tareas reales
         const token = localStorage.getItem('token');
-        const res = await fetch(`/api/classes/${classId}/tasks`, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        const tasks = await res.json();
-        renderTasks(tasks);
+        // Mostrar spinner mientras carga
+        classNameEl.innerHTML += ' <span class="spinner-border spinner-border-sm text-primary" role="status"></span>';
+        document.getElementById('tasksList').innerHTML = '<li class="list-group-item text-center text-muted"><span class="spinner-border spinner-border-sm text-primary" role="status"></span> Cargando tareas...</li>';
+        // Cargar nombre de la clase (si tienes endpoint)
+        try {
+            const resClase = await fetch(`/api/classes/${classId}`, { headers: { Authorization: `Bearer ${token}` } });
+            if (resClase.ok) {
+                const clase = await resClase.json();
+                classNameEl.textContent = clase.nombre || 'Clase';
+            } else {
+                classNameEl.textContent = 'Clase';
+            }
+        } catch (err) {
+            classNameEl.textContent = 'Clase';
+        }
+        // Cargar tareas reales
+        try {
+            const res = await fetch(`/api/classes/${classId}/tasks`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('No se pudieron cargar las tareas');
+            const tasks = await res.json();
+            renderTasks(tasks);
+        } catch (err) {
+            document.getElementById('tasksList').innerHTML = '<li class="list-group-item text-center text-danger">Error al cargar tareas.</li>';
+        }
     }
 
     function renderTasks(tasks) {
@@ -291,19 +306,30 @@
             const classId = getClassIdFromUrl();
             const token = localStorage.getItem('token');
             const formData = new FormData(this);
-            const res = await fetch(`/api/classes/${classId}/tasks`, {
-                method: 'POST',
-                headers: { Authorization: `Bearer ${token}` },
-                body: formData
-            });
-            if (res.ok) {
-                document.getElementById('taskMsg').innerHTML = '<div class="alert alert-success">Tarea publicada.</div>';
-                this.reset();
-                loadClassPanel();
-            } else {
-                document.getElementById('taskMsg').innerHTML = '<div class="alert alert-danger">Error al publicar la tarea.</div>';
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Publicando...';
+            try {
+                const res = await fetch(`/api/classes/${classId}/tasks`, {
+                    method: 'POST',
+                    headers: { Authorization: `Bearer ${token}` },
+                    body: formData
+                });
+                if (res.ok) {
+                    document.getElementById('taskMsg').innerHTML = '<div class="alert alert-success">Tarea publicada.</div>';
+                    this.reset();
+                    await loadClassPanel();
+                } else {
+                    const errorText = await res.text();
+                    document.getElementById('taskMsg').innerHTML = `<div class="alert alert-danger">Error al publicar la tarea. ${errorText}</div>`;
+                }
+            } catch (err) {
+                document.getElementById('taskMsg').innerHTML = '<div class="alert alert-danger">Error de red al publicar la tarea.</div>';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-upload me-2"></i>Publicar tarea';
+                setTimeout(() => document.getElementById('taskMsg').innerHTML = '', 2000);
             }
-            setTimeout(() => document.getElementById('taskMsg').innerHTML = '', 2000);
         });
     });
     </script>
