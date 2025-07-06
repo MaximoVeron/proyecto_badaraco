@@ -141,7 +141,7 @@
                     25 alumnos activos. Última actividad: Lengua.
                   </p>
                   <a
-                    href="../../pages/perfiles/pages_docentes/clase_panel1.html"
+                    href="../../pages/perfiles/pages_docentes/clase_panel1.html?id=1"
                     class="btn btn-outline-secondary mt-3 rounded-pill"
                     >Ver Clase</a
                   >
@@ -164,7 +164,7 @@
                   <p class="card-text">
                     22 alumnos activos. Última actividad: Matemática.
                   </p>
-                  <a href="../../pages/perfiles/pages_docentes/clase_panel2.html" class="btn btn-outline-success mt-3 rounded-pill"
+                  <a href="../../pages/perfiles/pages_docentes/clase_panel2.html?id=2" class="btn btn-outline-success mt-3 rounded-pill"
                     >Ver Clase</a
                   >
                 </div>
@@ -187,7 +187,7 @@
                     20 alumnos activos. Última actividad: Ciencias.
                   </p>
                   <a
-                    href="../../pages/perfiles/pages_docentes/clase_panel3.html"
+                    href="../../pages/perfiles/pages_docentes/clase_panel3.html?id=3"
                     class="btn btn-outline-info mt-3 rounded-pill"
                     >Ver Clase</a
                   >
@@ -929,7 +929,7 @@
             >
               Cancelar
             </button>
-            <button type="button" class="btn btn-danger">Sí, Salir</button>
+            <button type="button" class="btn btn-danger" id="confirmLogoutBtn">Sí, Salir</button>
           </div>
         </div>
       </div>
@@ -971,6 +971,15 @@
             contactDocenteFormMessage.innerHTML =
               '<div class="alert alert-success" role="alert">¡Mensaje enviado exitosamente!.</div>';
             contactDocenteForm.reset(); // Limpia el formulario
+          });
+        }
+
+        // Lógica para el botón de salir (logout)
+        const logoutBtn = document.getElementById('confirmLogoutBtn');
+        if (logoutBtn) {
+          logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('token');
+            window.location.href = '../../pages/index.html';
           });
         }
       });

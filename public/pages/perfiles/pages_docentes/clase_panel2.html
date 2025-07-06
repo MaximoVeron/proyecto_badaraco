@@ -56,12 +56,52 @@
                 <hr>
                 <h4 class="mb-3 text-secondary"><i class="bi bi-journal-text me-2"></i>Tareas de la clase</h4>
                 <ul class="list-group mb-4" id="tasksList" style="background: transparent; border: none;"></ul>
+        <!-- Modal para ver/editar tarea -->
+        <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="taskModalLabel">Detalle de la tarea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <form id="editTaskForm">
+                <div class="modal-body">
+                  <input type="hidden" id="editTaskId">
+                  <div class="mb-3">
+                    <label for="editTaskTitle" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="editTaskTitle" name="editTaskTitle" required maxlength="80">
+                  </div>
+                  <div class="mb-3">
+                    <label for="editTaskDesc" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="editTaskDesc" name="editTaskDesc" rows="2" maxlength="300"></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Archivo actual</label>
+                    <div id="editTaskFileLink"></div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="editTaskFile" class="form-label">Cambiar archivo (opcional)</label>
+                    <input type="file" class="form-control" id="editTaskFile" name="editTaskFile">
+                  </div>
+                  <div class="mb-2">
+                    <small class="text-secondary" id="editTaskFecha"></small>
+                  </div>
+                  <div id="editTaskMsg" class="mt-2"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
                 <div class="mt-4">
                     <h5 class="fw-bold mb-3"><i class="bi bi-plus-circle-fill text-success me-2"></i>Agregar nueva tarea</h5>
                     <form id="taskForm" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="taskTitle" class="form-label">Título de la tarea</label>
-                            <input type="text" class="form-control" id="taskTitle" required maxlength="80">
+                            <input type="text" class="form-control" id="taskTitle" name="taskTitle" required maxlength="80">
                         </div>
                         <div class="mb-3">
                             <label for="taskDesc" class="form-label">Descripción</label>
@@ -230,34 +270,44 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../../../../../assets/js/script.js"></script>
     <script>
-    // Utilidad para obtener el parámetro id de la URL
-    function getClassIdFromUrl() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get('id');
+
+    // DEMO: Forzar id de clase fijo para pruebas
+    function getClassId() {
+        return '1'; // Siempre usará la clase 1
     }
 
     // Cargar nombre de la clase y tareas (simulado, reemplazar por fetch real)
     async function loadClassPanel() {
-        const classId = getClassIdFromUrl();
+        const classId = getClassId();
+        const classNameEl = document.getElementById('className');
         if (!classId) {
-            document.getElementById('className').textContent = '2º Grado "B"';
+            classNameEl.textContent = '2º Grado "B"';
             return;
         }
-        // --- Aquí deberías hacer un fetch real al backend para obtener la clase y tareas ---
-        // Ejemplo de fetch:
-        // const token = localStorage.getItem('token');
-        // const res = await fetch(`/api/classes/${classId}`, { headers: { Authorization: `Bearer ${token}` } });
-        // const clase = await res.json();
-        // document.getElementById('className').textContent = clase.nombre;
-        // ...
-        // Simulación:
-        document.getElementById('className').textContent = 'Clase ' + classId;
-        // Simular tareas
-        const tasks = [
-            { id: 1, titulo: 'Tarea de Matemática', descripcion: 'Resolver ejercicios de la página 12.', archivo: '', fecha: '2025-07-06' },
-            { id: 2, titulo: 'Lectura', descripcion: 'Leer el cuento "El árbol generoso".', archivo: '', fecha: '2025-07-05' }
-        ];
-        renderTasks(tasks);
+        // Fetch real al backend para obtener la clase y tareas
+        const token = localStorage.getItem('token');
+        try {
+            const resClase = await fetch(`/api/classes/${classId}`, { headers: { Authorization: `Bearer ${token}` } });
+            if (resClase.ok) {
+                const clase = await resClase.json();
+                classNameEl.textContent = clase.nombre || 'Clase';
+            } else {
+                classNameEl.textContent = 'Clase';
+            }
+        } catch (err) {
+            classNameEl.textContent = 'Clase';
+        }
+        // Cargar tareas reales
+        try {
+            const res = await fetch(`/api/classes/${classId}/tasks`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('No se pudieron cargar las tareas');
+            const tasks = await res.json();
+            renderTasks(tasks);
+        } catch (err) {
+            document.getElementById('tasksList').innerHTML = '<li class="list-group-item text-center text-danger">Error al cargar tareas.</li>';
+        }
     }
 
     function renderTasks(tasks) {
@@ -275,24 +325,82 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="fw-bold mb-1">${task.titulo}</h6>
-                        <p class="mb-1 text-muted">${task.descripcion}</p>
-                        <small class="text-secondary">${task.fecha}</small>
+                        <p class="mb-1 text-muted">${task.descripcion || ''}</p>
+                        <small class="text-secondary">${task.fecha ? task.fecha.substring(0, 10) : ''}</small>
                     </div>
                     ${task.archivo ? `<a href="${task.archivo}" class="btn btn-sm btn-outline-primary" target="_blank"><i class="bi bi-paperclip"></i> Ver archivo</a>` : ''}
+                    <button class="btn btn-sm btn-outline-info ms-2" data-task='${JSON.stringify(task).replace(/'/g, "&#39;")}' onclick="openTaskModal(this)"><i class='bi bi-pencil'></i> Ver/Editar</button>
                 </div>
             `;
             list.appendChild(li);
         });
     }
 
+    // Modal: Ver y editar tarea
+    let taskModalInstance = null;
+    window.openTaskModal = function(btn) {
+      const task = JSON.parse(btn.getAttribute('data-task').replace(/&#39;/g, "'"));
+      document.getElementById('editTaskId').value = task.id;
+      document.getElementById('editTaskTitle').value = task.titulo;
+      document.getElementById('editTaskDesc').value = task.descripcion || '';
+      document.getElementById('editTaskFecha').textContent = task.fecha ? 'Fecha: ' + task.fecha.substring(0, 16).replace('T', ' ') : '';
+      document.getElementById('editTaskFileLink').innerHTML = task.archivo ? `<a href="${task.archivo}" target="_blank"><i class='bi bi-paperclip'></i> Ver archivo</a>` : '<span class="text-muted">Sin archivo</span>';
+      document.getElementById('editTaskFile').value = '';
+      document.getElementById('editTaskMsg').innerHTML = '';
+      const modalEl = document.getElementById('taskModal');
+      if (!taskModalInstance) {
+        taskModalInstance = new bootstrap.Modal(modalEl);
+      }
+      if (modalEl.classList.contains('show')) {
+        // Si ya está abierto, primero lo cierra y luego lo abre (previene bug visual)
+        taskModalInstance.hide();
+        setTimeout(() => taskModalInstance.show(), 200);
+      } else {
+        taskModalInstance.show();
+      }
+    }
+
+    // Guardar cambios (solo frontend, demo)
+    document.addEventListener('DOMContentLoaded', function() {
+      // ...existing code...
+      document.getElementById('editTaskForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        document.getElementById('editTaskMsg').innerHTML = '<div class="alert alert-info">Funcionalidad de edición pendiente de backend.</div>';
+      });
+    });
+
     // Manejar envío de nueva tarea (simulado)
     document.addEventListener('DOMContentLoaded', function() {
         loadClassPanel();
-        document.getElementById('taskForm').addEventListener('submit', function(e) {
+        document.getElementById('taskForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            // Aquí deberías hacer el fetch real para subir la tarea
-            document.getElementById('taskMsg').innerHTML = '<div class="alert alert-success">Tarea publicada (simulado).</div>';
-            setTimeout(() => document.getElementById('taskMsg').innerHTML = '', 2000);
+            const classId = getClassId();
+            const token = localStorage.getItem('token');
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Publicando...';
+            try {
+                const res = await fetch(`/api/classes/${classId}/tasks`, {
+                    method: 'POST',
+                    headers: { Authorization: `Bearer ${token}` },
+                    body: formData
+                });
+                if (res.ok) {
+                    document.getElementById('taskMsg').innerHTML = '<div class="alert alert-success">Tarea publicada.</div>';
+                    this.reset();
+                    await loadClassPanel();
+                } else {
+                    const errorText = await res.text();
+                    document.getElementById('taskMsg').innerHTML = `<div class="alert alert-danger">Error al publicar la tarea. ${errorText}</div>`;
+                }
+            } catch (err) {
+                document.getElementById('taskMsg').innerHTML = '<div class="alert alert-danger">Error de red al publicar la tarea.</div>';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-upload me-2"></i>Publicar tarea';
+                setTimeout(() => document.getElementById('taskMsg').innerHTML = '', 2000);
+            }
         });
     });
     </script>

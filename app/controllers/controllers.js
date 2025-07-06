@@ -1,3 +1,47 @@
+import path from 'path';
+// --- TAREAS ---
+// GET /api/classes/:classId/tasks
+export const getClassTasks = async (req, res) => {
+    const { classId } = req.params;
+    try {
+        const [tasks] = await pool.query(
+            'SELECT id, titulo, descripcion, archivo, fecha FROM tareas WHERE id_clase = ? ORDER BY fecha DESC',
+            [classId]
+        );
+        // Si hay archivo, devolver la ruta relativa para el frontend
+        const tasksWithUrl = tasks.map(task => ({
+            ...task,
+            archivo: task.archivo ? `/uploads/tasks/${path.basename(task.archivo)}` : ''
+        }));
+        res.json(tasksWithUrl);
+    } catch (err) {
+        res.status(500).json({ message: 'Error al obtener tareas', error: err.message });
+    }
+};
+
+// POST /api/classes/:classId/tasks
+export const createTask = async (req, res) => {
+    const { classId } = req.params;
+    const { id: docenteId, categoria } = req.user;
+    const { taskTitle, taskDesc } = req.body;
+    let archivo = '';
+    if (req.file) {
+        archivo = req.file.path.replace('public', '').replace(/\\/g, '/');
+    }
+    if (!taskTitle) {
+        return res.status(400).json({ message: 'El título es obligatorio.' });
+    }
+    try {
+        // Permitir crear tareas en cualquier clase (modo demo)
+        await pool.query(
+            'INSERT INTO tareas (id_clase, titulo, descripcion, archivo, fecha) VALUES (?, ?, ?, ?, NOW())',
+            [classId, taskTitle, taskDesc || '', archivo]
+        );
+        res.status(201).json({ message: 'Tarea creada correctamente.' });
+    } catch (err) {
+        res.status(500).json({ message: 'Error al crear la tarea', error: err.message });
+    }
+};
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import pool from '../models/db.js';

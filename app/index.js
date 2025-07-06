@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
+import tasksRoutes from './routes/tasks.js';
 import { authenticateToken } from './middlewares/auth.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -23,11 +24,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/classes', tasksRoutes);
 
 // Ruta protegida para obtener el usuario autenticado
-app.get('/api/usuario', authenticateToken, (req, res) => {
-    // Devuelve solo el nombre (puedes agregar más datos si quieres)
-    res.json({ nombre: req.user.nombre });
+app.get('/api/usuario', (req, res) => {
+    // Devuelve un nombre demo (sin autenticación)
+    res.json({ nombre: 'Demo Usuario' });
 });
 
 app.get('/', (req, res) => {
