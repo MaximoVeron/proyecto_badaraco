@@ -141,7 +141,7 @@
                     25 alumnos activos. Última actividad: Lengua.
                   </p>
                   <a
-                    href="#"
+                    href="../../pages/perfiles/pages_docentes/clase_panel1.html"
                     class="btn btn-outline-secondary mt-3 rounded-pill"
                     >Ver Clase</a
                   >
@@ -164,7 +164,7 @@
                   <p class="card-text">
                     22 alumnos activos. Última actividad: Matemática.
                   </p>
-                  <a href="#" class="btn btn-outline-success mt-3 rounded-pill"
+                  <a href="../../pages/perfiles/pages_docentes/clase_panel2.html" class="btn btn-outline-success mt-3 rounded-pill"
                     >Ver Clase</a
                   >
                 </div>
@@ -175,12 +175,25 @@
               data-aos="fade-up"
               data-aos-delay="500"
             >
-             
-                
-                  <section>
+              <div
+                class="card h-100 shadow-sm border-0 text-center p-4 feature-card"
+              >
+                <div class="icon-circle bg-info text-white mx-auto mb-3">
+                  <i class="bi bi-person-badge fs-2"></i>
                 </div>
+                <div class="card-body">
+                  <h5 class="card-title fw-bold text-primary">3º Grado "C"</h5>
+                  <p class="card-text">
+                    20 alumnos activos. Última actividad: Ciencias.
+                  </p>
+                  <a
+                    href="../../pages/perfiles/pages_docentes/clase_panel3.html"
+                    class="btn btn-outline-info mt-3 rounded-pill"
+                    >Ver Clase</a
+                  >
+                </div>
+              </div>
             </div>
-        </div>
         <div class="row justify-content-center">             
                   <div class="container py-5">
     <div class="row justify-content-center">
@@ -1146,22 +1159,30 @@
                         if (classes.length > 0) {
                             classes.forEach(clase => {
                                 const listItem = document.createElement('li');
-                                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                                listItem.className = 'list-group-item d-flex justify-content-between align-items-center class-list-item';
                                 // Formatea la fecha de creación para que sea más legible
                                 const fechaCreacion = new Date(clase.fecha_creacion).toLocaleDateString('es-ES', {
                                     year: 'numeric', month: 'long', day: 'numeric'
                                 });
-                                listItem.innerHTML = `
-                                    <div>
-                                        <h5>${clase.nombre}</h5>
-                                        <p class="mb-0 text-muted">${clase.descripcion || 'Sin descripción'}</p>
-                                        <small class="text-muted">ID de Clase: ${clase.id} | Creada: ${fechaCreacion}</small>
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-sm btn-outline-info me-2" title="Ver Alumnos"><i class="bi bi-people-fill"></i></button>
-                                        <button class="btn btn-sm btn-outline-danger" title="Eliminar Clase"><i class="bi bi-trash-fill"></i></button>
-                                    </div>
+                                // Hacemos el div principal clickable, pero no los botones de acción
+                                const mainDiv = document.createElement('div');
+                                mainDiv.style.cursor = 'pointer';
+                                mainDiv.innerHTML = `
+                                    <h5>${clase.nombre}</h5>
+                                    <p class="mb-0 text-muted">${clase.descripcion || 'Sin descripción'}</p>
+                                    <small class="text-muted">ID de Clase: ${clase.id} | Creada: ${fechaCreacion}</small>
                                 `;
+                                mainDiv.addEventListener('click', () => {
+                                    window.location.href = `../pages_docentes/clase_panel.html?id=${clase.id}`;
+                                });
+
+                                const actionsDiv = document.createElement('div');
+                                actionsDiv.innerHTML = `
+                                    <button class="btn btn-sm btn-outline-info me-2" title="Ver Alumnos"><i class="bi bi-people-fill"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger" title="Eliminar Clase"><i class="bi bi-trash-fill"></i></button>
+                                `;
+                                listItem.appendChild(mainDiv);
+                                listItem.appendChild(actionsDiv);
                                 myClassesList.appendChild(listItem);
                             });
                         } else {
