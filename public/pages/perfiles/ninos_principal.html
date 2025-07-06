@@ -33,11 +33,38 @@
             border: none;
             box-shadow: none;
         }
+        .juegos-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .juegos-grid .card.game-card {
+            min-width: 0;
+            width: 100%;
+            max-width: 320px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .juegos-grid .card-body {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        @media (max-width: 1200px) {
+            .juegos-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
         @media (max-width: 768px) {
             .iframe-juego-modal {
                 width: 98vw;
                 height: 60vh;
                 min-height: 200px;
+            }
+            .juegos-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -187,45 +214,37 @@
         <section id="juegos" class="py-5 bg-light-gradient">
             <div class="container">
                 <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Vamos a <span class="text-secondary">Jugar</span></h2>
-                <div class="row g-4">
-                    <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="card h-100 shadow-sm border-0 game-card">
-                            <img src="/assets/images/img_ninos/games_imgs/juego1.png" class="card-img-top" alt="Juego 1">
-                            <div class="card-body text-center">
-                                <h6 class="card-title fw-bold text-primary">La Carrera de Palabras</h6>
-                                <p class="card-text"><small>Lengua</small></p>
-                                <button class="btn btn-sm btn-primary rounded-pill btn-jugar-juego" data-juego="carrera_de_palabras.html"><i class="bi bi-controller me-1"></i> Jugar</button>
-                            </div>
+                <div class="juegos-grid">
+                    <div class="card shadow-sm border-0 game-card" data-aos="zoom-in" data-aos-delay="100">
+                        <img src="/assets/images/img_ninos/games_imgs/juego1.png" class="card-img-top" alt="Juego 1">
+                        <div class="card-body text-center">
+                            <h6 class="card-title fw-bold text-primary">La Carrera de Palabras</h6>
+                            <p class="card-text"><small>Lengua</small></p>
+                            <button class="btn btn-sm btn-primary rounded-pill btn-jugar-juego mt-auto" data-juego="carrera_de_palabras.html"><i class="bi bi-controller me-1"></i> Jugar</button>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="card h-100 shadow-sm border-0 game-card">
-                            <img src="/assets/images/img_ninos/games_imgs/juego2.png" class="card-img-top" alt="Juego 2">
-                            <div class="card-body text-center">
-                                <h6 class="card-title fw-bold text-primary">El Reino de los Números</h6>
-                                <p class="card-text"><small>Matemática</small></p>
-                                <button class="btn btn-sm btn-primary rounded-pill btn-jugar-juego" data-juego="reino_de_numeros.html"><i class="bi bi-controller me-1"></i> Jugar</button>
-                            </div>
+                    <div class="card shadow-sm border-0 game-card" data-aos="zoom-in" data-aos-delay="200">
+                        <img src="/assets/images/img_ninos/games_imgs/juego2.png" class="card-img-top" alt="Juego 2">
+                        <div class="card-body text-center">
+                            <h6 class="card-title fw-bold text-primary">El Reino de los Números</h6>
+                            <p class="card-text"><small>Matemática</small></p>
+                            <button class="btn btn-sm btn-primary rounded-pill btn-jugar-juego mt-auto" data-juego="reino_de_numeros.html"><i class="bi bi-controller me-1"></i> Jugar</button>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="card h-100 shadow-sm border-0 game-card">
-                            <img src="/assets/images/img_ninos/games_imgs/juego3.png" class="card-img-top" alt="Juego 3">
-                            <div class="card-body text-center">
-                                <h6 class="card-title fw-bold text-primary">Exploradores de la Naturaleza</h6>
-                                <p class="card-text"><small>Ciencias</small></p>
-                                <button class="btn btn-sm btn-primary rounded-pill btn-jugar-juego" data-juego="exploradores_naturaleza.html"><i class="bi bi-controller me-1"></i> Jugar</button>
-                            </div>
+                    <div class="card shadow-sm border-0 game-card" data-aos="zoom-in" data-aos-delay="300">
+                        <img src="/assets/images/img_ninos/games_imgs/juego3.png" class="card-img-top" alt="Juego 3">
+                        <div class="card-body text-center">
+                            <h6 class="card-title fw-bold text-primary">Exploradores de la Naturaleza</h6>
+                            <p class="card-text"><small>Ciencias</small></p>
+                            <button class="btn btn-sm btn-primary rounded-pill btn-jugar-juego mt-auto" data-juego="exploradores_naturaleza.html"><i class="bi bi-controller me-1"></i> Jugar</button>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="card h-100 shadow-sm border-0 game-card">
-                            <img src="/assets/images/img_ninos/games_imgs/juego4.png" class="card-img-top" alt="Juego 4">
-                            <div class="card-body text-center">
-                                <h6 class="card-title fw-bold text-primary">Adivina la Palabra Secreta</h6>
-                                <p class="card-text"><small>Lengua</small></p>
-                                <button class="btn btn-sm btn-primary rounded-pill btn-jugar-juego" data-juego="adivina_palabra.html"><i class="bi bi-controller me-1"></i> Jugar</button>
-                            </div>
+                    <div class="card shadow-sm border-0 game-card" data-aos="zoom-in" data-aos-delay="400">
+                        <img src="/assets/images/img_ninos/games_imgs/juego4.png" class="card-img-top" alt="Juego 4">
+                        <div class="card-body text-center">
+                            <h6 class="card-title fw-bold text-primary">Adivina la Palabra Secreta</h6>
+                            <p class="card-text"><small>Lengua</small></p>
+                            <button class="btn btn-sm btn-primary rounded-pill btn-jugar-juego mt-auto" data-juego="adivina_palabra.html"><i class="bi bi-controller me-1"></i> Jugar</button>
                         </div>
                     </div>
                 </div>
