@@ -1,14 +1,21 @@
+// public/assets/js/script.js
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializar AOS (Animate On Scroll Library)
     AOS.init({
-        duration: 900, // Duración de la animación en ms (se puso en 900 para que no genere trabas al cargar, en especial imagenes)
-        once: true,     // Si las animaciones deben ocurrir solo una vez al hacer scroll hacia abajo
-        mirror: false,  // Si los elementos deben animarse al hacer scroll hacia arriba
+        duration: 900, // Duración de la animación en ms
+        once: true,    // Si las animaciones deben ocurrir solo una vez
+        mirror: false, // Si los elementos deben animarse al hacer scroll hacia arriba
     });
 
+    // Función de validación de correo electrónico
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+    }
 
-    // 1. Validación y manejo del formulario de contacto
+    // 1. Validación y manejo del formulario de contacto (se mantiene)
     const contactForm = document.getElementById('contactForm');
     const contactFormMessage = document.getElementById('contactFormMessage');
 
@@ -31,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Manejo y validación del formulario de Login (Modal)
+    // 2. Manejo y validación del formulario de Login (Modal) (se mantiene)
     const loginForm = document.getElementById('loginForm');
     const loginFormMessage = document.getElementById('loginFormMessage');
 
@@ -54,14 +61,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         localStorage.setItem('token', data.token);
                         loginFormMessage.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-circle-fill me-2"></i>¡Inicio de sesión exitoso! Redirigiendo...<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                         setTimeout(() => {
+                            // Asegurarse de que 'categoria' coincida con lo que devuelve tu backend (ej. 'Docente', 'Alumno', 'Padre')
                             if (data.categoria === 'Docente') window.location.href = 'perfiles/docente_principal.html';
-                            if (data.categoria === 'Alumno') window.location.href = 'perfiles/ninos_principal.html';
-                            if (data.categoria === 'Padre') window.location.href = 'perfiles/padres_principal.html';
+                            else if (data.categoria === 'nino') window.location.href = 'perfiles/ninos_principal.html'; // Asegúrate de que tu backend devuelve 'nino' si es el rol para estudiantes
+                            else if (data.categoria === 'padre') window.location.href = 'perfiles/padres_principal.html'; // Asegúrate de que tu backend devuelve 'padre'
+                            else {
+                                // Manejar caso de rol desconocido o por defecto
+                                console.warn('Rol de usuario desconocido:', data.categoria);
+                                window.location.href = '/'; // Redirigir a una página por defecto o de error
+                            }
                         }, 1200);
                     } else {
                         loginFormMessage.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>${data.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
                     }
                 } catch (err) {
+                    console.error('Error en el login:', err);
                     loginFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>Error de conexión con el servidor.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                 }
             } else {
@@ -73,55 +87,91 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Manejo y validación del formulario de Registro (Modal)
     const registerForm = document.getElementById('registerForm');
     const registerFormMessage = document.getElementById('registerFormMessage');
+    const registerNameInput = document.getElementById('registerName');
+    const registerLastNameInput = document.getElementById('registerLastName');
+    const registerEmailInput = document.getElementById('registerEmail');
+    const registerPasswordInput = document.getElementById('registerPassword');
+    const registerRoleSelect = document.getElementById('registerRole');
+    const dniField = document.getElementById('dniField');
+    const registerDniInput = document.getElementById('registerDni');
+
+    // Mostrar/Ocultar campo DNI según el rol seleccionado
+    if (registerRoleSelect) {
+        registerRoleSelect.addEventListener('change', () => {
+            const selectedRole = registerRoleSelect.value;
+            if (selectedRole === 'nino' || selectedRole === 'docente') {
+                dniField.style.display = 'block';
+                registerDniInput.setAttribute('required', 'true');
+            } else {
+                dniField.style.display = 'none';
+                registerDniInput.removeAttribute('required');
+                registerDniInput.value = '';
+            }
+        });
+        registerRoleSelect.dispatchEvent(new Event('change')); // Disparar al cargar
+    }
 
     if (registerForm) {
         registerForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            const name = document.getElementById('registerName').value.trim();
-            const email = document.getElementById('registerEmail').value.trim();
-            const password = document.getElementById('registerPassword').value.trim();
-            const role = document.getElementById('registerRole').value;
+            const nombre = registerNameInput.value.trim();
+            const apellido = registerLastNameInput.value.trim();
+            const email = registerEmailInput.value.trim();
+            const password = registerPasswordInput.value.trim();
+            const rol_nombre = registerRoleSelect.value;
+            const dni = registerDniInput.value.trim();
 
-            if (name && validateEmail(email) && password.length >= 6 && role) {
-                try {
-                    const res = await fetch('http://localhost:3001/api/auth/register', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ nombre: name, email, password, categoria: role })
-                    });
-                    const data = await res.json();
-                    if (res.ok) {
-                        registerFormMessage.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-circle-fill me-2"></i>${data.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
-                        registerForm.reset();
-                        setTimeout(() => {
-                            const registerModal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
-                            if (registerModal) registerModal.hide();
-                            alert('¡Gracias por registrarte en EducAR! Ahora puedes iniciar sesión.');
-                        }, 2000);
-                    } else {
-                        registerFormMessage.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>${data.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
-                    }
-                } catch (err) {
-                    registerFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>Error de conexión con el servidor.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+            // Validación mejorada
+            if (!nombre || !apellido || !validateEmail(email) || password.length < 6 || !rol_nombre) {
+                registerFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>Por favor, completa todos los campos obligatorios correctamente y una contraseña de al menos 6 caracteres.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                return;
+            }
+
+            if ((rol_nombre === 'nino' || rol_nombre === 'docente') && !dni) {
+                 registerFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>El DNI es requerido para Estudiantes y Docentes.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                 return;
+            }
+
+            try {
+                const res = await fetch('http://localhost:3001/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        nombre: nombre,
+                        apellido: apellido,
+                        email: email,
+                        password: password,
+                        rol_nombre: rol_nombre, // Asegúrate de que tu backend espera 'rol_nombre'
+                        dni: dni
+                    })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    registerFormMessage.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-circle-fill me-2"></i>${data.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+                    registerForm.reset();
+                    dniField.style.display = 'none';
+                    registerDniInput.removeAttribute('required');
+
+                    setTimeout(() => {
+                        const registerModal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+                        if (registerModal) registerModal.hide();
+                        alert('¡Gracias por registrarte en EducAR! Ahora puedes iniciar sesión.');
+                    }, 2000);
+                } else {
+                    registerFormMessage.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>${data.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
                 }
-            } else {
-                registerFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>Por favor, completa todos los campos correctamente y una contraseña de al menos 6 caracteres.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+            } catch (err) {
+                console.error('Error en el registro:', err);
+                registerFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>Error de conexión con el servidor.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
             }
         });
     }
 
-    // Función de validación de correo electrónico
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(String(email).toLowerCase());
-    }
-
-    // 4. Scroll suave para enlaces de la barra de navegación (se mantiene)
+    // 4. Scroll suave para enlaces de la barra de navegación
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-
             document.querySelector(this.getAttribute('href')).scrollIntoView({
                 behavior: 'smooth'
             });
@@ -132,15 +182,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('#modulos .accordion-body .btn').forEach(button => {
         button.addEventListener('click', () => {
             alert('¡Esta función te llevará a las actividades de este módulo! (simulado)');
-            // En un proyecto real, aquí cargarías contenido dinámico o redirigirías
-            // window.location.href = `activities-${moduleName}.html`;
         });
     });
+
     // 6. Animación del monstruo en el login
     const monster = document.getElementById('monster');
     const loginEmail = document.getElementById('loginEmail');
     const loginPassword = document.getElementById('loginPassword');
-    const body = document.querySelector('body');
+    const body = document.querySelector('body'); // No se usa directamente, pero se mantiene
     const anchoMitad = window.innerWidth / 2;
     const altoMitad = window.innerHeight / 2;
     let seguirPunteroMouse = true;
@@ -207,4 +256,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
-

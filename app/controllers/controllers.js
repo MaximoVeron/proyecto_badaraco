@@ -141,6 +141,63 @@ export const loginUser = async (req, res) => {
 
 // --- CONTROLADORES PARA DOCENTES ---
 
+export const getClassDetails = async (req, res) => {
+    const { id_usuario: docente_usuario_id, nombre_rol } = req.user;
+    const { classId } = req.params; // El ID de la clase de la URL
+
+    if (nombre_rol !== 'docente') {
+        return res.status(403).json({ message: 'Acceso denegado. Solo los docentes pueden ver los detalles de sus clases.' });
+    }
+
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        // Verificar que la clase exista y esté asignada a este docente
+        const [docenteData] = await connection.query('SELECT id_docente FROM docentes WHERE id_usuario = ?', [docente_usuario_id]);
+        if (docenteData.length === 0) {
+            return res.status(404).json({ message: 'Perfil de docente no encontrado.' });
+        }
+        const id_docente = docenteData[0].id_docente;
+
+        const [classResult] = await connection.query(
+            `SELECT c.id_clase, c.nombre_clase, c.descripcion, c.anio_academico, c.nivel_educativo, c.fecha_creacion
+             FROM clases c
+             JOIN docentes_clases dc ON c.id_clase = dc.id_clase
+             WHERE c.id_clase = ? AND dc.id_docente = ?`,
+            [classId, id_docente]
+        );
+
+        if (classResult.length === 0) {
+            return res.status(404).json({ message: 'Clase no encontrada o no asignada a este docente.' });
+        }
+
+        const classDetails = classResult[0];
+
+        // Obtener los alumnos inscritos en esa clase
+        const [students] = await connection.query(
+            `SELECT a.id_alumno, a.nombre, a.apellido, u.email
+             FROM alumnos_clases ac
+             JOIN alumnos a ON ac.id_alumno = a.id_alumno
+             JOIN usuarios u ON a.id_usuario = u.id_usuario
+             WHERE ac.id_clase = ?
+             ORDER BY a.nombre, a.apellido`,
+            [classId]
+        );
+
+        classDetails.alumnos = students; // Añadir los alumnos a los detalles de la clase
+
+        res.status(200).json(classDetails);
+
+    } catch (err) {
+        console.error('Error al obtener detalles de la clase:', err);
+        res.status(500).json({ message: 'Error en el servidor al obtener detalles de la clase.', error: err.message });
+    } finally {
+        if (connection) {
+            connection.release();
+        }
+    }
+};
+
 export const createClass = async (req, res) => {
     // req.user viene del middleware authenticateToken
     const { id_usuario: docente_usuario_id, nombre_rol } = req.user;
