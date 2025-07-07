@@ -54,9 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         localStorage.setItem('token', data.token);
                         loginFormMessage.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-circle-fill me-2"></i>¡Inicio de sesión exitoso! Redirigiendo...<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                         setTimeout(() => {
-                            if (data.categoria === 'docente') window.location.href = '/pages/perfiles/docente_principal.html';
-                            if (data.categoria === 'nino') window.location.href = '/pages/perfiles/ninos_principal.html';
-                            if (data.categoria === 'padre') window.location.href = '/pages/perfiles/padres_principal.html';
+                            if (data.categoria === 'Docente') window.location.href = 'perfiles/docente_principal.html';
+                            if (data.categoria === 'Alumno') window.location.href = 'perfiles/ninos_principal.html';
+                            if (data.categoria === 'Padre') window.location.href = 'perfiles/padres_principal.html';
                         }, 1200);
                     } else {
                         loginFormMessage.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>${data.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
@@ -149,16 +149,16 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.addEventListener('mousemove',(m)=>{
             if (seguirPunteroMouse){
                 if ((m.clientX<anchoMitad)&&(m.clientY < altoMitad)) {
-                    monster.src = '/assets/images/monstruo_animation/idle/2.png';
+                    monster.src = '../assets/images/monstruo_animation/idle/2.png';
                 }
                 if ((m.clientX>anchoMitad)&&(m.clientY<altoMitad)) {
-                    monster.src = '/assets/images/monstruo_animation/idle/5.png';
+                    monster.src = '../assets/images/monstruo_animation/idle/5.png';
                 }
                 if ((m.clientX<anchoMitad)&&(m.clientY>altoMitad)) {
-                    monster.src = '/assets/images/monstruo_animation/idle/3.png';
+                    monster.src = '../assets/images/monstruo_animation/idle/3.png';
                 }
                 if ((m.clientX>anchoMitad)&&(m.clientY>altoMitad)) {
-                    monster.src = '/assets/images/monstruo_animation/idle/4.png';
+                    monster.src = '../assets/images/monstruo_animation/idle/4.png';
                 }
             }
         });
@@ -171,20 +171,20 @@ document.addEventListener('DOMContentLoaded', () => {
         loginEmail.addEventListener('keyup',()=>{
             let usuarioCaracteresLogin = loginEmail.value.length;
             if ((usuarioCaracteresLogin >=0)&&(usuarioCaracteresLogin<=10)){
-                monster.src = '/assets/images/monstruo_animation/read/1.png';
+                monster.src = '../assets/images/monstruo_animation/read/1.png';
             } else if ((usuarioCaracteresLogin >=11)&&(usuarioCaracteresLogin<=32)){
-                monster.src = '/assets/images/monstruo_animation/read/2.png';
+                monster.src = '../assets/images/monstruo_animation/read/2.png';
             } else if ((usuarioCaracteresLogin >=33)&&(usuarioCaracteresLogin<=52)){
-                monster.src = '/assets/images/monstruo_animation/read/3.png';
+                monster.src = '../assets/images/monstruo_animation/read/3.png';
             } else {
-                monster.src = '/assets/images/monstruo_animation/read/4.png';
+                monster.src = '../assets/images/monstruo_animation/read/4.png';
             }
         });
         loginPassword.addEventListener('focus',()=>{
             seguirPunteroMouse=false;
             let cont=1;
             const cubrirOjo = setInterval(()=>{
-                monster.src = '/assets/images/monstruo_animation/cover/'+cont+'.png';
+                monster.src = '../assets/images/monstruo_animation/cover/'+cont+'.png';
                 if (cont<8) {
                     cont++;
                 } else {
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
             seguirPunteroMouse=true;
             let cont=7;
             const descubrirOjo = setInterval(()=>{
-                monster.src = '/assets/images/monstruo_animation/cover/'+cont+'.png';
+                monster.src = '../assets/images/monstruo_animation/cover/'+cont+'.png';
                 if (cont>1) {
                     cont--;
                 } else {
