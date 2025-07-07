@@ -39,6 +39,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#contacto">Contacto</a>
                     </li>
+                    <li class="nav-item">
+    <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#notificationsModal" id="notificationsBell">
+        <i class="bi bi-bell-fill fs-5"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notificationsCount">
+            0 <span class="visually-hidden">notificaciones no leídas</span>
+        </span>
+    </a>
+</li>
                     <li class="nav-item ms-lg-3">
                         <button class="btn btn-warning rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#loginModal">
                             <i class="bi bi-box-arrow-in-right me-1"></i> Ingresar
@@ -154,7 +162,23 @@
                 </div>
             </div>
         </section>
-
+<div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="notificationsModalLabel"><i class="bi bi-bell-fill me-2"></i> Mis Notificaciones</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body" id="notificationsList">
+                <p class="text-muted text-center" id="noNotificationsMessage">No tienes notificaciones nuevas.</p>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" id="markAllAsReadBtn">Marcar todas como leídas</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
         <section id="para-quienes" class="py-5 bg-light-gradient">
             <div class="container">
                 <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">EducAR es para <span class="text-secondary">Todos</span></h2>

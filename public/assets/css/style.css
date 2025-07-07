@@ -331,3 +331,21 @@ footer a:hover {
     object-fit: cover;
 }
 
+/* En assets/css/style.css */
+.notification-read {
+    opacity: 0.7;
+    background-color: var(--bs-light) !important; /* Usar una variable de Bootstrap si está definida */
+    border-left: 5px solid var(--bs-secondary); /* Un borde para distinguirlas */
+}
+
+.notification-read p {
+    color: var(--bs-dark);
+}
+
+/* Puedes ajustar el color bg-violet-light si no está definido en tu CSS */
+.bg-violet-light {
+    background-color: #e0d9ed; /* Ejemplo de color violeta claro */
+}
+.btn-close-white {
+    filter: invert(1); /* Para que el icono de cerrar sea blanco */
+}

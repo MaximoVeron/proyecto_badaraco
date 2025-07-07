@@ -208,3 +208,212 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    AOS.init(); // Inicializa AOS, si no lo tienes ya inicializado
+
+    // --- Lógica para el modal de Notificaciones ---
+    const notificationsModal = document.getElementById('notificationsModal');
+    const notificationsList = document.getElementById('notificationsList');
+    const notificationsCountSpan = document.getElementById('notificationsCount');
+    const noNotificationsMessage = document.getElementById('noNotificationsMessage');
+    const markAllAsReadBtn = document.getElementById('markAllAsReadBtn');
+
+    // Función para simular la carga de notificaciones
+    // En un entorno real, esto haría una llamada a tu backend.
+    function loadNotifications() {
+        // Simular datos de notificaciones (pueden venir de un servidor)
+        const dummyNotifications = [
+            { id: 1, type: 'new_activity', message: '¡Nueva actividad disponible! Explora el juego "Aventuras con las Sílabas".', read: false },
+            { id: 2, type: 'course_progress', message: 'Tu hijo completó el 80% del módulo de Matemáticas.', read: false },
+            { id: 3, type: 'admin_message', message: '¡Importante! Mantenimiento programado para el 15 de Julio de 2025 de 00:00 a 02:00 hs.', read: false },
+            { id: 4, type: 'new_feature', message: '¡Nueva función! Ahora puedes personalizar el avatar de tu perfil.', read: true } // Esta ya está leída
+        ];
+
+        // Obtener notificaciones del Local Storage o simular si no existen
+        let notifications = JSON.parse(localStorage.getItem('educarNotifications')) || dummyNotifications;
+
+        renderNotifications(notifications);
+        updateNotificationCount(notifications);
+        localStorage.setItem('educarNotifications', JSON.stringify(notifications));
+    }
+
+    // Función para renderizar las notificaciones en el modal
+    function renderNotifications(notifications) {
+        notificationsList.innerHTML = ''; // Limpiar la lista existente
+
+        const unreadNotifications = notifications.filter(n => !n.read);
+
+        if (unreadNotifications.length === 0 && notifications.length === 0) {
+            noNotificationsMessage.style.display = 'block';
+            markAllAsReadBtn.style.display = 'none'; // Ocultar el botón si no hay notificaciones
+        } else {
+            noNotificationsMessage.style.display = 'none';
+            // Mostrar el botón solo si hay notificaciones sin leer
+            if (unreadNotifications.length > 0) {
+                 markAllAsReadBtn.style.display = 'block';
+            } else {
+                markAllAsReadBtn.style.display = 'none';
+            }
+
+
+            notifications.forEach(notification => {
+                const alertType = notification.read ? 'alert-secondary' : 'alert-info'; // Color diferente para leídas
+                const readClass = notification.read ? 'notification-read' : ''; // Clase para estilizar notificaciones leídas
+                const notificationItem = document.createElement('div');
+                notificationItem.classList.add('alert', alertType, 'alert-dismissible', 'fade', 'show', 'mb-2', readClass);
+                notificationItem.setAttribute('role', 'alert');
+                notificationItem.dataset.notificationId = notification.id; // Para identificar la notificación
+
+                notificationItem.innerHTML = `
+                    <p class="mb-0">
+                        <strong>${getNotificationTitle(notification.type)}</strong> ${notification.message}
+                    </p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                `;
+
+                notificationsList.appendChild(notificationItem);
+            });
+        }
+    }
+
+    // Función para obtener el título según el tipo de notificación
+    function getNotificationTitle(type) {
+        switch (type) {
+            case 'new_activity': return '¡Nueva Actividad!';
+            case 'course_progress': return 'Progreso del Curso:';
+            case 'admin_message': return 'Mensaje del Equipo EducAR:';
+            case 'new_feature': return '¡Nueva Función!';
+            default: return 'Notificación:';
+        }
+    }
+
+    // Función para actualizar el contador de notificaciones no leídas
+    function updateNotificationCount(notifications) {
+        const unreadCount = notifications.filter(n => !n.read).length;
+        notificationsCountSpan.textContent = unreadCount;
+        notificationsCountSpan.style.display = unreadCount > 0 ? 'inline-block' : 'none'; // Mostrar/ocultar el badge
+    }
+
+    // Evento al mostrar el modal de notificaciones
+    notificationsModal.addEventListener('show.bs.modal', function () {
+        loadNotifications(); // Cargar y renderizar notificaciones cada vez que se abre el modal
+    });
+
+    // Evento al hacer clic en el botón "Marcar todas como leídas"
+    markAllAsReadBtn.addEventListener('click', function() {
+        let notifications = JSON.parse(localStorage.getItem('educarNotifications')) || [];
+        notifications.forEach(n => n.read = true); // Marcar todas como leídas
+        localStorage.setItem('educarNotifications', JSON.stringify(notifications));
+        renderNotifications(notifications); // Volver a renderizar para que cambie el estilo
+        updateNotificationCount(notifications); // Actualizar el contador
+    });
+
+    // Evento al cerrar una notificación individualmente (usando delegación de eventos)
+    notificationsList.addEventListener('closed.bs.alert', function (event) {
+        const notificationItem = event.target;
+        const notificationId = parseInt(notificationItem.dataset.notificationId);
+
+        let notifications = JSON.parse(localStorage.getItem('educarNotifications')) || [];
+        const index = notifications.findIndex(n => n.id === notificationId);
+
+        if (index !== -1) {
+            notifications.splice(index, 1); // Eliminar la notificación de la lista
+            localStorage.setItem('educarNotifications', JSON.stringify(notifications));
+            updateNotificationCount(notifications); // Actualizar el contador
+        }
+
+        // Si no quedan notificaciones, mostrar el mensaje de "no notificaciones"
+        if (notifications.length === 0) {
+            noNotificationsMessage.style.display = 'block';
+            markAllAsReadBtn.style.display = 'none';
+        }
+    });
+
+    // Inicializar notificaciones al cargar la página por primera vez
+    loadNotifications();
+
+    // --- Lógica existente para formularios de Login y Registro ---
+    // (Asegúrate de que este código ya esté en tu script.js y adaptarlo si es necesario)
+
+    const loginForm = document.getElementById('loginForm');
+    const loginFormMessage = document.getElementById('loginFormMessage');
+    const loginModal = document.getElementById('loginModal');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Aquí iría la lógica de autenticación con el backend
+            console.log('Intento de login...');
+            loginFormMessage.innerHTML = '<div class="alert alert-warning">Iniciando sesión...</div>';
+
+            setTimeout(() => {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+
+                if (email === 'test@educar.com' && password === 'password123') {
+                    loginFormMessage.innerHTML = '<div class="alert alert-success">¡Inicio de sesión exitoso! Redirigiendo...</div>';
+                    // Aquí podrías redirigir al usuario o cerrar el modal
+                    const bsLoginModal = bootstrap.Modal.getInstance(loginModal);
+                    bsLoginModal.hide();
+                    // window.location.href = '/dashboard'; // Ejemplo de redirección
+                } else {
+                    loginFormMessage.innerHTML = '<div class="alert alert-danger">Credenciales incorrectas. Intenta de nuevo.</div>';
+                }
+            }, 1500); // Simular una carga
+        });
+    }
+
+    const registerForm = document.getElementById('registerForm');
+    const registerFormMessage = document.getElementById('registerFormMessage');
+    const registerModal = document.getElementById('registerModal');
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Aquí iría la lógica de registro con el backend
+            console.log('Intento de registro...');
+            registerFormMessage.innerHTML = '<div class="alert alert-warning">Registrando usuario...</div>';
+
+            setTimeout(() => {
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                const role = document.getElementById('registerRole').value;
+
+                // Validación simple de ejemplo
+                if (password.length < 6) {
+                    registerFormMessage.innerHTML = '<div class="alert alert-danger">La contraseña debe tener al menos 6 caracteres.</div>';
+                    return;
+                }
+
+                // Simular registro exitoso
+                registerFormMessage.innerHTML = '<div class="alert alert-success">¡Registro exitoso! Ya puedes iniciar sesión.</div>';
+                // Limpiar formulario o redirigir
+                registerForm.reset();
+                // Opcional: Cerrar modal de registro y abrir modal de login
+                const bsRegisterModal = bootstrap.Modal.getInstance(registerModal);
+                bsRegisterModal.hide();
+                setTimeout(() => {
+                    const bsLoginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                    bsLoginModal.show();
+                }, 500);
+            }, 2000); // Simular una carga
+        });
+    }
+
+    // --- Lógica para la animación del monstruo en el modal de Login ---
+    const monsterImg = document.getElementById('monster');
+    if (monsterImg) {
+        const animationFrames = 10; // Número de frames en la carpeta idle
+        let currentFrame = 1;
+
+        function animateMonster() {
+            monsterImg.src = `../assets/images/monstruo_animation/idle/${currentFrame}.png`;
+            currentFrame++;
+            if (currentFrame > animationFrames) {
+                currentFrame = 1;
+            }
+        }
+        setInterval(animateMonster, 200); // Cambia el frame cada 200ms
+    }
+});
