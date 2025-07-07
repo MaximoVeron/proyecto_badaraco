@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EducAR - Plataforma Educativa Digital</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <header class="bg-primary text-white py-3 shadow-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="../../..//assets/images/logo_titulo.png" loading="lazy" alt="EducAR Logo" class="me-2 logo-navbar">
+                <span class="fw-bold fs-4 text-uppercase">EducAR</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active no-hover" aria-current="page" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#modulos">Módulos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#para-quienes">Estudiantes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Soporte</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="d-flex align-items-center justify-content-center bg-light" style="min-height: calc(100vh - 80px);">
+        <div class="card shadow-lg border-0 w-100" style="max-width: 1100px; min-width: 340px; border-radius: 2rem; background: #fff; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); margin-top: 40px; margin-bottom: 40px;">
+            <div class="card-body p-5">
+                <div class="d-flex align-items-center mb-4 justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-easel2-fill text-primary fs-2 me-3"></i>
+                        <h2 class="mb-0 fw-bold" id="className">Clase</h2>
+                    </div>
+                    <a href="../../perfiles/docente_principal.html" class="btn btn-outline-danger rounded-pill ms-3" title="Salir al panel de docente">
+                        <i class="bi bi-box-arrow-left me-1"></i> Salir
+                    </a>
+                </div>
+                <hr>
+                <h4 class="mb-3 text-secondary"><i class="bi bi-journal-text me-2"></i>Tareas de la clase</h4>
+                <ul class="list-group mb-4" id="tasksList" style="background: transparent; border: none;"></ul>
+        <!-- Modal para ver/editar tarea -->
+        <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="taskModalLabel">Detalle de la tarea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <form id="editTaskForm">
+                <div class="modal-body">
+                  <input type="hidden" id="editTaskId">
+                  <div class="mb-3">
+                    <label for="editTaskTitle" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="editTaskTitle" name="editTaskTitle" required maxlength="80">
+                  </div>
+                  <div class="mb-3">
+                    <label for="editTaskDesc" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="editTaskDesc" name="editTaskDesc" rows="2" maxlength="300"></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Archivo actual</label>
+                    <div id="editTaskFileLink"></div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="editTaskFile" class="form-label">Cambiar archivo (opcional)</label>
+                    <input type="file" class="form-control" id="editTaskFile" name="editTaskFile">
+                  </div>
+                  <div class="mb-2">
+                    <small class="text-secondary" id="editTaskFecha"></small>
+                  </div>
+                  <div id="editTaskMsg" class="mt-2"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+                <div class="mt-4">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-plus-circle-fill text-success me-2"></i>Agregar nueva tarea</h5>
+                    <form id="taskForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="taskTitle" class="form-label">Título de la tarea</label>
+                            <input type="text" class="form-control" id="taskTitle" name="taskTitle" required maxlength="80">
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskDesc" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="taskDesc" rows="2" maxlength="300"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskFile" class="form-label">Archivo adjunto (opcional)</label>
+                            <input type="file" class="form-control" id="taskFile" name="file">
+                        </div>
+                        <button type="submit" class="btn btn-success rounded-pill px-4"><i class="bi bi-upload me-2"></i>Publicar tarea</button>
+                        <div id="taskMsg" class="mt-3"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">
+                &copy; 2024 EducAR. Todos los derechos reservados. | 
+                <a href="#" class="text-warning text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalPrivacidad">Política de Privacidad</a> | 
+                <a href="#" class="text-warning text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalTerminos">Términos de Servicio</a>
+            </p>
+            <div class="mt-2">
+                <a href="#" class="text-white mx-2" title="Facebook" aria-label="Facebook"><i class="bi bi-facebook fs-4"></i></a>
+                <a href="#" class="text-white mx-2" title="Twitter" aria-label="Twitter"><i class="bi bi-twitter fs-4"></i></a>
+                <a href="#" class="text-white mx-2" title="Instagram" aria-label="Instagram"><i class="bi bi-instagram fs-4"></i></a>
+                <a href="#" class="text-white mx-2" title="LinkedIn" aria-label="LinkedIn"><i class="bi bi-linkedin fs-4"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal: Política de Privacidad -->
+    <div class="modal fade" id="modalPrivacidad" tabindex="-1" aria-labelledby="modalPrivacidadLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalPrivacidadLabel">Política de Privacidad</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+            <p><strong>1. Compromiso con la privacidad</strong></p>
+            <p>En EducAR, la privacidad y seguridad de nuestros usuarios es una prioridad, especialmente cuando se trata de niños de primer a tercer grado de primaria. Diseñamos esta política para explicar de forma clara y sencilla qué información recopilamos, cómo la usamos, y qué medidas tomamos para protegerla.</p>
+
+            <p><strong>2. ¿Qué información recopilamos?</strong></p>
+            <p>EducAR no recopila datos personales sensibles de los niños sin el consentimiento de los padres, tutores o representantes legales. La información que se puede recopilar incluye:</p>
+            <ul>
+                <li>Nombre y correo electrónico del docente o tutor (al crear una cuenta para uso educativo).</li>
+                <li>Nombre del estudiante (opcional y solo si el tutor lo autoriza).</li>
+                <li>Progreso académico, resultados de actividades y tiempo de uso (para fines pedagógicos).</li>
+                <li>Información técnica como tipo de dispositivo, navegador y sistema operativo (para mejorar la experiencia de usuario).</li>
+            </ul>
+
+            <p><strong>3. Uso de la información</strong></p>
+            <p>La información recopilada se utiliza exclusivamente para los siguientes fines:</p>
+            <ul>
+                <li>Personalizar la experiencia de aprendizaje según el nivel y progreso del estudiante.</li>
+                <li>Brindar acceso a contenidos educativos validados por docentes.</li>
+                <li>Garantizar un entorno seguro, libre de publicidad y distracciones.</li>
+                <li>Mejorar continuamente la plataforma a través de datos de uso agregados y anónimos.</li>
+                <li><strong>EducAR no vende, alquila ni comparte datos personales con terceros con fines comerciales.</strong></li>
+            </ul>
+
+            <p><strong>4. Seguridad de los datos</strong></p>
+            <p>Implementamos medidas técnicas y organizativas apropiadas para proteger los datos:</p>
+            <ul>
+                <li>Cifrado de información durante la transmisión y el almacenamiento.</li>
+                <li>Accesos restringidos únicamente a personal autorizado.</li>
+                <li>Supervisión constante de la plataforma para prevenir accesos no autorizados o actividades maliciosas.</li>
+            </ul>
+
+            <p><strong>5. Participación y control de los adultos</strong></p>
+            <p>Los padres, tutores y docentes tienen control sobre la información relacionada con los niños. Pueden:</p>
+            <ul>
+                <li>Solicitar la revisión o eliminación de los datos personales almacenados.</li>
+                <li>Configurar el nivel de acceso y privacidad del estudiante.</li>
+                <li>Comunicar cualquier preocupación de seguridad o privacidad a través de nuestros canales de contacto.</li>
+            </ul>
+
+            <p><strong>6. Cookies y tecnologías similares</strong></p>
+            <p>EducAR utiliza cookies esenciales para el funcionamiento de la plataforma, como mantener la sesión iniciada o recordar preferencias. No utilizamos cookies con fines publicitarios ni de rastreo comercial.</p>
+
+            <p><strong>7. Cambios en esta política</strong></p>
+            <p>Podremos actualizar esta Política de Privacidad ocasionalmente para reflejar mejoras o cambios normativos. Notificaremos cualquier cambio importante a través de la plataforma o por correo electrónico a los usuarios registrados.</p>
+
+            <p><strong>8. Contacto</strong></p>
+            <p>Si tienes preguntas sobre esta política o deseas ejercer tus derechos de acceso, rectificación o eliminación de datos, por favor contáctanos en:</p>
+
+            <ul>
+                <li>📧 privacidad@educar.org</li>
+                <li>📍 Formosa, Argentina</li>
+            </ul>
+
+            <!-- Aquí va todo tu texto completo de privacidad -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+<!-- Modal: Términos de Servicio -->
+    <div class="modal fade" id="modalTerminos" tabindex="-1" aria-labelledby="modalTerminosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalTerminosLabel">Términos de Servicio</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+            <p><strong>1. Aceptación de los Términos</strong></p>
+            <p>Al acceder o utilizar EducAR, usted acepta estos Términos de Servicio. Si no está de acuerdo con alguno de ellos, por favor no utilice la plataforma. El uso de EducAR implica la aceptación plena de estas condiciones.</p>
+
+            <p><strong>2. Descripción del servicio</strong></p>
+            <p>EducAR es una plataforma digital orientada a estudiantes de primer a tercer grado de primaria. Ofrece contenidos educativos diseñados por docentes, con enfoque en la seguridad, accesibilidad y alineación curricular. Nuestro objetivo es facilitar un aprendizaje significativo y protegido para niños y niñas en sus primeros años escolares.</p>
+
+            <p><strong>3. Público destinatario</strong></p>
+            <p>EducAR está destinado a:</p>
+            <ul>
+                <li>Niños y niñas de 6 a 9 años que cursan del 1º al 3º grado de primaria.</li>
+                <li>Docentes del nivel primario.</li>
+                <li>Padres, madres y tutores que acompañan el aprendizaje desde el hogar.</li>
+            </ul>
+            <p>Los menores deben utilizar la plataforma bajo la supervisión de un adulto responsable.</p>
+
+            <p><strong>4. Registro de usuarios</strong></p>
+            <p>Para utilizar ciertas funciones, es posible que se requiera la creación de una cuenta. El registro podrá incluir información básica como nombre del tutor o docente, dirección de correo electrónico y, opcionalmente, nombre del estudiante. Este registro tiene como fin organizar el uso educativo y personalizar los contenidos.</p>
+
+            <p><strong>5. Obligaciones del usuario</strong></p>
+            <p>Los usuarios se comprometen a:</p>
+            <ul>
+                <li>Utilizar la plataforma con fines exclusivamente educativos.</li>
+                <li>Proporcionar información veraz durante el registro.</li>
+                <li>No dañar, alterar o interferir con el funcionamiento del sistema.</li>
+                <li>No intentar acceder sin autorización a secciones restringidas o a los datos de otros usuarios.</li>
+            </ul>
+
+            <p><strong>6. Contenidos y derechos de autor</strong></p>
+            <p>Todos los contenidos ofrecidos en EducAR, incluyendo textos, gráficos, sonidos y recursos interactivos, son propiedad de la plataforma o de sus respectivos autores. Está prohibida su reproducción, distribución o modificación sin autorización previa.</p>
+
+            <p><strong>7. Entorno seguro y libre de publicidad</strong></p>
+            <p>EducAR no contiene anuncios publicitarios, ni enlaces a sitios externos no verificados. El diseño de la plataforma prioriza la seguridad digital de los menores y evita distracciones que puedan interferir con el aprendizaje.</p>
+
+            <p><strong>8. Limitación de responsabilidad</strong></p>
+            <p>EducAR no garantiza la disponibilidad ininterrumpida del servicio, pero se compromete a mantenerlo actualizado y en funcionamiento. La plataforma no reemplaza la función pedagógica del docente, sino que la complementa.</p>
+
+            <p><strong>9. Modificaciones de los términos</strong></p>
+            <p>Podremos actualizar estos Términos de Servicio en cualquier momento. Los cambios se notificarán a través de la plataforma o por correo electrónico. El uso continuado del servicio implica la aceptación de los términos actualizados.</p>
+
+            <p><strong>10. Contacto</strong></p>
+            <p>Si tienes dudas o sugerencias sobre estos Términos, puedes contactarnos en:</p>
+            <ul>
+                <li>📧 soporte@educar.org</li>
+                <li>📍 Formosa, Argentina</li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../../../../../assets/js/script.js"></script>
+    <script>
+
+    // DEMO: Forzar id de clase fijo para pruebas
+    function getClassId() {
+        return '1'; // Siempre usará la clase 1
+    }
+
+    // Cargar nombre de la clase y tareas (simulado, reemplazar por fetch real)
+    async function loadClassPanel() {
+        const classId = getClassId();
+        const classNameEl = document.getElementById('className');
+        if (!classId) {
+            classNameEl.textContent = '2º Grado "B"';
+            return;
+        }
+        // Fetch real al backend para obtener la clase y tareas
+        const token = localStorage.getItem('token');
+        try {
+            const resClase = await fetch(`/api/classes/${classId}`, { headers: { Authorization: `Bearer ${token}` } });
+            if (resClase.ok) {
+                const clase = await resClase.json();
+                classNameEl.textContent = clase.nombre || 'Clase';
+            } else {
+                classNameEl.textContent = 'Clase';
+            }
+        } catch (err) {
+            classNameEl.textContent = 'Clase';
+        }
+        // Cargar tareas reales
+        try {
+            const res = await fetch(`/api/classes/${classId}/tasks`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('No se pudieron cargar las tareas');
+            const tasks = await res.json();
+            renderTasks(tasks);
+        } catch (err) {
+            document.getElementById('tasksList').innerHTML = '<li class="list-group-item text-center text-danger">Error al cargar tareas.</li>';
+        }
+    }
+
+    function renderTasks(tasks) {
+        const list = document.getElementById('tasksList');
+        list.innerHTML = '';
+        if (!tasks.length) {
+            list.innerHTML = '<li class="list-group-item text-center text-muted">No hay tareas asignadas aún.</li>';
+            return;
+        }
+        tasks.forEach(task => {
+            const li = document.createElement('li');
+            li.className = 'list-group-item mb-2 shadow-sm';
+            li.style.borderRadius = '1rem';
+            li.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="fw-bold mb-1">${task.titulo}</h6>
+                        <p class="mb-1 text-muted">${task.descripcion || ''}</p>
+                        <small class="text-secondary">${task.fecha ? task.fecha.substring(0, 10) : ''}</small>
+                    </div>
+                    ${task.archivo ? `<a href="${task.archivo}" class="btn btn-sm btn-outline-primary" target="_blank"><i class="bi bi-paperclip"></i> Ver archivo</a>` : ''}
+                    <button class="btn btn-sm btn-outline-info ms-2" data-task='${JSON.stringify(task).replace(/'/g, "&#39;")}' onclick="openTaskModal(this)"><i class='bi bi-pencil'></i> Ver/Editar</button>
+                </div>
+            `;
+            list.appendChild(li);
+        });
+    }
+
+    // Modal: Ver y editar tarea
+    let taskModalInstance = null;
+    window.openTaskModal = function(btn) {
+      const task = JSON.parse(btn.getAttribute('data-task').replace(/&#39;/g, "'"));
+      document.getElementById('editTaskId').value = task.id;
+      document.getElementById('editTaskTitle').value = task.titulo;
+      document.getElementById('editTaskDesc').value = task.descripcion || '';
+      document.getElementById('editTaskFecha').textContent = task.fecha ? 'Fecha: ' + task.fecha.substring(0, 16).replace('T', ' ') : '';
+      document.getElementById('editTaskFileLink').innerHTML = task.archivo ? `<a href="${task.archivo}" target="_blank"><i class='bi bi-paperclip'></i> Ver archivo</a>` : '<span class="text-muted">Sin archivo</span>';
+      document.getElementById('editTaskFile').value = '';
+      document.getElementById('editTaskMsg').innerHTML = '';
+      const modalEl = document.getElementById('taskModal');
+      if (!taskModalInstance) {
+        taskModalInstance = new bootstrap.Modal(modalEl);
+      }
+      if (modalEl.classList.contains('show')) {
+        // Si ya está abierto, primero lo cierra y luego lo abre (previene bug visual)
+        taskModalInstance.hide();
+        setTimeout(() => taskModalInstance.show(), 200);
+      } else {
+        taskModalInstance.show();
+      }
+    }
+
+    // Guardar cambios (solo frontend, demo)
+    document.addEventListener('DOMContentLoaded', function() {
+      // ...existing code...
+      document.getElementById('editTaskForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        document.getElementById('editTaskMsg').innerHTML = '<div class="alert alert-info">Funcionalidad de edición pendiente de backend.</div>';
+      });
+    });
+
+    // Manejar envío de nueva tarea (simulado)
+    document.addEventListener('DOMContentLoaded', function() {
+        loadClassPanel();
+        document.getElementById('taskForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const classId = getClassId();
+            const token = localStorage.getItem('token');
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Publicando...';
+            try {
+                const res = await fetch(`/api/classes/${classId}/tasks`, {
+                    method: 'POST',
+                    headers: { Authorization: `Bearer ${token}` },
+                    body: formData
+                });
+                if (res.ok) {
+                    document.getElementById('taskMsg').innerHTML = '<div class="alert alert-success">Tarea publicada.</div>';
+                    this.reset();
+                    await loadClassPanel();
+                } else {
+                    const errorText = await res.text();
+                    document.getElementById('taskMsg').innerHTML = `<div class="alert alert-danger">Error al publicar la tarea. ${errorText}</div>`;
+                }
+            } catch (err) {
+                document.getElementById('taskMsg').innerHTML = '<div class="alert alert-danger">Error de red al publicar la tarea.</div>';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-upload me-2"></i>Publicar tarea';
+                setTimeout(() => document.getElementById('taskMsg').innerHTML = '', 2000);
+            }
+        });
+    });
+    </script>
+</body>
+</html>

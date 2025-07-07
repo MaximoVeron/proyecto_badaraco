@@ -142,8 +142,14 @@
                 </div>
                 <div class="card-body">
                   <h5 class="card-title fw-bold text-primary">1º Grado "A"</h5>
-                  <p class="card-text">25 alumnos activos. Última actividad: Lengua.</p>
-                  <a href="#" class="btn btn-outline-secondary mt-3 rounded-pill">Ver Clase</a>
+                  <p class="card-text">
+                    25 alumnos activos. Última actividad: Lengua.
+                  </p>
+                  <a
+                    href="#"
+                    class="btn btn-outline-secondary mt-3 rounded-pill"
+                    >Ver Clase</a
+                  >
                 </div>
               </div>
             </div>
@@ -154,39 +160,42 @@
                 </div>
                 <div class="card-body">
                   <h5 class="card-title fw-bold text-primary">2º Grado "B"</h5>
-                  <p class="card-text">22 alumnos activos. Última actividad: Matemática.</p>
-                  <a href="#" class="btn btn-outline-success mt-3 rounded-pill">Ver Clase</a>
+                  <p class="card-text">
+                    22 alumnos activos. Última actividad: Matemática.
+                  </p>
+                  <a href="#" class="btn btn-outline-success mt-3 rounded-pill"
+                    >Ver Clase</a
+                  >
                 </div>
               </div>
             </div>
-            <div class="col-md-4 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-               <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">
-                <div class="icon-circle bg-info text-white mx-auto mb-3">
+            <div
+              class="col-md-6 col-lg-4"
+              data-aos="fade-up"
+              data-aos-delay="500"
+            >
+              <div class="card h-100 shadow-sm border-0 text-center p-4 feature-card">      
+                <div class="icon-circle bg-info text-white mx-auto mb-3"> 
                   <i class="bi bi-person-badge-fill fs-2"></i>
                 </div>
                 <div class="card-body">
                   <h5 class="card-title fw-bold text-primary">3º Grado "C"</h5>
-                  <p class="card-text">20 alumnos activos. Última actividad: Ciencias Sociales.</p>
-                  <a href="#" class="btn btn-outline-info mt-3 rounded-pill">Ver Clase</a>
-                </div> 
-              </div>
-            </div>
-            
-      <section>
-        <div class="container">
-          <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">
-            Gestión de <span class="text-secondary">Clases</span>
-          </h2>
-          <div class="row justify-content-center">
-            <div class="col-lg-10" data-aos="fade-up" data-aos-delay="200">
-              <div class="card shadow-lg border-0 p-4">
-                <div class="card-body">
-                  <h5 class="card-title fw-bold text-secondary mb-4">
-                    Organiza y Administra tus Clases 
-                  </h5>
-                  <p class="card-text mb-4">
-                    Desde aquí podrás crear nuevas clases, añadir alumnos y gestionar tus clases existentes.
+                  <p class="card-text">
+                    20 alumnos activos. Última actividad: Ciencias Sociales.
                   </p>
+                  <a
+                    href="#"
+                    class="btn btn-outline-info mt-3 rounded-pill"
+                    >Ver Clase</a
+                  >
+                </div> 
+              </div> 
+            </div>
+
+                  <section>
+                </div>
+            </div>
+        </div>
         <div class="row justify-content-center">             
           <div class="container py-5">
     <div class="row justify-content-center">
@@ -227,7 +236,7 @@
                             </div>
                             <div id="createClassMessage" class="mt-3 text-center"></div>
                         </form>
-                    </div>
+                      </div>
                </div>
 
           <div class="tab-pane fade" id="add-students" role="tabpanel" aria-labelledby="add-students-tab">
@@ -236,8 +245,9 @@
         <form id="addStudentsToClassForm">
             <div class="mb-3">
                 <label for="selectClassToAddStudents" class="form-label">Selecciona una Clase:</label>
-                <select class="form-select" id="selectClassToAddStudents" required>
-                    <option value="">Cargando clases...</option> </select>
+                  <select class="form-select" id="selectClassToAddStudents" required>
+                    <option value="">Cargando clases...</option> 
+                  </select>
             </div>
             <div class="mb-3">
                 <label for="studentEmails" class="form-label">Emails de los Alumnos (uno por línea):</label>
@@ -248,7 +258,7 @@
                 <button type="submit" class="btn btn-primary rounded-pill"><i class="bi bi-person-plus-fill me-2"></i> Añadir Alumnos</button>
             </div>
             <div id="addStudentsMessage" class="mt-3 text-center"></div>
-        </form>
+          </form>
     </div>
 </div>
 
@@ -463,7 +473,7 @@
                 multiple
                 aria-label="Selecciona a quién va dirigido el aviso"
                 required>
-                <option value="" disabled>Selecciona destinatarios...</option>
+                <option value= " " disabled>Selecciona destinatarios...</option>
                 <option value="all-classes">Todas mis clases</option>
                 <option value="class-1A">Clase 1º A</option>
                 <option value="class-2B">Clase 2º B</option>
@@ -752,7 +762,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <p><strong>1. Aceptación de los Términos</strong></p>
+            <p><strong>1.Términos y condiciones</strong></p>
             <p>
               Al acceder o utilizar EducAR, usted acepta estos Términos de
               Servicio. Si no está de acuerdo con alguno de ellos, por favor no
@@ -902,32 +912,6 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="profileModalLabel">Actualizar Perfil</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="updateProfileFormDocente">
-                        <div class="mb-3">
-                            <label type="text" for="newUserNameDocente" class="form-label">Tu Nombre Actual:</label>
-                            <input type="text" class="form-control" id="currentUserNameDocente">
-                        </div>
-                        <div class="mb-3">
-                            <label for="newUserNameDocente" class="form-label">Nuevo Nombre:</label>
-                            <input type="text" class="form-control" id="newUserNameDocente" placeholder="Introduce tu nuevo nombre" required>
-                        </div>
-                        <div id="updateProfileMessageDocente" class="mt-3 text-center"></div>
-                        <div class="d-grid mt-3">
-                            <button type="submit" class="btn btn-info rounded-pill"><i class="bi bi-person-fill me-2"></i> Actualizar Perfil</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -942,6 +926,7 @@
     <script>
       // Inicializar AOS y bienvenida docente
       document.addEventListener("DOMContentLoaded", function () {
+        // Obtener el nombre del docente (de sesión o API, aquí ejemplo local)
         const teacherName = "Profesor/a"; // Reemplazar con lógica real para obtener el nombre
         const nameSpan = document.getElementById("nombre-docente");
         if (nameSpan) nameSpan.textContent = teacherName;
@@ -968,6 +953,15 @@
             contactDocenteFormMessage.innerHTML =
               '<div class="alert alert-success" role="alert">¡Mensaje enviado exitosamente!.</div>';
             contactDocenteForm.reset(); // Limpia el formulario
+          });
+        }
+
+        // Lógica para el botón de salir (logout)
+        const logoutBtn = document.getElementById('confirmLogoutBtn');
+        if (logoutBtn) {
+          logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('token');
+            window.location.href = '../../pages/index.html';
           });
         }
       });
@@ -1084,7 +1078,7 @@
                     }
                 });
             }
-            // ... (código existente hasta el final de la lógica de createClassForm) ...
+          
 
             // Referencias para el formulario de Añadir Alumnos
             const addStudentsToClassForm = document.getElementById('addStudentsToClassForm');
@@ -1157,22 +1151,30 @@
                         if (classes.length > 0) {
                             classes.forEach(clase => {
                                 const listItem = document.createElement('li');
-                                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                                listItem.className = 'list-group-item d-flex justify-content-between align-items-center class-list-item';
                                 // Formatea la fecha de creación para que sea más legible
                                 const fechaCreacion = new Date(clase.fecha_creacion).toLocaleDateString('es-ES', {
                                     year: 'numeric', month: 'long', day: 'numeric'
                                 });
-                                listItem.innerHTML = `
-                                    <div>
-                                        <h5>${clase.nombre}</h5>
-                                        <p class="mb-0 text-muted">${clase.descripcion || 'Sin descripción'}</p>
-                                        <small class="text-muted">ID de Clase: ${clase.id} | Creada: ${fechaCreacion}</small>
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-sm btn-outline-info me-2" title="Ver Alumnos"><i class="bi bi-people-fill"></i></button>
-                                        <button class="btn btn-sm btn-outline-danger" title="Eliminar Clase"><i class="bi bi-trash-fill"></i></button>
-                                    </div>
+                                // Hacemos el div principal clickable, pero no los botones de acción
+                                const mainDiv = document.createElement('div');
+                                mainDiv.style.cursor = 'pointer';
+                                mainDiv.innerHTML = `
+                                    <h5>${clase.nombre}</h5>
+                                    <p class="mb-0 text-muted">${clase.descripcion || 'Sin descripción'}</p>
+                                    <small class="text-muted">ID de Clase: ${clase.id} | Creada: ${fechaCreacion}</small>
                                 `;
+                                mainDiv.addEventListener('click', () => {
+                                    window.location.href = `../pages_docentes/clase_panel.html?id=${clase.id}`;
+                                });
+
+                                const actionsDiv = document.createElement('div');
+                                actionsDiv.innerHTML = `
+                                    <button class="btn btn-sm btn-outline-info me-2" title="Ver Alumnos"><i class="bi bi-people-fill"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger" title="Eliminar Clase"><i class="bi bi-trash-fill"></i></button>
+                                `;
+                                listItem.appendChild(mainDiv);
+                                listItem.appendChild(actionsDiv);
                                 myClassesList.appendChild(listItem);
                             });
                         } else {

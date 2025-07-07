@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lengua - Ejemplo de Trabajos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../../../assets/css/style.css">
+</head>
+<body class="bg-light">
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-3 mb-4">
+        <div class="container d-flex align-items-center">
+            <img src="../../../../assets/images/logo_titulo.png" alt="Logo" height="40" class="me-3">
+            <h2 class="mb-0 fw-bold text-primary">Lengua</h2>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="d-flex align-items-center justify-content-center flex-column" style="min-height: 70vh;">
+        <div class="card shadow-lg border-0" style="max-width: 600px; width: 100%; border-radius: 1.5rem;">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-journal-text text-primary fs-2 me-2"></i>
+                    <h3 class="mb-0 fw-bold">Trabajos entregados</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="bi bi-file-earmark-text text-success fs-4 me-3"></i>
+                        <div>
+                            <div class="fw-bold">Cuento: Mi mascota fantástica</div>
+                            <small class="text-muted">Entregado el 01/07/2025</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modalTrabajo1"><i class="bi bi-eye"></i> Ver</button>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="bi bi-file-earmark-text text-warning fs-4 me-3"></i>
+                        <div>
+                            <div class="fw-bold">Poema: El sol y la luna</div>
+                            <small class="text-muted">Entregado el 28/06/2025</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modalTrabajo2"><i class="bi bi-eye"></i> Ver</button>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="bi bi-file-earmark-text text-info fs-4 me-3"></i>
+                        <div>
+                            <div class="fw-bold">Ficha de lectura: El patito feo</div>
+                            <small class="text-muted">Entregado el 20/06/2025</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modalTrabajo3"><i class="bi bi-eye"></i> Ver</button>
+                    </li>
+                </ul>
+                <div class="text-end mt-4">
+                    <a href="/pages/perfiles/ninos_principal.html" class="btn btn-outline-secondary rounded-pill" id="btnVolverPerfil"><i class="bi bi-arrow-left me-1"></i> Volver</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Trabajo 1 -->
+    <div class="modal fade" id="modalTrabajo1" tabindex="-1" aria-labelledby="modalTrabajo1Label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content" style="border-radius: 1.5rem;">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="modalTrabajo1Label">Cuento: Mi mascota fantástica</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p class="fs-5">Había una vez una mascota tan fantástica que podía volar y hablar tres idiomas. Su nombre era Pompón y juntos vivimos muchas aventuras...</p>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-muted">Entregado el 01/07/2025</span>
+              <span class="badge bg-success">Calificado</span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Trabajo 2 -->
+    <div class="modal fade" id="modalTrabajo2" tabindex="-1" aria-labelledby="modalTrabajo2Label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content" style="border-radius: 1.5rem;">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="modalTrabajo2Label">Poema: El sol y la luna</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p class="fs-5">El sol brilla en el cielo azul,<br>La luna lo mira desde su rincón,<br>Juegan a esconderse en el tul,<br>Y juntos pintan mi canción.</p>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-muted">Entregado el 28/06/2025</span>
+              <span class="badge bg-warning text-dark">En revisión</span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Trabajo 3 -->
+    <div class="modal fade" id="modalTrabajo3" tabindex="-1" aria-labelledby="modalTrabajo3Label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content" style="border-radius: 1.5rem;">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="modalTrabajo3Label">Ficha de lectura: El patito feo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p class="fs-5">Título: El patito feo<br>Autor: Hans Christian Andersen<br><br>Resumen: Un patito diferente es rechazado por los demás, pero al crecer se convierte en un hermoso cisne. Aprendí que todos somos especiales a nuestra manera.</p>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-muted">Entregado el 20/06/2025</span>
+              <span class="badge bg-info text-dark">Aprobado</span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-sm py-3 mt-4">
+        <div class="container text-center">
+            <small class="text-muted">&copy; 2025 Plataforma Educativa - Lengua</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</script>
+<script>
+// Redirige siempre al perfil principal de niños (ruta absoluta)
+document.getElementById('btnVolverPerfil').addEventListener('click', function(e) {
+  e.preventDefault();
+  window.location.href = '/pages/perfiles/ninos_principal.html';
+});
+</script>
+</body>
+</html>
