@@ -1,7 +1,4 @@
-// public/assets/js/docente.js
-
-// Define la URL base de tu API de Node.js
-const API_BASE_URL = 'http://localhost:3001/api'; // <--- ¡DEFINIMOS LA URL BASE AQUÍ!
+const API_BASE_URL = 'http://localhost:3001/api'; // ¡Asegúrate de que este sea el puerto de tu backend!
 
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
@@ -13,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // 1. Obtener datos del usuario autenticado
-        const userResponse = await fetch(`${API_BASE_URL}/usuario`, { // <--- USAMOS LA URL BASE
+        const userResponse = await fetch(`${API_BASE_URL}/usuario`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -34,7 +31,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const nombreDocenteSpan = document.getElementById('nombre-docente');
         if (nombreDocenteSpan) {
-            // Asumiendo que userData.nombre viene del backend
             nombreDocenteSpan.textContent = userData.nombre || 'Docente';
         }
 
@@ -60,7 +56,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (myClassesList) myClassesList.innerHTML = '';
 
         try {
-            const response = await fetch(`${API_BASE_URL}/clases/docente/${id_docente}`, { // <--- USAMOS LA URL BASE
+            // ¡CORRECCIÓN CLAVE AQUÍ! La URL debe ser a tu backend y la ruta correcta
+            const response = await fetch(`${API_BASE_URL}/clases/docente/${id_docente}`, { // <--- ¡CAMBIO AQUÍ!
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -112,7 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function showClassDetails(classId, token) {
         try {
-            const classResponse = await fetch(`${API_BASE_URL}/clases/${classId}`, { // <--- USAMOS LA URL BASE
+            const classResponse = await fetch(`${API_BASE_URL}/clases/${classId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -166,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function removeStudentFromClassFrontend(classId, studentId, token) {
         try {
-            const response = await fetch(`${API_BASE_URL}/clases/${classId}/alumnos/${studentId}`, { // <--- USAMOS LA URL BASE
+            const response = await fetch(`${API_BASE_URL}/clases/${classId}/alumnos/${studentId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -178,7 +175,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (response.ok) {
                 alert(data.message);
                 await showClassDetails(classId, token);
-                const userResponse = await fetch(`${API_BASE_URL}/usuario`, { // <--- USAMOS LA URL BASE
+                const userResponse = await fetch(`${API_BASE_URL}/usuario`, {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -198,14 +195,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         selectClassToAddStudents.innerHTML = '<option value="">Cargando clases...</option>';
 
         try {
-            const userResponse = await fetch(`${API_BASE_URL}/usuario`, { // <--- USAMOS LA URL BASE
+            const userResponse = await fetch(`${API_BASE_URL}/usuario`, {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const userData = await userResponse.json();
             const id_docente = userData.id_usuario;
 
-            const response = await fetch(`${API_BASE_URL}/clases/docente/${id_docente}`, { // <--- USAMOS LA URL BASE
+            const response = await fetch(`${API_BASE_URL}/clases/docente/${id_docente}`, {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -244,14 +241,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             const createClassMessage = document.getElementById('createClassMessage');
 
             try {
-                const userResponse = await fetch(`${API_BASE_URL}/usuario`, { // <--- USAMOS LA URL BASE
+                const userResponse = await fetch(`${API_BASE_URL}/usuario`, {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const userData = await userResponse.json();
                 const id_docente = userData.id_usuario;
 
-                const response = await fetch(`${API_BASE_URL}/clases`, { // <--- USAMOS LA URL BASE
+                const response = await fetch(`${API_BASE_URL}/clases`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -302,7 +299,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/clases/${classId}/alumnos`, { // <--- USAMOS LA URL BASE
+                const response = await fetch(`${API_BASE_URL}/clases/${classId}/alumnos`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -317,8 +314,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     addStudentsMessage.className = 'mt-3 alert alert-success';
                     addStudentsMessage.textContent = data.message;
                     addStudentsToClassForm.reset();
-                    // No necesitas data.id_docente aquí, ya que el backend no lo devuelve en esta ruta.
-                    // Recarga las clases del docente usando el id_usuario del token
                     const userResponse = await fetch(`${API_BASE_URL}/usuario`, {
                         method: 'GET',
                         headers: { 'Authorization': `Bearer ${token}` }
