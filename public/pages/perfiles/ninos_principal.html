@@ -129,7 +129,7 @@
                             <div class="card-body">
                                 <h5 class="card-title fw-bold text-primary">Primero "A" Lengua y Comunicación</h5>
                                 <p class="card-text">¡Descubre nuevas palabras y crea historias increíbles!</p>
-        <a href="/pages/perfiles/pages_perfil_ninos/clases/clase_lengua.html" class="btn btn-outline-secondary mt-3 rounded-pill">Ir a Lengua</a>
+        <a href="pages_perfil_ninos/clases/clase_lengua.html" class="btn btn-outline-secondary mt-3 rounded-pill">Ir a Lengua</a>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                                 <h5 class="card-title fw-bold text-primary">Primero "A" Matemáticas y Lógica</h5>
                                 <p class="card-text">¡Resuelve problemas y diviértete con los números!</p>
 
-        <a href="/pages/perfiles/pages_perfil_ninos/clases/clase_matematicas.html" class="btn btn-outline-success mt-3 rounded-pill">Ir a Matemática</a>
+        <a href="pages_perfil_ninos/clases/clase_matematicas.html" class="btn btn-outline-success mt-3 rounded-pill">Ir a Matemática</a>
                             </div>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                             <div class="card-body">
                                 <h5 class="card-title fw-bold text-primary">Primero "A" Ciencias Naturales</h5>
                                 <p class="card-text">¡Explora la naturaleza y aprende sobre el mundo!</p>
-        <a href="/pages/perfiles/pages_perfil_ninos/clases/clase_ciencias.html" class="btn btn-outline-info mt-3 rounded-pill">Ir a Ciencias</a>
+        <a href="pages_perfil_ninos/clases/clase_ciencias.html" class="btn btn-outline-info mt-3 rounded-pill">Ir a Ciencias</a>
                             </div>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
                                 <h5 class="card-title fw-bold text-primary"><i class="bi bi-lightbulb-fill me-2 text-info"></i> Actividad Sugerida para Ti</h5>
                                 <p class="card-text">Basado en tu progreso, te recomendamos explorar el juego:</p>
                                 <div class="d-flex align-items-center">
-                                    <img src="/assets/images/img_ninos/games_imgs/juego5.png" alt="Juego Sugerido" class="rounded me-3 img-sugerido-juego">
+                                    <img src="../../assets/images/img_ninos/games_imgs/juego5.png" alt="Juego Sugerido" class="rounded me-3 img-sugerido-juego">
                                     <div>
                                         <h6 class="mb-0 text-secondary">El Mago de las Formas Geométricas</h6>
                                         <small>Matemática | ¡Aprende las figuras!</small>
@@ -217,7 +217,7 @@
                 <h2 class="text-center mb-5 display-4 fw-bold text-primary" data-aos="fade-down">Vamos a <span class="text-secondary">Jugar</span></h2>
                 <div class="juegos-grid">
                     <div class="card shadow-sm border-0 game-card" data-aos="zoom-in" data-aos-delay="100">
-                        <img src="/assets/images/img_ninos/games_imgs/juego1.png" class="card-img-top" alt="Juego 1">
+                        <img src="../../assets/images/img_ninos/games_imgs/juego1.png" class="card-img-top" alt="Juego 1">
                         <div class="card-body text-center">
                             <h6 class="card-title fw-bold text-primary">La Carrera de Palabras</h6>
                             <p class="card-text"><small>Lengua</small></p>
@@ -225,7 +225,7 @@
                         </div>
                     </div>
                     <div class="card shadow-sm border-0 game-card" data-aos="zoom-in" data-aos-delay="200">
-                        <img src="/assets/images/img_ninos/games_imgs/juego2.png" class="card-img-top" alt="Juego 2">
+                        <img src="../../assets/images/img_ninos/games_imgs/juego2.png" class="card-img-top" alt="Juego 2">
                         <div class="card-body text-center">
                             <h6 class="card-title fw-bold text-primary">El Reino de los Números</h6>
                             <p class="card-text"><small>Matemática</small></p>
@@ -233,7 +233,7 @@
                         </div>
                     </div>
                     <div class="card shadow-sm border-0 game-card" data-aos="zoom-in" data-aos-delay="300">
-                        <img src="/assets/images/img_ninos/games_imgs/juego3.png" class="card-img-top" alt="Juego 3">
+                        <img src="../../assets/images/img_ninos/games_imgs/juego3.png" class="card-img-top" alt="Juego 3">
                         <div class="card-body text-center">
                             <h6 class="card-title fw-bold text-primary">Exploradores de la Naturaleza</h6>
                             <p class="card-text"><small>Ciencias</small></p>
@@ -241,7 +241,7 @@
                         </div>
                     </div>
                     <div class="card shadow-sm border-0 game-card" data-aos="zoom-in" data-aos-delay="400">
-                        <img src="/assets/images/img_ninos/games_imgs/juego4.png" class="card-img-top" alt="Juego 4">
+                        <img src="../../assets/images/img_ninos/games_imgs/juego4.png" class="card-img-top" alt="Juego 4">
                         <div class="card-body text-center">
                             <h6 class="card-title fw-bold text-primary">Adivina la Palabra Secreta</h6>
                             <p class="card-text"><small>Lengua</small></p>
@@ -323,7 +323,7 @@
             document.querySelectorAll('.btn-jugar-juego').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const juego = btn.getAttribute('data-juego');
-                    let ruta = `/pages/perfiles/pages_perfil_ninos/${juego}`;
+                    let ruta = `pages_perfil_ninos/${juego}`;
                     window.location.href = ruta;
                 });
             });

@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         setTimeout(() => {
                             // Asegurarse de que 'categoria' coincida con lo que devuelve tu backend (ej. 'Docente', 'Alumno', 'Padre')
                             if (data.categoria === 'Docente') window.location.href = 'perfiles/docente_principal.html';
-                            else if (data.categoria === 'nino') window.location.href = 'perfiles/ninos_principal.html'; // Asegúrate de que tu backend devuelve 'nino' si es el rol para estudiantes
-                            else if (data.categoria === 'padre') window.location.href = 'perfiles/padres_principal.html'; // Asegúrate de que tu backend devuelve 'padre'
+                            else if (data.categoria === 'Alumno') window.location.href = 'perfiles/ninos_principal.html'; // Asegúrate de que tu backend devuelve 'nino' si es el rol para estudiantes
+                            else if (data.categoria === 'Padre') window.location.href = 'perfiles/padres_principal.html'; // Asegúrate de que tu backend devuelve 'padre'
                             else {
                                 // Manejar caso de rol desconocido o por defecto
                                 console.warn('Rol de usuario desconocido:', data.categoria);
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (registerRoleSelect) {
         registerRoleSelect.addEventListener('change', () => {
             const selectedRole = registerRoleSelect.value;
-            if (selectedRole === 'nino' || selectedRole === 'docente') {
+            if (selectedRole === 'Alumno' || selectedRole === 'Docente') {
                 dniField.style.display = 'block';
                 registerDniInput.setAttribute('required', 'true');
             } else {
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            if ((rol_nombre === 'nino' || rol_nombre === 'docente') && !dni) {
+            if ((rol_nombre === 'Alumno' || rol_nombre === 'Docente') && !dni) {
                  registerFormMessage.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>El DNI es requerido para Estudiantes y Docentes.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                  return;
             }
