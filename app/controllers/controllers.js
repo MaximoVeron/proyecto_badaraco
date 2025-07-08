@@ -743,14 +743,3 @@ export const createActivity = async (req, res) => {
         }
     }
 };
-
-// A futuro más controladores para:
-// - getActivitiesByClass
-// - getActivitiesByStudent
-// - updateActivity
-// - deleteActivity
-// - uploadResource
-// - getResourcesByMateria
-// - sendMessage
-// - getMessages
-// - getStudentResults

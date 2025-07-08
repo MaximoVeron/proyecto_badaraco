@@ -21,6 +21,12 @@
     />
     <link rel="stylesheet" href="../../assets/css/style.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <style>
+      /* Sugerencia: Scroll suave para anclas de navegación */
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
   </head>
   <body>
     <header class="bg-primary text-white py-3 shadow-lg">
@@ -56,6 +62,16 @@
                 aria-current="page"
                 href="#bienvenida"
                 >Inicio Docente</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#profileModal"
+              >
+                <i class="bi bi-person-circle me-2"></i> Perfil</a
               >
             </li>
             <li class="nav-item">
@@ -98,20 +114,21 @@
             data-aos="zoom-in"
             data-aos-delay="500"
           >
-            ¡Bienvenido,
-            <span class="text-warning" id="nombre-docente">[Nombre del Docente]</span>!
+            ¡Bienvenido/a,
+            <span class="text-warning" id="nombre-docente"
+              > Profe Fran Villalba </span
+            >! 👋
           </h1>
           <p class="lead mb-5" data-aos="fade-up" data-aos-delay="800">
             Tu panel de control para potenciar el aprendizaje en tus clases.
           </p>
           <a
             href="#mis-clases"
-            class="btn btn-warning btn-lg rounded-pill px-5 py-3 shadow-lg"
+            class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg"
             data-aos="fade-up"
             data-aos-delay="1000"
+            >Comenzar</a
           >
-            <i class="bi bi-person-video me-2"></i> Gestionar Mis Clases
-          </a>
         </div>
       </section>
 
@@ -123,9 +140,9 @@
           >
             Mis <span class="text-secondary">Clases</span> Asignadas
           </h2>
-          <div class="row g-4">
+          <div class="row g-4" id="static-class-cards-container">
             <div
-              class="col-md-6 col-lg-4"
+              class="col-md- col-lg-4"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -136,22 +153,26 @@
                   <i class="bi bi-person-badge fs-2"></i>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title fw-bold text-primary">1º Grado "A"</h5>
+                  <h5 class="card-title fw-bold text-primary">
+                    1º Grado "A"
+                  </h5>
                   <p class="card-text">
                     25 alumnos activos. Última actividad: Lengua.
                   </p>
                   <a
-                    href="../../pages/perfiles/pages_docentes/clase_panel1.html?id=1"
-                    class="btn btn-outline-secondary mt-3 rounded-pill"
+                    href="#"
+                    class="btn btn-outline-secondary mt-3 rounded-pill open-view-students-modal"
+                    data-class-id="class_1A"
+                    data-class-name='1º Grado "A"'
                     >Ver Clase</a
                   >
                 </div>
               </div>
             </div>
             <div
-              class="col-md-6 col-lg-4"
+              class="col-md-4 col-lg-4"
               data-aos="fade-up"
-              data-aos-delay="300"
+              data-aos-delay="100"
             >
               <div
                 class="card h-100 shadow-sm border-0 text-center p-4 feature-card"
@@ -160,11 +181,17 @@
                   <i class="bi bi-person-badge-fill fs-2"></i>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title fw-bold text-primary">2º Grado "B"</h5>
+                  <h5 class="card-title fw-bold text-primary">
+                    2º Grado "B"
+                  </h5>
                   <p class="card-text">
                     22 alumnos activos. Última actividad: Matemática.
                   </p>
-                  <a href="../../pages/perfiles/pages_docentes/clase_panel2.html?id=2" class="btn btn-outline-success mt-3 rounded-pill"
+                  <a
+                    href="#"
+                    class="btn btn-outline-success mt-3 rounded-pill open-view-students-modal"
+                    data-class-id="class_2B"
+                    data-class-name='2º Grado "B"'
                     >Ver Clase</a
                   >
                 </div>
@@ -179,16 +206,20 @@
                 class="card h-100 shadow-sm border-0 text-center p-4 feature-card"
               >
                 <div class="icon-circle bg-info text-white mx-auto mb-3">
-                  <i class="bi bi-person-badge fs-2"></i>
+                  <i class="bi bi-person-badge-fill fs-2"></i>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title fw-bold text-primary">3º Grado "C"</h5>
+                  <h5 class="card-title fw-bold text-primary">
+                    3º Grado "C"
+                  </h5>
                   <p class="card-text">
-                    20 alumnos activos. Última actividad: Ciencias.
+                    20 alumnos activos. Última actividad: Ciencias Sociales.
                   </p>
                   <a
-                    href="../../pages/perfiles/pages_docentes/clase_panel3.html?id=3"
-                    class="btn btn-outline-info mt-3 rounded-pill"
+                    href="#"
+                    class="btn btn-outline-info mt-3 rounded-pill open-view-students-modal"
+                    data-class-id="class_3C"
+                    data-class-name='3º Grado "C"'
                     >Ver Clase</a
                   >
                 </div>
@@ -306,11 +337,169 @@
         </div>
     </div>
         
+          </div>
+
+          <div class="container py-5">
+            <div class="row justify-content-center">
+              <div class="col-lg-10" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="text-center text-primary mb-4">Gestionar Mis Clases</h2>
+                <ul class="nav nav-tabs mb-3" id="classTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link active"
+                      id="create-class-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#create-class"
+                      type="button"
+                      role="tab"
+                      aria-controls="create-class"
+                      aria-selected="true"
+                    >
+                      <i class="bi bi-plus-circle-fill me-2"></i> Crear Nueva Clase
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link"
+                      id="add-students-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#add-students"
+                      type="button"
+                      role="tab"
+                      aria-controls="add-students"
+                      aria-selected="false"
+                    >
+                      <i class="bi bi-person-plus-fill me-2"></i> Añadir Alumnos
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link"
+                      id="my-classes-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#my-classes"
+                      type="button"
+                      role="tab"
+                      aria-controls="my-classes"
+                      aria-selected="false"
+                    >
+                      <i class="bi bi-book-fill me-2"></i> Mis Clases Existentes
+                    </button>
+                  </li>
+                </ul>
+                <div class="tab-content" id="classTabsContent">
+                  <div
+                    class="tab-pane fade show active"
+                    id="create-class"
+                    role="tabpanel"
+                    aria-labelledby="create-class-tab"
+                  >
+                    <div class="card shadow p-4 mb-4">
+                      <h4 class="card-title mb-3 text-center">Crear Nueva Clase</h4>
+                      <form id="createClassForm">
+                        <div class="mb-3">
+                          <label for="className" class="form-label"
+                            >Nombre de la Clase:</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="className"
+                            placeholder="Ej. Matemáticas Grado 5"
+                            required
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="classDescription" class="form-label"
+                            >Descripción (opcional):</label
+                          >
+                          <textarea
+                            class="form-control"
+                            id="classDescription"
+                            rows="3"
+                            placeholder="Una breve descripción de la clase"
+                          ></textarea>
+                        </div>
+                        <div class="d-grid">
+                          <button
+                            type="submit"
+                            class="btn btn-success rounded-pill"
+                          >
+                            <i class="bi bi-plus-circle-fill me-2"></i> Crear Clase
+                          </button>
+                        </div>
+                        <div id="createClassMessage" class="mt-3 text-center"></div>
+                      </form>
+                    </div>
                   </div>
-            </div>
-        </div>
-                  </section>
-                  
+
+                  <div
+                    class="tab-pane fade"
+                    id="add-students"
+                    role="tabpanel"
+                    aria-labelledby="add-students-tab"
+                  >
+                    <div class="card shadow p-4 mb-4">
+                      <h4 class="card-title mb-3 text-center">Añadir Alumnos a una Clase</h4>
+                      <form id="addStudentsToClassForm">
+                        <div class="mb-3">
+                          <label for="selectClassToAddStudents" class="form-label"
+                            >Selecciona una Clase:</label
+                          >
+                          <select
+                            class="form-select"
+                            id="selectClassToAddStudents"
+                            required
+                          >
+                            <option value="">Cargando clases...</option>
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="studentEmails" class="form-label"
+                            >Emails de los Alumnos (uno por línea):</label
+                          >
+                          <textarea
+                            class="form-control"
+                            id="studentEmails"
+                            rows="5"
+                            placeholder="alumno1@example.com&#10;alumno2@example.com"
+                            required
+                          ></textarea>
+                          <small class="form-text text-muted"
+                            >Introduce un email por línea para añadir múltiples alumnos.</small
+                          >
+                        </div>
+                        <div class="d-grid">
+                          <button
+                            type="submit"
+                            class="btn btn-primary rounded-pill"
+                          >
+                            <i class="bi bi-person-plus-fill me-2"></i> Añadir Alumnos
+                          </button>
+                        </div>
+                        <div id="addStudentsMessage" class="mt-3 text-center"></div>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div
+                    class="tab-pane fade"
+                    id="my-classes"
+                    role="tabpanel"
+                    aria-labelledby="my-classes-tab"
+                  >
+                    <div class="card shadow p-4 mb-4">
+                      <h4 class="card-title mb-3 text-center">Mis Clases</h4>
+                      <p class="text-center text-muted" id="myClassesLoadingMessage">
+                        1. Matemática
+                        2. Lengua
+                        3. Ciencias Sociales
+                        4. ciencias Naturales
+                        5. Mas clases                   
+                      </p>
+                      <ul id="myClassesList" class="list-group"></ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -352,9 +541,7 @@
                       <div>
                         <i class="bi bi-mortarboard-fill me-2 text-primary"></i>
                         <span class="fw-bold">María Gómez</span> (2ºB)
-                        <br /><small
-                          >Inició: "Los ecosistemas y sus habitantes".</small
-                        >
+                        <br /><small>Inicio: "Los ecosistemas y sus habitantes".</small>
                       </div>
                       <span class="badge bg-info">En Progreso</span>
                     </li>
@@ -404,16 +591,16 @@
                     Lengua y Comunicación
                   </h5>
                   <p class="card-text">
-                    Materiales didácticos, guías de lectura y juegos de
-                    palabras.
+                    Materiales didácticos, guías de lectura y juegos de palabras.
                   </p>
                   <a
                     href="https://buenosaires.gob.ar/educacion/material-para-estudiantes-y-docentes-nivel-primario"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="btn btn-sm btn-outline-primary mt-2 rounded-pill"
-                    >Explorar</a
                   >
+                    Explorar
+                  </a>
                 </div>
               </div>
             </div>
@@ -456,8 +643,8 @@
                     Ciencias y Sociedad
                   </h5>
                   <p class="card-text">
-                    Experimentos virtuales, atlas interactivos y temas de
-                    geografía e historia.
+                    Experimentos virtuales, atlas interactivos y temas de geografía
+                    e historia.
                   </p>
                   <a
                     href="https://continuemosestudiando.abc.gob.ar/tag/materiales/"
@@ -489,12 +676,15 @@
                     Obtén Datos Clave de Progreso
                   </h5>
                   <p class="card-text mb-4">
+                    Analiza el rendimiento de tus alumnos y toma decisiones
+                    informadas.
+                  </p>
+                  <p class="card-text mb-4">
                     Genera informes detallados sobre el desempeño individual o
                     grupal de tus alumnos.
                   </p>
                   <button class="btn btn-primary btn-lg rounded-pill px-4 me-3">
-                    <i class="bi bi-file-earmark-bar-graph me-2"></i> Informe
-                    por Alumno
+                    <i class="bi bi-file-earmark-bar-graph me-2"></i> Informe por Alumno
                   </button>
                   <button class="btn btn-success btn-lg rounded-pill px-4">
                     <i class="bi bi-clipboard-data me-2"></i> Informe por Clase
@@ -505,7 +695,7 @@
           </div>
         </div>
       </section>
-
+      
       <section id="contacto-docente" class="py-5 bg-light">
         <div class="container">
           <h2
@@ -521,22 +711,33 @@
                 class="p-4 border rounded shadow-sm bg-white"
               >
                 <div class="mb-3">
-                  <!-- corrigan este label, tiene formato mail, tiene que tener una seleccion multiple para los distintos tipos(NO SE OLVIDEN) -->
-                  <label for="docenteEmail" class="form-label"
-                    ><i class="bi bi-envelope-fill me-2"></i>Para:</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="docenteEmail"
+                  <label for="docenteTarget" class="form-label">
+                    <i class="bi bi-send-fill me-2"></i>Para:
+                  </label>
+                  <select
+                    class="form-select"
+                    id="docenteTarget"
+                    multiple
+                    aria-label="Selecciona a quién va dirigido el aviso"
                     required
-                    placeholder="Clase X"
-                  />
+                  >
+                    <option value=" " disabled>Selecciona destinatarios...</option>
+                    <option value="all-classes">Todas mis clases</option>
+                    <option value="class-1A">Clase 1º A</option>
+                    <option value="class-2B">Clase 2º B</option>
+                    <option value="class-3C">Clase 3º C</option>
+                    <option value="admin">Administración</option>
+                    <option value="support">Soporte Técnico</option>
+                  </select>
+                  <small class="form-text text-muted"
+                    >Mantén 'Ctrl' o 'Cmd' presionado para seleccionar múltiples
+                    opciones.</small
+                  >
                 </div>
                 <div class="mb-3">
-                  <label for="docenteSubject" class="form-label"
-                    ><i class="bi bi-chat-left-text-fill me-2"></i>Asunto</label
-                  >
+                  <label for="docenteSubject" class="form-label">
+                    <i class="bi bi-chat-left-text-fill me-2"></i>Asunto
+                  </label>
                   <input
                     type="text"
                     class="form-control"
@@ -547,8 +748,8 @@
                 </div>
                 <div class="mb-3">
                   <label for="docenteMessage" class="form-label"
-                    ><i class="bi bi-chat-dots-fill me-2"></i>Tu Mensaje</label
-                  >
+                    ><i class="bi bi-chat-dots-fill me-2"></i>Tu Mensaje
+                  </label>
                   <textarea
                     class="form-control"
                     id="docenteMessage"
@@ -614,8 +815,8 @@
             class="text-warning text-decoration-none"
             data-bs-toggle="modal"
             data-bs-target="#modalTerminos"
-            >Términos de Servicio</a
-          >
+            >Términos de Servicio
+          </a>
         </p>
         <div class="mt-2">
           <a href="#" aria-label="Facebook" class="text-white mx-2"
@@ -659,8 +860,8 @@
             <p>
               En EducAR, la privacidad y seguridad de nuestros usuarios es una
               prioridad, especialmente cuando se trata de niños de primer a
-              tercer grado de primaria. Diseñamos esta política para explicar de
-              forma clara y sencilla qué información recopilamos, cómo la
+              tercer grado de primaria. Diseñamos esta política para explicar
+              de forma clara y sencilla qué información recopilamos, cómo la
               usamos, y qué medidas tomamos para protegerla.
             </p>
 
@@ -815,7 +1016,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <p><strong>1. Aceptación de los Términos</strong></p>
+            <p><strong>1.Términos y condiciones</strong></p>
             <p>
               Al acceder o utilizar EducAR, usted acepta estos Términos de
               Servicio. Si no está de acuerdo con alguno de ellos, por favor no
@@ -951,18 +1152,111 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
-            ¿Estás seguro de que quieres cerrar tu sesión?
-          </div>
+          <div class="modal-body">¿Estás seguro de que quieres cerrar tu sesión?</div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               Cancelar
             </button>
-            <button type="button" class="btn btn-danger" id="confirmLogoutBtn">Sí, Salir</button>
+            <button type="button" class="btn btn-danger" id="confirmLogoutBtn">
+              Sí, Salir
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="profileModal"
+      tabindex="-1"
+      aria-labelledby="profileModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="profileModalLabel">
+              <i class="bi bi-person-circle me-2"></i> Mi Perfil
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="updateProfileFormDocente">
+              <div class="mb-3">
+                <label for="currentUserNameDocente" class="form-label">Nombre Actual:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="currentUserNameDocente"
+                  readonly
+                />
+              </div>
+              <div class="mb-3">
+                <label for="newUserNameDocente" class="form-label">Nuevo Nombre:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="newUserNameDocente"
+                  placeholder="Introduce tu nuevo nombre"
+                />
+              </div>
+              <div id="updateProfileMessageDocente" class="mt-3 text-center"></div>
+              <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-primary">
+                  Actualizar Perfil
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cerrar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="viewStudentsModal"
+      tabindex="-1"
+      aria-labelledby="viewStudentsModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewStudentsModalLabel">
+              Alumnos en <span id="modalClassName"></span>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div id="studentsListContainer">
+              <p class="text-center text-muted" id="loadingStudentsMessage">Cargando alumnos...</p>
+              <ul id="classStudentsList" class="list-group"></ul>
+              <div
+                id="noStudentsMessage"
+                class="alert alert-info text-center mt-3"
+                style="display: none"
+              >
+                No hay alumnos inscritos en esta clase aún.
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cerrar
+            </button>
           </div>
         </div>
       </div>
@@ -974,37 +1268,35 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="../../assets/js/docentes.js"></script>
-    <script>
-      // Inicializar AOS y bienvenida docente
-      document.addEventListener("DOMContentLoaded", function () {
-        // Obtener el nombre del docente (de sesión o API, aquí ejemplo local)
-        const teacherName = "Diego Cruz"; // Reemplazar con lógica real para obtener el nombre
-        const nameSpan = document.getElementById("nombre-docente");
-        if (nameSpan) nameSpan.textContent = teacherName;
 
+    <script src="../../assets/js/docentes.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Inicialización de AOS
         AOS.init({
           once: true, // Animaciones se reproducen solo una vez
           mirror: false, // No repetir animaciones al hacer scroll hacia arriba
         });
 
-        // Lógica básica para el formulario de contacto del docente
-        const contactDocenteForm =
-          document.getElementById("contactDocenteForm");
-        const contactDocenteFormMessage = document.getElementById(
-          "contactDocenteFormMessage"
+        // Instancia del modal de perfil para poder cerrarlo programáticamente
+        const profileModal = new bootstrap.Modal(
+          document.getElementById("profileModal")
+        );
+        // Instancia del modal de ver alumnos
+        const viewStudentsModal = new bootstrap.Modal(
+          document.getElementById("viewStudentsModal")
         );
 
-        if (contactDocenteForm) {
-          contactDocenteForm.addEventListener("submit", function (event) {
-            event.preventDefault(); // Previene el envío por defecto del formulario
+        // --- Funciones de Utilidad ---
 
-            // Aquí iría la lógica para enviar el formulario (ej. Fetch API a un backend)
-            // Por ahora, solo muestra un mensaje de éxito
-            contactDocenteFormMessage.innerHTML =
-              '<div class="alert alert-success" role="alert">¡Mensaje enviado exitosamente!.</div>';
-            contactDocenteForm.reset(); // Limpia el formulario
-          });
+        // Función para cargar y mostrar el nombre del docente
+        function loadAndDisplayTeacherName() {
+          const nameSpan = document.getElementById("nombre-docente");
+          const userName = localStorage.getItem("userName") || "Docente"; // Obtener del localStorage o usar valor por defecto
+          if (nameSpan) {
+            nameSpan.textContent = userName;
+          }
         }
 
         // Lógica para el botón de salir (logout)
@@ -1014,499 +1306,655 @@
             localStorage.removeItem('token');
             window.location.href = '../index.html';
           });
+
         }
-      });
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // ... (código existente para AOS y la bienvenida del docente) ...
 
-        const updateProfileForm = document.getElementById("updateProfileForm");
-        const newUserNameInput = document.getElementById("newUserName");
-        const updateProfileMessage = document.getElementById(
-          "updateProfileMessage"
-        );
-        const teacherNameSpan = document.querySelector(
-          "#bienvenida h1 .text-warning"
-        ); // Para actualizar el nombre mostrado
+        // --- Configuración de Event Listeners ---
 
-        if (updateProfileForm) {
-          updateProfileForm.addEventListener("submit", async function (event) {
-            event.preventDefault(); // Previene el envío por defecto del formulario
+        // Configuración del botón de salir (logout)
+        function setupLogoutButton() {
+          const logoutConfirmBtn = document.getElementById("confirmLogoutBtn");
+          if (logoutConfirmBtn) {
+            logoutConfirmBtn.addEventListener("click", function () {
+              localStorage.removeItem("token"); // Elimina el token de sesión
+              localStorage.removeItem("userName"); // Elimina también el nombre del usuario
+              window.location.href = "../../pages/index.html"; // Redirige a la página de inicio
+            });
+          }
+        }
 
-            const newName = newUserNameInput.value.trim();
-            if (!newName) {
-              updateProfileMessage.innerHTML =
-                '<div class="alert alert-warning" role="alert">Por favor, introduce un nombre.</div>';
-              return;
+        // Configuración del formulario de contacto del docente
+        function setupContactDocenteForm() {
+          const contactDocenteForm = document.getElementById("contactDocenteForm");
+          const contactDocenteFormMessage = document.getElementById(
+            "contactDocenteFormMessage"
+          );
+
+          if (contactDocenteForm) {
+            contactDocenteForm.addEventListener("submit", function (event) {
+              event.preventDefault();
+
+              const docenteTarget = document.getElementById("docenteTarget").value;
+              const docenteSubject = document.getElementById("docenteSubject").value;
+              const docenteMessage = document.getElementById("docenteMessage").value;
+
+              if (!docenteTarget || !docenteSubject || !docenteMessage) {
+                contactDocenteFormMessage.innerHTML =
+                  '<div class="alert alert-warning" role="alert">Por favor, rellena todos los campos.</div>';
+                return;
+              }
+
+              // Simulación de envío a un backend
+              console.log("Enviando aviso:", {
+                docenteTarget,
+                docenteSubject,
+                docenteMessage,
+              });
+
+              // Por ahora, solo muestra un mensaje de éxito
+              contactDocenteFormMessage.innerHTML =
+                '<div class="alert alert-success" role="alert">¡Mensaje enviado exitosamente!.</div>';
+              contactDocenteForm.reset(); // Limpia el formulario
+            });
+          }
+        }
+
+        // Configuración del modal de perfil del docente
+        function setupProfileModalHandlers() {
+          const updateProfileFormDocente = document.getElementById(
+            "updateProfileFormDocente"
+          );
+          const currentUserNameDocente = document.getElementById(
+            "currentUserNameDocente"
+          );
+          const newUserNameInputDocente = document.getElementById(
+            "newUserNameDocente"
+          );
+          const updateProfileMessageDocente = document.getElementById(
+            "updateProfileMessageDocente"
+          );
+
+          // Evento que se dispara cuando el modal de perfil se muestra
+          document
+            .getElementById("profileModal")
+            .addEventListener("show.bs.modal", function () {
+              const userName = localStorage.getItem("userName") || "Docente";
+              if (currentUserNameDocente) {
+                currentUserNameDocente.value = userName; // Rellena el nombre actual
+              }
+              newUserNameInputDocente.value = ""; // Limpia el campo de nuevo nombre
+              updateProfileMessageDocente.innerHTML = ""; // Limpia mensajes anteriores
+            });
+
+          if (updateProfileFormDocente) {
+            updateProfileFormDocente.addEventListener("submit", async function (event) {
+              event.preventDefault();
+
+              const newName = newUserNameInputDocente.value.trim();
+              if (!newName) {
+                updateProfileMessageDocente.innerHTML =
+                  '<div class="alert alert-warning" role="alert">Por favor, introduce un nombre.</div>';
+                return;
+              }
+
+              const token = localStorage.getItem("token");
+              if (!token) {
+                updateProfileMessageDocente.innerHTML =
+                  '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
+                return;
+              }
+
+              try {
+                // Simulación de llamada a la API para actualizar el perfil
+                const response = await fetch("/api/auth/profile", {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                  },
+                  body: JSON.stringify({ nombre: newName }),
+                });
+
+                const data = await response.json(); // Asume que el backend devuelve un JSON
+
+                if (response.ok) {
+                  updateProfileMessageDocente.innerHTML = `<div class="alert alert-success" role="alert">${
+                    data.message || "Perfil actualizado exitosamente."
+                  }</div>`;
+                  localStorage.setItem("userName", newName); // Actualiza el nombre en localStorage
+                  loadAndDisplayTeacherName(); // Actualiza el nombre en la bienvenida
+
+                  // Cerrar el modal después de un breve retraso
+                  setTimeout(() => {
+                    profileModal.hide();
+                  }, 1500);
+                } else {
+                  updateProfileMessageDocente.innerHTML = `<div class="alert alert-danger" role="alert">${
+                    data.message || "Error al actualizar el perfil."
+                  }</div>`;
+                }
+              } catch (error) {
+                console.error("Error al enviar la solicitud de actualización de perfil:", error);
+                updateProfileMessageDocente.innerHTML =
+                  '<div class="alert alert-danger" role="alert">Error de conexión al servidor.</div>';
+              }
+            });
+          }
+        }
+
+        // Configuración del formulario de Creación de Clases
+        function setupClassCreationForm() {
+          const createClassForm = document.getElementById("createClassForm");
+          const classNameInput = document.getElementById("className");
+          const classDescriptionInput =
+            document.getElementById("classDescription");
+          const createClassMessage =
+            document.getElementById("createClassMessage");
+
+          if (createClassForm) {
+            createClassForm.addEventListener("submit", async function (event) {
+              event.preventDefault();
+
+              const nombre = classNameInput.value.trim();
+              const descripcion = classDescriptionInput.value.trim();
+
+              if (!nombre) {
+                createClassMessage.innerHTML =
+                  '<div class="alert alert-warning" role="alert">El nombre de la clase es requerido.</div>';
+                return;
+              }
+
+              const token = localStorage.getItem("token");
+              if (!token) {
+                createClassMessage.innerHTML =
+                  '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
+                return;
+              }
+
+              try {
+                // Simulación de llamada a la API para crear clase
+                const response = await fetch("/api/classes/create", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                  },
+                  body: JSON.stringify({ nombre, descripcion }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                  createClassMessage.innerHTML = `<div class="alert alert-success" role="alert">${
+                    data.message || "Clase creada exitosamente."
+                  }</div>`;
+                  createClassForm.reset(); // Limpia el formulario
+                  // Al crear una clase, actualizamos la lista de clases existentes
+                  displayTeacherClasses();
+                  loadTeacherClassesForSelection(); // También actualiza el selector para añadir alumnos
+                } else {
+                  createClassMessage.innerHTML = `<div class="alert alert-danger" role="alert">${
+                    data.message || "Error al crear la clase."
+                  }</div>`;
+                }
+              } catch (error) {
+                console.error("Error al enviar la solicitud de creación de clase:", error);
+                createClassMessage.innerHTML =
+                  '<div class="alert alert-danger" role="alert">Error de conexión al servidor al intentar crear la clase.</div>';
+              }
+            });
+          }
+        }
+
+        // Configuración del formulario de Añadir Alumnos a Clase
+        function setupAddStudentsForm() {
+          const addStudentsToClassForm = document.getElementById(
+            "addStudentsToClassForm"
+          );
+          const selectClassToAddStudents = document.getElementById(
+            "selectClassToAddStudents"
+          );
+          const studentEmailsTextarea =
+            document.getElementById("studentEmails");
+          const addStudentsMessage = document.getElementById("addStudentsMessage");
+
+          if (addStudentsToClassForm) {
+            addStudentsToClassForm.addEventListener("submit", async function (event) {
+              event.preventDefault();
+
+              const classId = selectClassToAddStudents.value;
+              const studentEmailsRaw = studentEmailsTextarea.value.trim();
+
+              if (!classId) {
+                addStudentsMessage.innerHTML =
+                  '<div class="alert alert-warning" role="alert">Por favor, selecciona una clase.</div>';
+                return;
+              }
+              if (!studentEmailsRaw) {
+                addStudentsMessage.innerHTML =
+                  '<div class="alert alert-warning" role="alert">Por favor, introduce al menos un email de alumno.</div>';
+                return;
+              }
+
+              const studentEmails = studentEmailsRaw
+                .split("\n")
+                .map((email) => email.trim())
+                .filter((email) => email !== "");
+
+              // Validación de emails
+              const invalidEmails = studentEmails.filter((email) => !isValidEmail(email));
+              if (invalidEmails.length > 0) {
+                addStudentsMessage.innerHTML = `<div class="alert alert-danger" role="alert">Emails inválidos encontrados: ${invalidEmails.join(
+                  ", "
+                )}. Por favor, corrige los emails.</div>`;
+                return;
+              }
+
+              if (studentEmails.length === 0) {
+                addStudentsMessage.innerHTML =
+                  '<div class="alert alert-warning" role="alert">Por favor, introduce emails válidos.</div>';
+                return;
+              }
+
+              const token = localStorage.getItem("token");
+              if (!token) {
+                addStudentsMessage.innerHTML =
+                  '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
+                return;
+              }
+
+              try {
+                // Simulación de llamada a la API para añadir alumnos
+                const response = await fetch(`/api/classes/${classId}/students`, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                  },
+                  body: JSON.stringify({ studentEmails }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                  let successMsg = `<div class="alert alert-success" role="alert">${
+                    data.message || "Alumnos añadidos exitosamente."
+                  }</div>`;
+                  if (data.failedCount > 0) {
+                    successMsg += `<div class="alert alert-warning mt-2" role="alert">Fallaron ${data.failedCount} alumnos:<ul>`;
+                    data.failedStudents.forEach((student) => {
+                      successMsg += `<li>${student.email}: ${student.reason}</li>`;
+                    });
+                    successMsg += `</ul></div>`;
+                  }
+                  addStudentsMessage.innerHTML = successMsg;
+                  studentEmailsTextarea.value = ""; // Limpiar el campo de emails
+                  // Opcional: Recargar la lista de alumnos en la clase si tuvieras esa vista
+                  // loadStudentsForClass(classId, selectClassToAddStudents.options[selectClassToAddStudents.selectedIndex].text);
+                } else {
+                  addStudentsMessage.innerHTML = `<div class="alert alert-danger" role="alert">${
+                    data.message || "Error al añadir alumnos."
+                  }</div>`;
+                }
+              } catch (error) {
+                console.error("Error al enviar la solicitud para añadir alumnos:", error);
+                addStudentsMessage.innerHTML =
+                  '<div class="alert alert-danger" role="alert">Error de conexión al servidor al intentar añadir alumnos.</div>';
+              }
+            });
+          }
+        }
+
+        // Función para cargar las clases del docente y popular el selector para AÑADIR ALUMNOS
+        async function loadTeacherClassesForSelection() {
+          const selectClassToAddStudents = document.getElementById(
+            "selectClassToAddStudents"
+          );
+          const token = localStorage.getItem("token");
+          if (!token) {
+            selectClassToAddStudents.innerHTML =
+              '<option value="">Error: No autenticado</option>';
+            return;
+          }
+
+          try {
+            // Simulación de API para obtener clases
+            const response = await fetch("/api/classes/my-classes", {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            const classes = await response.json();
+
+            if (response.ok) {
+              selectClassToAddStudents.innerHTML =
+                '<option value="">Selecciona una clase...</option>';
+              if (classes.length > 0) {
+                classes.forEach((clase) => {
+                  const option = document.createElement("option");
+                  option.value = clase.id;
+                  option.textContent = clase.nombre;
+                  selectClassToAddStudents.appendChild(option);
+                });
+              } else {
+                selectClassToAddStudents.innerHTML =
+                  '<option value="">No tienes clases creadas.</option>';
+              }
+            } else {
+              selectClassToAddStudents.innerHTML = `<option value="">Error al cargar clases: ${
+                classes.message || "Desconocido"
+              }</option>`;
+              console.error("Error al cargar clases para selección:", classes);
             }
+          } catch (error) {
+            console.error("Error de conexión al cargar clases para selección:", error);
+            selectClassToAddStudents.innerHTML =
+              '<option value="">Error de conexión.</option>';
+          }
+        }
 
-            // Recuperar el token JWT (asumo que lo guardas en localStorage o sessionStorage después del login)
-            const token = localStorage.getItem("token"); // O sessionStorage.getItem('token');
+        // Función para cargar y mostrar los alumnos en el modal de ver alumnos
+        async function loadStudentsForClass(classId, className) {
+          const studentsList = document.getElementById("classStudentsList");
+          const loadingMessage = document.getElementById("loadingStudentsMessage");
+          const noStudentsMessage = document.getElementById("noStudentsMessage");
+          const modalClassNameSpan = document.getElementById("modalClassName");
 
+          modalClassNameSpan.textContent = className; // Actualiza el nombre de la clase en el modal
+          studentsList.innerHTML = ""; // Limpiar la lista anterior
+          loadingMessage.style.display = "block"; // Mostrar mensaje de carga
+          noStudentsMessage.style.display = "none"; // Ocultar mensaje de no alumnos
+
+          const token = localStorage.getItem("token");
+          if (!token) {
+            loadingMessage.textContent = "Error: No autenticado.";
+            return;
+          }
+
+          try {
+            // Simulación de API para obtener alumnos de una clase
+            const response = await fetch(`/api/classes/${classId}/students`, {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            const students = await response.json();
+
+            loadingMessage.style.display = "none"; // Ocultar mensaje de carga
+
+            if (response.ok) {
+              if (students.length > 0) {
+                students.forEach((student) => {
+                  const listItem = document.createElement("li");
+                  listItem.className =
+                    "list-group-item d-flex justify-content-between align-items-center";
+                  listItem.innerHTML = `
+                                <div>
+                                    <h6 class="mb-1">${student.name}</h6>
+                                    <small class="text-muted">${student.email}</small>
+                                </div>
+                                <span class="badge bg-primary rounded-pill">${student.progress}%</span>
+                            `;
+                  studentsList.appendChild(listItem);
+                });
+              } else {
+                noStudentsMessage.style.display = "block"; // Mostrar mensaje de no alumnos
+              }
+            } else {
+              loadingMessage.textContent = `Error al cargar alumnos: ${
+                students.message || "Desconocido"
+              }`;
+              noStudentsMessage.style.display = "none";
+              console.error("Error al cargar alumnos:", students);
+            }
+          } catch (error) {
+            console.error("Error de conexión al cargar alumnos:", error);
+            loadingMessage.textContent = "Error de conexión.";
+            noStudentsMessage.style.display = "none";
+          }
+        }
+
+        // Función para cargar y mostrar las clases en la pestaña "Mis Clases Existentes"
+        async function displayTeacherClasses() {
+          const myClassesList = document.getElementById("myClassesList");
+          const myClassesLoadingMessage = document.getElementById(
+            "myClassesLoadingMessage"
+          );
+
+          myClassesLoadingMessage.style.display = "block"; // Mostrar mensaje de carga
+          myClassesList.innerHTML = ""; // Limpiar la lista existente
+
+          const token = localStorage.getItem("token");
+          if (!token) {
+            myClassesLoadingMessage.textContent = "Error: No autenticado.";
+            return;
+          }
+
+          try {
+            // Simulación de API para obtener clases del docente
+            const response = await fetch("/api/classes/my-classes", {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            const classes = await response.json();
+
+            myClassesLoadingMessage.style.display = "none"; // Ocultar mensaje de carga
+
+            if (response.ok) {
+              if (classes.length > 0) {
+                classes.forEach((clase) => {
+                  const listItem = document.createElement("li");
+                  listItem.className =
+                    "list-group-item d-flex justify-content-between align-items-center class-list-item";
+                  const fechaCreacion = new Date(clase.fecha_creacion).toLocaleDateString(
+                    "es-ES",
+                    {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    }
+                  );
+
+                  listItem.innerHTML = `
+                                <div>
+                                    <h5>${clase.nombre}</h5>
+                                    <p class="mb-0 text-muted">${clase.descripcion || "Sin descripción"}</p>
+                                    <small class="text-muted">ID de Clase: ${clase.id} | Creada: ${fechaCreacion}</small>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-outline-info me-2 view-students-btn" title="Ver Alumnos" data-class-id="${clase.id}" data-class-name="${clase.nombre}">
+                                        <i class="bi bi-people-fill"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger delete-class-btn" title="Eliminar Clase" data-class-id="${clase.id}" data-class-name="${clase.nombre}">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </div>
+                            `;
+                  myClassesList.appendChild(listItem);
+                });
+                attachViewStudentsModalListeners(); // Adjuntar listeners a los nuevos botones
+                attachDeleteClassListeners(); // Adjuntar listeners para eliminar clase
+              } else {
+                myClassesList.innerHTML =
+                  '<li class="list-group-item text-muted text-center">No tienes clases creadas aún.</li>';
+              }
+            } else {
+              myClassesList.innerHTML = `<li class="list-group-item text-danger">Error al cargar clases: ${
+                classes.message || "Desconocido"
+              }</li>`;
+              console.error("Error al cargar clases para display:", classes);
+            }
+          } catch (error) {
+            console.error("Error de conexión al cargar clases para display:", error);
+            myClassesList.innerHTML =
+              '<li class="list-group-item text-danger">Error de conexión.</li>';
+          }
+        }
+
+        // Función para adjuntar listeners a los botones "Ver Alumnos" (tanto dinámicos como estáticos)
+        function attachViewStudentsModalListeners() {
+          const viewButtons = document.querySelectorAll(
+            ".view-students-btn, .open-view-students-modal"
+          );
+          viewButtons.forEach((button) => {
+            button.removeEventListener("click", handleViewStudentsClick); // Evitar duplicados
+            button.addEventListener("click", handleViewStudentsClick);
+          });
+        }
+
+        function handleViewStudentsClick(event) {
+          event.preventDefault();
+          const classId = event.currentTarget.dataset.classId;
+          const className = event.currentTarget.dataset.className;
+          if (classId && className) {
+            loadStudentsForClass(classId, className);
+            viewStudentsModal.show(); // Mostrar el modal
+          }
+        }
+
+        // Función para adjuntar listeners a los botones "Eliminar Clase"
+        function attachDeleteClassListeners() {
+          const deleteButtons = document.querySelectorAll(".delete-class-btn");
+          deleteButtons.forEach((button) => {
+            button.removeEventListener("click", handleDeleteClassClick); // Evitar duplicados
+            button.addEventListener("click", handleDeleteClassClick);
+          });
+        }
+
+        async function handleDeleteClassClick(event) {
+          event.preventDefault();
+          const classId = event.currentTarget.dataset.classId;
+          const className = event.currentTarget.dataset.className;
+
+          if (confirm(`¿Estás seguro de que quieres eliminar la clase "${className}"? Esta acción no se puede deshacer.`)) {
+            const token = localStorage.getItem("token");
             if (!token) {
-              updateProfileMessage.innerHTML =
-                '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
+              alert("Error: No autenticado. Por favor, inicia sesión de nuevo.");
               return;
             }
 
             try {
-              const response = await fetch("/api/auth/profile", {
-                method: "PUT",
+              // Simulación de API para eliminar clase
+              const response = await fetch(`/api/classes/${classId}`, {
+                method: "DELETE",
                 headers: {
-                  "Content-Type": "application/json",
                   Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ nombre: newName }),
               });
 
-              const data = await response.json();
-
               if (response.ok) {
-                updateProfileMessage.innerHTML = `<div class="alert alert-success" role="alert">${data.message}</div>`;
-
-                if (teacherNameSpan) {
-                  teacherNameSpan.textContent = newName;
-                }
-                newUserNameInput.value = ""; // Limpiar el campo
+                alert(`Clase "${className}" eliminada exitosamente.`);
+                displayTeacherClasses(); // Recargar la lista de clases
+                loadTeacherClassesForSelection(); // Recargar el selector de clases
               } else {
-                updateProfileMessage.innerHTML = `<div class="alert alert-danger" role="alert">${
-                  data.message || "Error al actualizar el perfil."
-                }</div>`;
+                const data = await response.json();
+                alert(`Error al eliminar la clase: ${data.message || "Desconocido"}`);
               }
             } catch (error) {
-              console.error("Error al enviar la solicitud:", error);
-              updateProfileMessage.innerHTML =
-                '<div class="alert alert-danger" role="alert">Error de conexión al servidor.</div>';
+              console.error("Error de conexión al eliminar clase:", error);
+              alert("Error de conexión al servidor al intentar eliminar la clase.");
             }
-            // Lógica para el formulario de Creación de Clases
-            const createClassForm = document.getElementById('createClassForm');
-            const classNameInput = document.getElementById('className');
-            const classDescriptionInput = document.getElementById('classDescription');
-            const createClassMessage = document.getElementById('createClassMessage');
-
-            if (createClassForm) {
-                createClassForm.addEventListener('submit', async function(event) {
-                    event.preventDefault(); // Previene el envío por defecto del formulario
-
-                    const nombre = classNameInput.value.trim();
-                    const descripcion = classDescriptionInput.value.trim();
-
-                    if (!nombre) {
-                        createClassMessage.innerHTML = '<div class="alert alert-warning" role="alert">El nombre de la clase es requerido.</div>';
-                        return;
-                    }
-
-                    const token = localStorage.getItem('token');
-                    if (!token) {
-                        createClassMessage.innerHTML = '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
-                        return;
-                    }
-
-                    try {
-                        const response = await fetch('/api/classes/create', { // La URL de tu nueva API de clases
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`
-                            },
-                            body: JSON.stringify({ nombre, descripcion })
-                        });
-
-                        const data = await response.json();
-
-                        if (response.ok) {
-                            createClassMessage.innerHTML = `<div class="alert alert-success" role="alert">${data.message}</div>`;
-                            createClassForm.reset(); // Limpia el formulario
-                            // Opcional: Aquí podrías recargar la lista de clases si tuvieras una
-                        } else {
-                            createClassMessage.innerHTML = `<div class="alert alert-danger" role="alert">${data.message || 'Error al crear la clase.'}</div>`;
-                        }
-                    } catch (error) {
-                        console.error('Error al enviar la solicitud de creación de clase:', error);
-                        createClassMessage.innerHTML = '<div class="alert alert-danger" role="alert">Error de conexión al servidor al intentar crear la clase.</div>';
-                    }
-                });
-            }
-            // ... (código existente hasta el final de la lógica de createClassForm) ...
-
-            // Referencias para el formulario de Añadir Alumnos
-            const addStudentsToClassForm = document.getElementById('addStudentsToClassForm');
-            const selectClassToAddStudents = document.getElementById('selectClassToAddStudents');
-            const studentEmailsTextarea = document.getElementById('studentEmails');
-            const addStudentsMessage = document.getElementById('addStudentsMessage');
-
-            // Referencias para la pestaña "Mis Clases Existentes"
-            const myClassesList = document.getElementById('myClassesList');
-            const myClassesTabButton = document.getElementById('my-classes-tab'); // Botón de la pestaña "Mis Clases"
-
-            // Función para cargar las clases del docente y popular el selector para AÑADIR ALUMNOS
-            async function loadTeacherClassesForSelection() {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    selectClassToAddStudents.innerHTML = '<option value="">Error: No autenticado</option>';
-                    return;
-                }
-
-                try {
-                    const response = await fetch('/api/classes/my-classes', {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-                    const classes = await response.json();
-
-                    if (response.ok) {
-                        selectClassToAddStudents.innerHTML = '<option value="">Selecciona una clase...</option>'; // Opción por defecto
-                        if (classes.length > 0) {
-                            classes.forEach(clase => {
-                                const option = document.createElement('option');
-                                option.value = clase.id;
-                                option.textContent = clase.nombre;
-                                selectClassToAddStudents.appendChild(option);
-                            });
-                        } else {
-                            selectClassToAddStudents.innerHTML = '<option value="">No tienes clases creadas.</option>';
-                        }
-                    } else {
-                        selectClassToAddStudents.innerHTML = `<option value="">Error al cargar clases: ${classes.message || 'Desconocido'}</option>`;
-                        console.error('Error al cargar clases para selección:', classes);
-                    }
-                } catch (error) {
-                    console.error('Error de conexión al cargar clases para selección:', error);
-                    selectClassToAddStudents.innerHTML = '<option value="">Error de conexión.</option>';
-                }
-            }
-
-            // Función para cargar y mostrar las clases en la pestaña "Mis Clases Existentes"
-            async function displayTeacherClasses() {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    myClassesList.innerHTML = '<li class="list-group-item text-danger">Error: No autenticado.</li>';
-                    return;
-                }
-
-                try {
-                    const response = await fetch('/api/classes/my-classes', {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-                    const classes = await response.json();
-
-                    if (response.ok) {
-                        myClassesList.innerHTML = ''; // Limpiar la lista existente
-                        if (classes.length > 0) {
-                            classes.forEach(clase => {
-                                const listItem = document.createElement('li');
-                                listItem.className = 'list-group-item d-flex justify-content-between align-items-center class-list-item';
-                                // Formatea la fecha de creación para que sea más legible
-                                const fechaCreacion = new Date(clase.fecha_creacion).toLocaleDateString('es-ES', {
-                                    year: 'numeric', month: 'long', day: 'numeric'
-                                });
-                                // Hacemos el div principal clickable, pero no los botones de acción
-                                const mainDiv = document.createElement('div');
-                                mainDiv.style.cursor = 'pointer';
-                                mainDiv.innerHTML = `
-                                    <h5>${clase.nombre}</h5>
-                                    <p class="mb-0 text-muted">${clase.descripcion || 'Sin descripción'}</p>
-                                    <small class="text-muted">ID de Clase: ${clase.id} | Creada: ${fechaCreacion}</small>
-                                `;
-                                mainDiv.addEventListener('click', () => {
-                                    window.location.href = `../pages_docentes/clase_panel.html?id=${clase.id}`;
-                                });
-
-                                const actionsDiv = document.createElement('div');
-                                actionsDiv.innerHTML = `
-                                    <button class="btn btn-sm btn-outline-info me-2" title="Ver Alumnos"><i class="bi bi-people-fill"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger" title="Eliminar Clase"><i class="bi bi-trash-fill"></i></button>
-                                `;
-                                listItem.appendChild(mainDiv);
-                                listItem.appendChild(actionsDiv);
-                                myClassesList.appendChild(listItem);
-                            });
-                        } else {
-                            myClassesList.innerHTML = '<li class="list-group-item text-muted text-center">No tienes clases creadas aún.</li>';
-                        }
-                    } else {
-                        myClassesList.innerHTML = `<li class="list-group-item text-danger">Error al cargar clases: ${classes.message || 'Desconocido'}</li>`;
-                        console.error('Error al cargar clases para display:', classes);
-                    }
-                } catch (error) {
-                    console.error('Error de conexión al cargar clases para display:', error);
-                    myClassesList.innerHTML = '<li class="list-group-item text-danger">Error de conexión.</li>';
-                }
-            }
-
-            // Event Listener para cargar clases cuando la pestaña "Añadir Alumnos" se activa
-            const addStudentsTabButton = document.getElementById('add-students-tab');
-            if (addStudentsTabButton) {
-                addStudentsTabButton.addEventListener('shown.bs.tab', loadTeacherClassesForSelection);
-            }
-
-            // Event Listener para cargar clases cuando la pestaña "Mis Clases Existentes" se activa
-            if (myClassesTabButton) {
-                myClassesTabButton.addEventListener('shown.bs.tab', displayTeacherClasses);
-            }
-
-            // Lógica para el formulario de Añadir Alumnos a Clase
-            if (addStudentsToClassForm) {
-                addStudentsToClassForm.addEventListener('submit', async function(event) {
-                    event.preventDefault();
-
-                    const classId = selectClassToAddStudents.value;
-                    const studentEmailsRaw = studentEmailsTextarea.value.trim();
-
-                    if (!classId) {
-                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, selecciona una clase.</div>';
-                        return;
-                    }
-                    if (!studentEmailsRaw) {
-                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, introduce al menos un email de alumno.</div>';
-                        return;
-                    }
-
-                    // Convertir la cadena de emails a un array, filtrando líneas vacías
-                    const studentEmails = studentEmailsRaw.split('\n').map(email => email.trim()).filter(email => email !== '');
-
-                    if (studentEmails.length === 0) {
-                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, introduce emails válidos.</div>';
-                        return;
-                    }
-
-                    const token = localStorage.getItem('token');
-                    if (!token) {
-                        addStudentsMessage.innerHTML = '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
-                        return;
-                    }
-
-                    try {
-                        const response = await fetch(`/api/classes/${classId}/students`, { // Usamos el classId en la URL
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`
-                            },
-                            body: JSON.stringify({ studentEmails })
-                        });
-
-                        const data = await response.json();
-
-                        if (response.ok) {
-                            let successMsg = `<div class="alert alert-success" role="alert">${data.message}</div>`;
-                            if (data.failedCount > 0) {
-                                successMsg += `<div class="alert alert-warning mt-2" role="alert">Fallaron ${data.failedCount} alumnos:<ul>`;
-                                data.failedStudents.forEach(student => {
-                                    successMsg += `<li>${student.email}: ${student.reason}</li>`;
-                                });
-                                successMsg += `</ul></div>`;
-                            }
-                            addStudentsMessage.innerHTML = successMsg;
-                            studentEmailsTextarea.value = ''; // Limpiar el campo de emails
-                            // Opcional: Recargar la lista de alumnos en la clase si tuvieras esa vista
-                        } else {
-                            addStudentsMessage.innerHTML = `<div class="alert alert-danger" role="alert">${data.message || 'Error al añadir alumnos.'}</div>`;
-                        }
-                    } catch (error) {
-                        console.error('Error al enviar la solicitud para añadir alumnos:', error);
-                        addStudentsMessage.innerHTML = '<div class="alert alert-danger" role="alert">Error de conexión al servidor al intentar añadir alumnos.</div>';
-                    }
-                });
-            }
-
-            const logoutBtn = document.getElementById('confirmLogoutBtn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', function() {
-                    localStorage.removeItem('token');
-                    window.location.href = '../../pages/index.html';
-                });
-            }
-        });
+          }
         }
+
+        // --- Inicialización Principal ---
+        loadAndDisplayTeacherName();
+        setupLogoutButton();
+        setupContactDocenteForm();
+        setupProfileModalHandlers();
+        setupClassCreationForm();
+        setupAddStudentsForm();
+        attachViewStudentsModalListeners(); // Para las tarjetas estáticas iniciales
+
+        // Event Listener para cargar clases cuando las pestañas se activan
+        const addStudentsTabButton = document.getElementById("add-students-tab");
+        const myClassesTabButton = document.getElementById("my-classes-tab");
+
+        if (addStudentsTabButton) {
+          addStudentsTabButton.addEventListener("shown.bs.tab", loadTeacherClassesForSelection);
+        }
+
+        if (myClassesTabButton) {
+          myClassesTabButton.addEventListener("shown.bs.tab", displayTeacherClasses);
+        }
+
+        // Cargar las clases al inicio si la pestaña "Mis Clases Existentes" es la activa por defecto (en este caso no lo es)
+        // O si quieres que se precargue al cargar la página:
+        // displayTeacherClasses();
+        // loadTeacherClassesForSelection();
       });
-      // ... (código existente hasta el final de la lógica de createClassForm) ...
-
-            // Referencias para el formulario de Añadir Alumnos
-            const addStudentsToClassForm = document.getElementById('addStudentsToClassForm');
-            const selectClassToAddStudents = document.getElementById('selectClassToAddStudents');
-            const studentEmailsTextarea = document.getElementById('studentEmails');
-            const addStudentsMessage = document.getElementById('addStudentsMessage');
-
-            // Referencias para la pestaña "Mis Clases Existentes"
-            const myClassesList = document.getElementById('myClassesList');
-            const myClassesTabButton = document.getElementById('my-classes-tab'); // Botón de la pestaña "Mis Clases"
-
-            // Función para cargar las clases del docente y popular el selector para AÑADIR ALUMNOS
-            async function loadTeacherClassesForSelection() {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    selectClassToAddStudents.innerHTML = '<option value="">Error: No autenticado</option>';
-                    return;
-                }
-
-                try {
-                    const response = await fetch('/api/classes/my-classes', {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-                    const classes = await response.json();
-
-                    if (response.ok) {
-                        selectClassToAddStudents.innerHTML = '<option value="">Selecciona una clase...</option>'; // Opción por defecto
-                        if (classes.length > 0) {
-                            classes.forEach(clase => {
-                                const option = document.createElement('option');
-                                option.value = clase.id;
-                                option.textContent = clase.nombre;
-                                selectClassToAddStudents.appendChild(option);
-                            });
-                        } else {
-                            selectClassToAddStudents.innerHTML = '<option value="">No tienes clases creadas.</option>';
-                        }
-                    } else {
-                        selectClassToAddStudents.innerHTML = `<option value="">Error al cargar clases: ${classes.message || 'Desconocido'}</option>`;
-                        console.error('Error al cargar clases para selección:', classes);
-                    }
-                } catch (error) {
-                    console.error('Error de conexión al cargar clases para selección:', error);
-                    selectClassToAddStudents.innerHTML = '<option value="">Error de conexión.</option>';
-                }
+      const datosDeAlumnos = {
+    "student_lucas_torres": {
+        alumno: "Lucas Torres",
+        clase: "1º Grado 'A'",
+        fecha: "7 de Julio de 2025",
+        resumen: "Lucas ha mostrado un progreso constante...",
+        desempenoMaterias: [
+            {
+                materia: "Lengua",
+                promedio: "75%",
+                completadas: "12/15",
+                reforzar: "Comprensión de textos (Identificación de idea principal).",
+                comentarios: "Buen progreso en vocabulario..."
+            },
+            {
+                materia: "Matemáticas",
+                promedio: "88%",
+                completadas: "10/10",
+                reforzar: "Ninguna (Excelente desempeño).",
+                comentarios: "Dominio sólido de suma y resta..."
             }
+            // ... más materias
+        ],
+        actividadReciente: [
+            { fecha: "05/07/2025", descripcion: "Completó 'Ejercicios de Suma Avanzada'...", calificacion: "9/10" },
+            // ... más actividades
+        ],
+        sugerencias: [
+            "Asignar actividades de lectura con foco en la identificación de personajes y eventos clave.",
+            // ... más sugerencias
+        ]
+    },
+    // Podrías añadir otro para un "informe de clase" o para otro alumno.
+};
 
-            // Función para cargar y mostrar las clases en la pestaña "Mis Clases Existentes"
-            async function displayTeacherClasses() {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    myClassesList.innerHTML = '<li class="list-group-item text-danger">Error: No autenticado.</li>';
-                    return;
-                }
+// ... dentro de tu script principal ...
 
-                try {
-                    const response = await fetch('/api/classes/my-classes', {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-                    const classes = await response.json();
+// Al hacer clic en "Informe por Alumno"
+document.querySelector('#informes .btn-primary').addEventListener('click', function() {
+    // Aquí podrías abrir un modal previo para que elija el alumno,
+    // o para un ejemplo simple, cargar directamente el de Lucas:
+    displayReport(datosDeAlumnos["student_lucas_torres"]);
+});
 
-                    if (response.ok) {
-                        myClassesList.innerHTML = ''; // Limpiar la lista existente
-                        if (classes.length > 0) {
-                            classes.forEach(clase => {
-                                const listItem = document.createElement('li');
-                                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-                                // Formatea la fecha de creación para que sea más legible
-                                const fechaCreacion = new Date(clase.fecha_creacion).toLocaleDateString('es-ES', {
-                                    year: 'numeric', month: 'long', day: 'numeric'
-                                });
-                                listItem.innerHTML = `
-                                    <div>
-                                        <h5>${clase.nombre}</h5>
-                                        <p class="mb-0 text-muted">${clase.descripcion || 'Sin descripción'}</p>
-                                        <small class="text-muted">ID de Clase: ${clase.id} | Creada: ${fechaCreacion}</small>
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-sm btn-outline-info me-2" title="Ver Alumnos"><i class="bi bi-people-fill"></i></button>
-                                        <button class="btn btn-sm btn-outline-danger" title="Eliminar Clase"><i class="bi bi-trash-fill"></i></button>
-                                    </div>
-                                `;
-                                myClassesList.appendChild(listItem);
-                            });
-                        } else {
-                            myClassesList.innerHTML = '<li class="list-group-item text-muted text-center">No tienes clases creadas aún.</li>';
-                        }
-                    } else {
-                        myClassesList.innerHTML = `<li class="list-group-item text-danger">Error al cargar clases: ${classes.message || 'Desconocido'}</li>`;
-                        console.error('Error al cargar clases para display:', classes);
-                    }
-                } catch (error) {
-                    console.error('Error de conexión al cargar clases para display:', error);
-                    myClassesList.innerHTML = '<li class="list-group-item text-danger">Error de conexión.</li>';
-                }
-            }
+function displayReport(reportData) {
+    const reportModalElement = document.getElementById('reportModal');
+    const reportModal = new bootstrap.Modal(reportModalElement);
 
-            // Event Listener para cargar clases cuando la pestaña "Añadir Alumnos" se activa
-            const addStudentsTabButton = document.getElementById('add-students-tab');
-            if (addStudentsTabButton) {
-                addStudentsTabButton.addEventListener('shown.bs.tab', loadTeacherClassesForSelection);
-            }
+    // Rellenar el modal con los datos de reportData
+    document.getElementById('reportTitle').textContent = `Informe de Progreso de Alumno: ${reportData.alumno}`;
+    document.getElementById('reportSummary').textContent = reportData.resumen;
 
-            // Event Listener para cargar clases cuando la pestaña "Mis Clases Existentes" se activa
-            if (myClassesTabButton) {
-                myClassesTabButton.addEventListener('shown.bs.tab', displayTeacherClasses);
-            }
+    const materiasList = document.getElementById('reportMaterias');
+    materiasList.innerHTML = ''; // Limpiar
+    reportData.desempenoMaterias.forEach(materia => {
+        materiasList.innerHTML += `
+            <h6>${materia.materia}: ${materia.promedio}</h6>
+            <ul>
+                <li>Actividades Completadas: ${materia.completadas}</li>
+                <li>Áreas a Reforzar: ${materia.reforzar}</li>
+                <li>Comentarios: ${materia.comentarios}</li>
+            </ul>
+        `;
+    });
+    // ... y así sucesivamente para actividadReciente y sugerencias
 
-            // Lógica para el formulario de Añadir Alumnos a Clase
-            if (addStudentsToClassForm) {
-                addStudentsToClassForm.addEventListener('submit', async function(event) {
-                    event.preventDefault();
-
-                    const classId = selectClassToAddStudents.value;
-                    const studentEmailsRaw = studentEmailsTextarea.value.trim();
-
-                    if (!classId) {
-                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, selecciona una clase.</div>';
-                        return;
-                    }
-                    if (!studentEmailsRaw) {
-                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, introduce al menos un email de alumno.</div>';
-                        return;
-                    }
-
-                    // Convertir la cadena de emails a un array, filtrando líneas vacías
-                    const studentEmails = studentEmailsRaw.split('\n').map(email => email.trim()).filter(email => email !== '');
-
-                    if (studentEmails.length === 0) {
-                        addStudentsMessage.innerHTML = '<div class="alert alert-warning" role="alert">Por favor, introduce emails válidos.</div>';
-                        return;
-                    }
-
-                    const token = localStorage.getItem('token');
-                    if (!token) {
-                        addStudentsMessage.innerHTML = '<div class="alert alert-danger" role="alert">No se encontró token de autenticación. Por favor, inicia sesión de nuevo.</div>';
-                        return;
-                    }
-
-                    try {
-                        const response = await fetch(`/api/classes/${classId}/students`, { // Usamos el classId en la URL
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`
-                            },
-                            body: JSON.stringify({ studentEmails })
-                        });
-
-                        const data = await response.json();
-
-                        if (response.ok) {
-                            let successMsg = `<div class="alert alert-success" role="alert">${data.message}</div>`;
-                            if (data.failedCount > 0) {
-                                successMsg += `<div class="alert alert-warning mt-2" role="alert">Fallaron ${data.failedCount} alumnos:<ul>`;
-                                data.failedStudents.forEach(student => {
-                                    successMsg += `<li>${student.email}: ${student.reason}</li>`;
-                                });
-                                successMsg += `</ul></div>`;
-                            }
-                            addStudentsMessage.innerHTML = successMsg;
-                            studentEmailsTextarea.value = ''; // Limpiar el campo de emails
-                            // Opcional: Recargar la lista de alumnos en la clase si tuvieras esa vista
-                        } else {
-                            addStudentsMessage.innerHTML = `<div class="alert alert-danger" role="alert">${data.message || 'Error al añadir alumnos.'}</div>`;
-                        }
-                    } catch (error) {
-                        console.error('Error al enviar la solicitud para añadir alumnos:', error);
-                        addStudentsMessage.innerHTML = '<div class="alert alert-danger" role="alert">Error de conexión al servidor al intentar añadir alumnos.</div>';
-                    }
-                });
-            }
-
-            // ... (resto del script existente, como contactDocenteForm y el cierre de DOMContentLoaded) ...
+    reportModal.show();
+}
     </script>
   </body>
 </html>
