@@ -77,45 +77,61 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
+    // 1. Obtener el email y la contraseña del cuerpo de la solicitud (lo que envía el frontend)
     const { email, password } = req.body;
+
+    // 2. Validación básica: Asegúrate de que se enviaron ambos campos
     if (!email || !password) {
-        return res.status(400).json({ message: 'Faltan datos requeridos.' });
+        return res.status(400).json({ message: 'Por favor, introduce tu correo y contraseña.' });
     }
+
     try {
-        const [users] = await pool.query('SELECT u.id_usuario, u.contrasena_hash, r.nombre_rol FROM usuarios u JOIN roles r ON u.id_rol = r.id_rol WHERE u.email = ? AND u.activo = 1', [email]);
-        if (users.length === 0) {
-            return res.status(401).json({ message: 'Credenciales inválidas o usuario inactivo.' });
-        }
-        const user = users[0];
-        const validPass = await bcrypt.compare(password, user.contrasena_hash);
-        if (!validPass) {
+        // 3. Buscar el usuario en la base de datos por su email.
+        //    Importante: También necesitamos el 'contrasena_hash' y el 'nombre_rol' (que es tu 'categoria').
+        const [rows] = await pool.query( // <-- Usa 'pool.query' para mysql2/promise
+            `SELECT u.id_usuario, u.email, u.contrasena_hash, r.nombre_rol AS categoria 
+             FROM usuarios u 
+             JOIN roles r ON u.id_rol = r.id_rol 
+             WHERE u.email = ?`,
+            [email]
+        );
+
+        // 4. Verificar si se encontró un usuario con ese email
+        if (rows.length === 0) {
+            // Si no se encuentra, NO decir "email no existe" por seguridad.
+            // Siempre usa un mensaje genérico para credenciales inválidas.
             return res.status(401).json({ message: 'Credenciales inválidas.' });
         }
 
-        // Obtener el nombre real del usuario desde la tabla específica
-        let nombreCompleto = '';
-        if (user.nombre_rol === 'docente') {
-            const [docenteData] = await pool.query('SELECT nombre, apellido FROM docentes WHERE id_usuario = ?', [user.id_usuario]);
-            if (docenteData.length > 0) nombreCompleto = `${docenteData[0].nombre} ${docenteData[0].apellido}`;
-        } else if (user.nombre_rol === 'alumno') {
-            const [alumnoData] = await pool.query('SELECT nombre, apellido FROM alumnos WHERE id_usuario = ?', [user.id_usuario]);
-            if (alumnoData.length > 0) nombreCompleto = `${alumnoData[0].nombre} ${alumnoData[0].apellido}`;
-        } else if (user.nombre_rol === 'padre') {
-            const [padreData] = await pool.query('SELECT nombre, apellido FROM padres WHERE id_usuario = ?', [user.id_usuario]);
-            if (padreData.length > 0) nombreCompleto = `${padreData[0].nombre} ${padreData[0].apellido}`;
+        const user = rows[0]; // Guarda la información del usuario encontrado
+
+        // 5. ¡CRÍTICO! Comparar la contraseña ingresada por el usuario (password)
+        //    con la contraseña hasheada almacenada en la base de datos (user.contrasena_hash).
+        //    ¡DEBES USAR bcrypt.compare()! No compares strings directamente.
+        const isMatch = await bcrypt.compare(password, user.contrasena_hash);
+
+        if (!isMatch) {
+            // Si la contraseña no coincide
+            return res.status(401).json({ message: 'Credenciales inválidas.' });
         }
 
-        const token = jwt.sign({ id_usuario: user.id_usuario, id_rol: user.id_rol, nombre_rol: user.nombre_rol }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        // 6. Si el email y la contraseña son correctos, generar un Token Web JSON (JWT)
+        //    Este token se usará para mantener la sesión del usuario.
+        //    Incluye en el token el id_usuario, email y la categoria (rol) para uso futuro.
+        const token = jwt.sign(
+            { id_usuario: user.id_usuario, email: user.email, categoria: user.categoria },
+            process.env.JWT_SECRET, // <-- ¡Usa una variable de entorno para esto en producción!
+            { expiresIn: '1h' } // El token expirará en 1 hora. Ajusta según necesites.
+        );
 
-        res.json({
-            message: 'Login exitoso.',
-            token,
-            rol: user.nombre_rol,
-            user: { id_usuario: user.id_usuario, nombre: nombreCompleto, email: email, rol: user.nombre_rol }
-        });
-    } catch (err) {
-        console.error('Error en el login:', err);
-        res.status(500).json({ message: 'Error en el servidor.', error: err.message });
+        // 7. ¡Enviar la respuesta exitosa al frontend!
+        //    Aquí es donde tu frontend espera 'token' y 'categoria'.
+        res.json({ token, categoria: user.categoria });
+
+    } catch (error) {
+        // 8. Manejo de errores del servidor o base de datos
+        console.error('Error al intentar iniciar sesión:', error); // Esto te ayudará a depurar en la consola del servidor
+        res.status(500).json({ message: 'Error interno del servidor al iniciar sesión.' });
     }
 };
 
@@ -124,6 +140,63 @@ export const loginUser = async (req, res) => {
 // y que agrega `req.user` con `id_usuario`, `id_rol`, `nombre_rol`.
 
 // --- CONTROLADORES PARA DOCENTES ---
+
+export const getClassDetails = async (req, res) => {
+    const { id_usuario: docente_usuario_id, nombre_rol } = req.user;
+    const { classId } = req.params; // El ID de la clase de la URL
+
+    if (nombre_rol !== 'docente') {
+        return res.status(403).json({ message: 'Acceso denegado. Solo los docentes pueden ver los detalles de sus clases.' });
+    }
+
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        // Verificar que la clase exista y esté asignada a este docente
+        const [docenteData] = await connection.query('SELECT id_docente FROM docentes WHERE id_usuario = ?', [docente_usuario_id]);
+        if (docenteData.length === 0) {
+            return res.status(404).json({ message: 'Perfil de docente no encontrado.' });
+        }
+        const id_docente = docenteData[0].id_docente;
+
+        const [classResult] = await connection.query(
+            `SELECT c.id_clase, c.nombre_clase, c.descripcion, c.anio_academico, c.nivel_educativo, c.fecha_creacion
+             FROM clases c
+             JOIN docentes_clases dc ON c.id_clase = dc.id_clase
+             WHERE c.id_clase = ? AND dc.id_docente = ?`,
+            [classId, id_docente]
+        );
+
+        if (classResult.length === 0) {
+            return res.status(404).json({ message: 'Clase no encontrada o no asignada a este docente.' });
+        }
+
+        const classDetails = classResult[0];
+
+        // Obtener los alumnos inscritos en esa clase
+        const [students] = await connection.query(
+            `SELECT a.id_alumno, a.nombre, a.apellido, u.email
+             FROM alumnos_clases ac
+             JOIN alumnos a ON ac.id_alumno = a.id_alumno
+             JOIN usuarios u ON a.id_usuario = u.id_usuario
+             WHERE ac.id_clase = ?
+             ORDER BY a.nombre, a.apellido`,
+            [classId]
+        );
+
+        classDetails.alumnos = students; // Añadir los alumnos a los detalles de la clase
+
+        res.status(200).json(classDetails);
+
+    } catch (err) {
+        console.error('Error al obtener detalles de la clase:', err);
+        res.status(500).json({ message: 'Error en el servidor al obtener detalles de la clase.', error: err.message });
+    } finally {
+        if (connection) {
+            connection.release();
+        }
+    }
+};
 
 export const createClass = async (req, res) => {
     // req.user viene del middleware authenticateToken

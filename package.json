@@ -4,8 +4,10 @@
   "main": "app/index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --exec node app/index.js",
-    "start": "node app/index.js"
+
+    "start": "node app/index.js",
+    "dev": "nodemon --exec node app/index.js"
+
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
     "cors": "^2.8.5",
     "dotenv": "^17.0.0",
     "express": "^5.1.0",
+    "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.1",
     "mysql2": "^3.14.1"

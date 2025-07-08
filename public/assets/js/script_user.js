@@ -42,11 +42,11 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
             localStorage.setItem("nombreUsuario", res.nombre);
 
             // Redirige según el rol/categoria
-            if (res.categoria === "estudiante") {
+            if (res.categoria === "Alumno") {
                 window.location.href = "/pages/perfiles/ninos_principal.html";
-            } else if (res.categoria === "docente") {
+            } else if (res.categoria === "Docente") {
                 window.location.href = "/public/pages/perfiles/docente_principal.html";
-            } else if (res.categoria === "padre") {
+            } else if (res.categoria === "Padre") {
                 window.location.href = "/public/pages/perfiles/padres_principal.html";
             } else {
                 window.location.href = "/";
